@@ -415,6 +415,20 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     </div>
   </section>
 
+  <section id="about" class="chapter">
+    <h2>{t.about.title}</h2>
+    <div class="tier about">
+      <div class="panel sea about-count">
+        <span class="num">21</span>
+        <span>{t.about.countries}</span>
+      </div>
+      <div class="panel about-text">
+        <p>{t.about.body}</p>
+        <ul class="feature-chips">{t.about.likes.map((l) => <li>{l}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
   <section id="contact" class="tier end">
     <div class="panel red finale">
       <h2>{t.contact.title}</h2>
@@ -677,6 +691,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .end { margin-top: clamp(40px, 6vw, 72px); }
   .finale { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 5vw, 64px); }
   .finale h2 { font-size: clamp(44px, 7vw, 104px); }
+  .about { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
+  .about-count { display: flex; flex-direction: column; justify-content: center; gap: 4px; font: 700 16px/1.2 var(--display); text-transform: uppercase; }
+  .about-count .num { font-size: clamp(64px, 7vw, 96px); }
+  .about-text { display: flex; flex-direction: column; justify-content: center; gap: 14px; font-size: 19px; }
+  @media (max-width: 700px) { .about { grid-template-columns: 1fr; } }
   .income { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; padding: 12px 18px; font-size: 16px; }
   .income .num { font-size: 22px; }
   .finale .lead { font: 700 clamp(20px, 2.2vw, 30px)/1.2 var(--display); text-transform: uppercase; }

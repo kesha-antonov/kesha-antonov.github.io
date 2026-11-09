@@ -205,6 +205,12 @@ const en = {
     } as Record<string, { name: string; body: string }>,
     note: 'Entries on contest.com are anonymous. Mine was "Busy Unicorn", marked "your entry" in these screenshots from my account.',
   },
+  about: {
+    title: 'Off the clock',
+    countries: 'countries, most of them solo',
+    body: 'I like meeting people and making new friends. Ask me about a trip, a trail or a good coffee place.',
+    likes: ['Travel', 'New people and friends', 'Sport', 'Walking and hiking', 'Good coffee', 'Deep talks'],
+  },
   path: {
     eyebrow: 'Path',
     title: 'How I got here',
@@ -386,6 +392,12 @@ const ru: Dict = {
       chart: { name: 'JavaScript Chart', body: 'Быстрые интерактивные графики без библиотек, 2019 год.' },
     },
     note: 'Работы на contest.com анонимны. Моя называлась "Busy Unicorn", на скриншотах из моего аккаунта она помечена как "your entry".',
+  },
+  about: {
+    title: 'Вне работы',
+    countries: 'стран, чаще всего в одиночку',
+    body: 'Люблю знакомиться с людьми и заводить новых друзей. Спросите меня про поездку, маршрут или хорошую кофейню.',
+    likes: ['Путешествия', 'Новые люди и друзья', 'Спорт', 'Прогулки и походы', 'Хороший кофе', 'Глубокие разговоры'],
   },
   path: {
     eyebrow: 'Путь',
