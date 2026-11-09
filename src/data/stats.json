@@ -269,10 +269,7 @@
         "org": true
       }
     ],
-    "goal": {
-      "title": "10 monthly sponsors",
-      "target": 10
-    }
+    "goal": null
   },
   "totals": {
     "allTime": 19915554,
