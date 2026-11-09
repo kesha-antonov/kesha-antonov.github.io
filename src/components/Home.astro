@@ -35,8 +35,8 @@ const stepMarks = ['08.2024', '26', '3', fmt(series[peak]?.[1])]
 const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync'] as const
 const updated = stats.updatedAt.split('-').reverse().join('.')
 const L = ru
-  ? { score: 'Счёт на сегодня', npm: 'установок библиотек в npm', month: 'за прошлый месяц', apps: 'установок моих приложений', gifted: 'загрузок Gifted Chat за время моей поддержки', wins: 'победы в конкурсах Telegram', stars: 'звёзд на GitHub', manifest: 'Обновлено', downloads: 'загрузок', sponsors: 'Платные спонсоры на GitHub', company: 'компания', goal: (n: number, g: number) => `Цель: ${g} ежемесячных спонсоров, сейчас ${n}` }
-  : { score: 'The score so far', npm: 'npm installs of my libraries', month: 'last month', apps: 'installs of apps I built', gifted: 'Gifted Chat downloads on my watch', wins: 'Telegram contest wins', stars: 'GitHub stars', manifest: 'Updated', downloads: 'downloads', sponsors: 'Paid sponsors on GitHub', company: 'company', goal: (n: number, g: number) => `${n} of ${g} monthly sponsors toward the goal` }
+  ? { score: 'Счёт на сегодня', npm: 'установок библиотек в npm', month: 'за прошлый месяц', apps: 'установок моих приложений', gifted: 'загрузок Gifted Chat за время моей поддержки', wins: 'победы в конкурсах Telegram', stars: 'звёзд на GitHub', manifest: 'Обновлено', downloads: 'загрузок', sponsors: 'Платные спонсоры на GitHub', company: 'компания', goal: (n: number, g: number) => `Ежемесячных спонсоров: ${n} из ${g}` }
+  : { score: 'The score so far', npm: 'npm installs of my libraries', month: 'last month', apps: 'installs of apps I built', gifted: 'Gifted Chat downloads on my watch', wins: 'Telegram contest wins', stars: 'GitHub stars', manifest: 'Updated', downloads: 'downloads', sponsors: 'Paid sponsors on GitHub', company: 'company', goal: (n: number, g: number) => `${n} of ${g} monthly sponsors` }
 const productKeys = ['diary', 'nanogym', 'stickers'] as const
 const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
 // Names in body text that link to their organizations.
@@ -236,8 +236,9 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
       <article class="panel sky progulki">
         <span class="caption">{t.work.progulki.tag}</span>
         <img class="shot" src="/progulki-top.jpg" alt={`${t.work.progulki.name}: ${ru ? 'главная страница сайта' : 'website home page'}`} width="720" height="778" loading="lazy" decoding="async" />
-        <h3>{t.work.progulki.name}</h3>
+        <h3><a class="title-link" target="_blank" rel="noopener" href="https://progulka-v-temnote.ru/">{t.work.progulki.name}</a></h3>
         <p>{t.work.progulki.body}</p>
+        <p class="links"><a target="_blank" rel="noopener" href="https://progulka-v-temnote.ru/">progulka-v-temnote.ru</a></p>
       </article>
       <div class="work-stack">
         <article class="panel red aviasales">
@@ -565,6 +566,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .links { display: flex; flex-wrap: wrap; gap: 8px 18px; font: 700 15px/1 var(--display); text-transform: uppercase; }
   .footnote { font-size: 15px; opacity: 0.85; max-width: 70ch; }
   .progulki { display: flex; flex-direction: column; gap: 10px; }
+  .title-link { text-decoration: none; }
+  .title-link:hover { text-decoration: underline; text-decoration-thickness: 3px; }
   .shot { border: var(--line) solid var(--ink); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; height: auto; }
   .studio, .product { display: flex; flex-direction: column; gap: 10px; }
   .work-stack { display: flex; flex-direction: column; gap: var(--gutter-panel); }
