@@ -73,7 +73,7 @@ export default function HeroChat({ title, online, intro, replies, placeholder, s
     <div className="phone" aria-label={title}>
       <div className="phone-screen">
         <div className="phone-bar">
-          <div className="phone-avatar" aria-hidden="true">K</div>
+          <img className="phone-avatar" src="/avatar.webp" alt="" width="36" height="36" />
           <div>
             <div className="phone-name">Kesha</div>
             <div className="phone-status">{online}</div>
