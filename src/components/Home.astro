@@ -39,6 +39,8 @@ const L = ru
   : { score: 'The score so far', npm: 'npm installs of my libraries', month: 'last month', apps: 'installs of apps I built', gifted: 'Gifted Chat downloads on my watch', wins: 'Telegram contest wins', stars: 'GitHub stars', manifest: 'Updated', downloads: 'downloads', sponsors: 'Paid sponsors on GitHub', company: 'company', goal: (n: number, g: number) => `${n} of ${g} monthly sponsors` }
 const productKeys = ['diary', 'nanogym', 'stickers'] as const
 const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
+// Clear-line object icons for the interests in Off the clock, same order as about.likes.
+const ABOUT_ICONS = [`<circle cx="32" cy="32" r="23" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><ellipse cx="32" cy="32" rx="10" ry="23" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M9 32h46M13 21h38M13 43h38" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<rect x="7" y="14" width="50" height="38" rx="5" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M7 30V19a5 5 0 0 1 5-5h40a5 5 0 0 1 5 5v11z" fill="var(--red)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><text x="32" y="27.5" text-anchor="middle" class="icon-text">HI!</text><path d="M17 42h30" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<circle cx="32" cy="32" r="22" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M32 10c9 7 12 20 6 34M11 27c10-3 24 1 32 11M17 49c4-10 14-17 31-19" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<circle cx="47" cy="17" r="6" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M5 51L25 19l11 17 6-8 17 23z" fill="var(--sea)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M25 19l-6 10 4-1 3 3 4-5z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M24 51c3-5 9-6 10-11" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" />`,`<path d="M24 8c-3 4 3 6 0 10M33 8c-3 4 3 6 0 10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M11 24h32v12a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M43 28h4a6 6 0 0 1 0 12h-5" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M8 54h40" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M13 27h28" fill="none" stroke="var(--sand)" stroke-width="4" stroke-linecap="round" />`,`<path d="M6 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-8 7v-7H6a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M28 28h30a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-4v7l-8-7H28a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><circle cx="34" cy="38" r="2" fill="var(--ink)" /><circle cx="43" cy="38" r="2" fill="var(--ink)" /><circle cx="52" cy="38" r="2" fill="var(--ink)" />`]
 // Names in body text that link to their organizations.
 const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/' }
 const linkParts = (text: string) => {
@@ -424,7 +426,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
       </div>
       <div class="panel about-text">
         <p>{t.about.body}</p>
-        <ul class="feature-chips">{t.about.likes.map((l) => <li>{l}</li>)}</ul>
+        <ul class="likes">{t.about.likes.map((l, i) => <li><svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true" set:html={ABOUT_ICONS[i]} /><span>{l}</span></li>)}</ul>
       </div>
     </div>
   </section>
@@ -694,6 +696,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .about { grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); }
   .about-count { display: flex; flex-direction: column; justify-content: center; gap: 4px; font: 700 16px/1.2 var(--display); text-transform: uppercase; }
   .about-count .num { font-size: clamp(64px, 7vw, 96px); }
+  .likes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 10px; }
+  .likes li { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 12px 6px 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--paper); text-align: center; font: 700 14px/1.15 var(--display); text-transform: uppercase; }
+  .likes svg { width: 76px; height: 76px; }
+  .likes :global(.icon-text) { font: 700 11px var(--display); fill: var(--on-accent); }
+  @media (max-width: 900px) { .likes { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   .about-text { display: flex; flex-direction: column; justify-content: center; gap: 14px; font-size: 19px; }
   @media (max-width: 700px) { .about { grid-template-columns: 1fr; } }
   .income { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; margin: 0; padding: 12px 18px; font-size: 16px; }
