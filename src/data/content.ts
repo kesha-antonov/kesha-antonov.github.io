@@ -157,8 +157,8 @@ const en = {
     },
     aviasales: {
       name: 'Aviasales',
-      tag: 'Widgets for aviasales.ru',
-      body: 'Built widgets for Aviasales, one of the largest flight search services in Russia.',
+      tag: 'Widgets for the Aviasales partner program',
+      body: 'Built widgets for the Aviasales partner program on Travelpayouts: partner sites embed them to search and sell flights from aviasales.ru, one of the largest flight search services in Russia.',
     },
     studio: {
       name: 'skill.surf',
@@ -338,8 +338,8 @@ const ru: Dict = {
     },
     aviasales: {
       name: 'Aviasales',
-      tag: 'Виджеты для aviasales.ru',
-      body: 'Делал виджеты для Aviasales, одного из крупнейших сервисов поиска авиабилетов в России.',
+      tag: 'Виджеты для партнёрской программы Aviasales',
+      body: 'Делал виджеты для партнёрской программы Aviasales на Travelpayouts: партнёры ставят их на свои сайты, чтобы искать и продавать авиабилеты aviasales.ru, одного из крупнейших сервисов поиска авиабилетов в России.',
     },
     studio: {
       name: 'skill.surf',
