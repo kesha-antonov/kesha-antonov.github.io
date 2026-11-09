@@ -1,0 +1,107 @@
+/* Clear-line album: one ink line, flat fills, no gradients, no cast shadows. */
+:root {
+  --paper: #f6f3e6;
+  --paper-deep: #ece6cf;
+  --ink: #141414;
+  --ink-soft: #3b3a36;
+  --sky: #a7cbe6;
+  --sky-pale: #cfe2f1;
+  --sand: #e2c37a;
+  --sand-pale: #efdcab;
+  --harbour: #1e4a7a;
+  --sea: #6fa36a;
+  --sea-pale: #b6d1b2;
+  --red: #d63a2b;
+  --white: #fffdf6;
+
+  --line: 3px;
+  --gutter-panel: 14px;
+  --radius-panel: 4px;
+
+  --display: 'Balsamiq Sans', 'Comic Sans MS', system-ui, sans-serif;
+  --hand: 'Pangolin', 'Balsamiq Sans', system-ui, sans-serif;
+
+  --wrap: 1280px;
+  --pad: clamp(12px, 3vw, 32px);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 18px/1.5 var(--hand);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::selection { background: var(--sand); color: var(--ink); }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 2px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: 0.01em; line-height: 1.02; }
+
+a:focus-visible, button:focus-visible {
+  outline: var(--line) solid var(--ink);
+  outline-offset: 3px;
+}
+
+.page { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); }
+
+/* A tier is one row of panels; panels share one line weight. */
+.tier { display: grid; gap: var(--gutter-panel); margin-bottom: var(--gutter-panel); }
+.panel {
+  position: relative;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius-panel);
+  background: var(--white);
+  padding: clamp(16px, 2.2vw, 28px);
+  min-width: 0;
+}
+.panel.sky { background: var(--sky); }
+.panel.sand { background: var(--sand); }
+.panel.sea { background: var(--sea); }
+.panel.harbour { background: var(--harbour); color: var(--white); }
+.panel.red { background: var(--red); color: var(--white); }
+.panel.paper { background: var(--paper); }
+
+/* Selection is the same line drawn heavier. */
+.panel:target { outline: var(--line) solid var(--ink); outline-offset: 2px; }
+
+/* The active panel keeps full color; the rest of its tier rests one tone paler. */
+@media (hover: hover) {
+  .tier:has(.panel:hover) > .panel:not(:hover) { filter: saturate(0.55) brightness(1.05); }
+}
+
+/* Narration box: the album's yellow caption. */
+.caption {
+  display: inline-block;
+  background: var(--sand);
+  border: var(--line) solid var(--ink);
+  padding: 6px 12px;
+  font: 700 15px/1.25 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.panel > .caption:first-child { position: absolute; top: calc(var(--line) * -1); left: calc(var(--line) * -1); max-width: calc(100% - 24px); }
+.panel > .caption:first-child + * { margin-top: 40px; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 0 22px;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius-panel);
+  background: var(--white); color: var(--ink);
+  font: 700 17px/1 var(--display); text-transform: uppercase; letter-spacing: 0.03em;
+  text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: var(--sky-pale); }
+.btn.red { background: var(--red); color: var(--white); }
+.btn.red:hover { background: #bf2f21; }
+.btn:active { transform: translateY(1px); }
+
+.num { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; line-height: 0.95; }
+.nw { white-space: nowrap; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

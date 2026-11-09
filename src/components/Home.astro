@@ -1,0 +1,640 @@
+---
+import HeroChat from './HeroChat.tsx'
+import stats from '../data/stats.json'
+import { dict, links, apps, contests, upstream, compact, groupInt, CONTEST_WINS, type Lang } from '../data/content'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const t = dict[lang]
+const P = stats.packages
+const fmt = (n?: number) => (typeof n === 'number' ? compact(n, lang) : '-')
+const ru = lang === 'ru'
+
+const npmTotal = fmt(stats.totals.allTime)
+const npmMonth = fmt(stats.totals.lastMonth)
+const appsTotal = ru ? '250 тыс.+' : '250K+'
+const fill = (s: string) => s.replace('{npm}', npmTotal).replace('{month}', npmMonth).replace('{apps}', appsTotal)
+const replies = t.chat.replies.map((r) => ({ ...r, answer: fill(r.answer) }))
+const showLabel = ru ? 'Показать' : 'Show me'
+
+// Gifted Chat chart in the album's single line weight.
+const series = (P['gifted-chat'].series ?? []) as [string, number][]
+const W = 760, H = 250, PAD = 6
+const max = Math.max(...series.map(([, v]) => v)) * 1.12
+const x = (i: number) => PAD + (i / Math.max(series.length - 1, 1)) * (W - PAD * 2)
+const y = (v: number) => H - (v / max) * (H - PAD)
+const line = series.map(([, v], i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ')
+const area = `${line} L${x(series.length - 1).toFixed(1)},${H} L${x(0).toFixed(1)},${H} Z`
+const startIdx = series.findIndex(([m]) => m === '2024-08')
+// June 2026: last feature release of Gifted Chat, development moved to @kesha-antonov/react-native-chat.
+const forkIdx = series.findIndex(([m]) => m === '2026-06')
+const peak = series.reduce((b, s, i) => (s[1] > series[b][1] ? i : b), 0)
+const years = series.map(([m], i) => [m, i] as const).filter(([m]) => m.endsWith('-01'))
+
+const stepMarks = ['08.2024', '26', '3', fmt(series[peak]?.[1])]
+const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync'] as const
+const updated = stats.updatedAt.split('-').reverse().join('.')
+const L = ru
+  ? { score: 'Счёт на сегодня', npm: 'установок библиотек в npm', month: 'за прошлый месяц', apps: 'установок моих приложений', gifted: 'загрузок Gifted Chat за время моей поддержки', wins: 'победы в конкурсах Telegram', stars: 'звёзд на GitHub', manifest: 'Обновлено', downloads: 'загрузок', sponsors: 'Платные спонсоры на GitHub', company: 'компания', goal: (n: number, g: number) => `Цель: ${g} ежемесячных спонсоров, сейчас ${n}` }
+  : { score: 'The score so far', npm: 'npm installs of my libraries', month: 'last month', apps: 'installs of apps I built', gifted: 'Gifted Chat downloads on my watch', wins: 'Telegram contest wins', stars: 'GitHub stars', manifest: 'Updated', downloads: 'downloads', sponsors: 'Paid sponsors on GitHub', company: 'company', goal: (n: number, g: number) => `${n} of ${g} monthly sponsors toward the goal` }
+const productKeys = ['diary', 'nanogym', 'stickers'] as const
+const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
+// Names in body text that link to their organizations.
+const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/' }
+const linkParts = (text: string) => {
+  const re = new RegExp(`(${Object.keys(TEXT_LINKS).join('|')})`, 'g')
+  return text.split(re).map((part) => ({ part, href: TEXT_LINKS[part] }))
+}
+const shotHeight: Record<string, number> = { fixes: 251, ton: 259, chart: 199 }
+const sp = (stats as any).sponsors as { count: number; list: { login: string; name: string; org: boolean }[]; goal: { title: string; target: number } | null } | undefined
+const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.org)) : []
+---
+<header class="page">
+  <div class="masthead panel">
+    <a class="mark" href={ru ? '/ru/' : '/'} aria-label="Kesha Antonov">
+      <svg viewBox="0 0 48 44" width="44" height="40" aria-hidden="true">
+        <path d="M6 4h36a3 3 0 0 1 3 3v20a3 3 0 0 1-3 3H20l-10 9v-9H6a3 3 0 0 1-3-3V7a3 3 0 0 1 3-3z" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
+        <path d="M17 10v14M17 17l9-7M20 15l7 9" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Kesha Antonov</span>
+    </a>
+    <nav aria-label="Main">
+      <a href="#work">{t.nav.work}</a>
+      <a href="#products">{t.nav.products}</a>
+      <a href="#oss">{t.nav.oss}</a>
+      <details class="lang-menu">
+        <summary aria-label={ru ? 'Язык' : 'Language'}>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" class="globe">
+            <circle cx="12" cy="12" r="9.5" fill="var(--white)" stroke="var(--ink)" stroke-width="2.2" />
+            <path d="M2.5 12h19M12 2.5c-3 3-4.2 6-4.2 9.5s1.2 6.5 4.2 9.5M12 2.5c3 3 4.2 6 4.2 9.5s-1.2 6.5-4.2 9.5" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+          <span>{ru ? 'RU' : 'EN'}</span>
+          <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true" class="caret"><path d="M1.5 1.5L6 6l4.5-4.5" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </summary>
+        <ul>
+          <li><a href="/" hreflang="en" lang="en" aria-current={ru ? undefined : 'true'}>English</a></li>
+          <li><a href="/ru/" hreflang="ru" lang="ru" aria-current={ru ? 'true' : undefined}>Русский</a></li>
+        </ul>
+      </details>
+      <a class="btn red" href="#contact">{t.hero.ctaHire}</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <section class="tier hero" aria-label={t.hero.title}>
+    <div class="panel sky establishing">
+      <span class="caption">{t.hero.kicker}</span>
+      <h1><span class="visually-hidden">{t.hero.name}: </span>{t.hero.title}</h1>
+      <p class="hero-sub">{t.hero.sub}</p>
+      <div class="actions">
+        <a class="btn red" href="#contact">{t.hero.ctaHire}</a>
+        <a class="btn" href="#gifted">{t.hero.ctaWork}</a>
+      </div>
+    </div>
+
+    <div class="panel paper phone-panel">
+      <HeroChat client:visible title={t.chat.title} online={t.chat.online} intro={t.chat.intro} replies={replies} placeholder={t.chat.placeholder} showLabel={showLabel} />
+    </div>
+
+    <div class="scores" role="list" aria-label={L.score}>
+      <div class="panel red score big" role="listitem"><span class="num">{npmTotal}</span><span>{L.npm}</span><small>{npmMonth} {L.month}</small></div>
+      <div class="panel sand score" role="listitem"><span class="num">{appsTotal}</span><span>{L.apps}</span></div>
+      <div class="panel sea score" role="listitem"><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span><span>{L.gifted}</span></div>
+      <div class="panel harbour score" role="listitem"><span class="num">{CONTEST_WINS}</span><span>{L.wins}</span></div>
+    </div>
+  </section>
+
+  <section class="tier merged" aria-label={t.proof.merged}>
+    <div class="panel paper strip">
+      <span class="strip-title">{t.proof.merged}</span>
+      <ul>{upstream.map((u) => <li><a target="_blank" rel="noopener" href={`https://github.com/${u.repo}/commits?author=kesha-antonov`}>{u.label}</a></li>)}</ul>
+    </div>
+  </section>
+
+  <section id="gifted" class="chapter">
+    <h2>{t.gifted.title}</h2>
+    <div class="tier narration">
+      <div class="panel sand"><p>{t.gifted.problem}</p></div>
+    </div>
+    <ol class="tier four">
+      {t.gifted.steps.map((s, i) => (
+        <li class={`panel ${['white', 'sky', 'white', 'sea'][i]}`}>
+          <span class="caption">{s.h}</span>
+          <span class="num step-mark">{stepMarks[i]}</span>
+          <p>{s.p.split('react-native-chat').map((part, j) => (
+            <>{j > 0 && <a target="_blank" rel="noopener" class="inline-link" href="https://github.com/kesha-antonov/react-native-chat">react-native-chat</a>}{part}</>
+          ))}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="tier">
+      <figure class="panel chart-panel">
+        <span class="caption">{t.gifted.chartTitle}</span>
+        <svg viewBox={`0 0 ${W} ${H + 36}`} role="img" aria-label={t.gifted.chartTitle}>
+          <path d={area} fill="var(--sky)" />
+          <path d={line} fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
+          <line x1="0" x2={W} y1={H} y2={H} stroke="var(--ink)" stroke-width="3" />
+          {startIdx >= 0 && (
+            <g>
+              <line x1={x(startIdx)} x2={x(startIdx)} y1="14" y2={H} stroke="var(--red)" stroke-width="3" stroke-dasharray="8 7" />
+              <text x={x(startIdx) - 10} y="30" text-anchor="end" class="chart-label red">{t.gifted.chartNote}</text>
+            </g>
+          )}
+          {forkIdx >= 0 && (
+            <g>
+              <line x1={x(forkIdx)} x2={x(forkIdx)} y1="14" y2={H} stroke="var(--harbour)" stroke-width="3" stroke-dasharray="8 7" />
+              <text x={x(forkIdx) - 10} y={H - 18} text-anchor="end" class="chart-label harbour">{t.gifted.chartFork}</text>
+            </g>
+          )}
+          <circle cx={x(peak)} cy={y(series[peak][1])} r="8" fill="var(--red)" stroke="var(--ink)" stroke-width="3" />
+          <text x={x(peak) - 16} y={y(series[peak][1]) + 6} text-anchor="end" class="chart-label">{fmt(series[peak][1])}</text>
+          {years.map(([m, i]) => <text x={x(i)} y={H + 30} text-anchor={i === 0 ? 'start' : 'middle'} class="chart-label">{m.slice(0, 4)}</text>)}
+        </svg>
+        <div class="chart-foot">
+          <div><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span> {t.gifted.statSince}</div>
+          <div><span class="num">{fmt(P['gifted-chat'].stars)}</span> {t.gifted.statStars}</div>
+        </div>
+      </figure>
+    </div>
+    <div class="tier">
+      <article class="panel sky successor">
+        <div class="successor-text">
+          <h3>{t.gifted.successor.title}</h3>
+          <p class="body">{t.gifted.successor.body}</p>
+          <ul class="feature-chips">
+            {t.gifted.successor.features.map((f) => <li>{f}</li>)}
+          </ul>
+          <p class="links">
+            <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-chat">{t.gifted.successor.links.repo}</a>
+            <a target="_blank" rel="noopener" href="https://kesha-antonov.github.io/react-native-chat/">{t.gifted.successor.links.docs}</a>
+            <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@kesha-antonov/react-native-chat">npm</a>
+          </p>
+        </div>
+        <div class="successor-demo">
+          <video src="/products/rnc-showcase.mp4" poster="/products/rnc-poster.webp" width="360" height="808" autoplay muted loop playsinline preload="metadata" aria-label="react-native-chat demo"></video>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="work" class="chapter">
+    <h2>{t.work.title}</h2>
+    <div class="tier work">
+      <article class="panel magisteria">
+        <div class="app-head">
+          <img src="/icons/magisteria.png" alt="" width="88" height="88" class="icon" />
+          <div>
+            <h3>{t.work.magisteria.name}</h3>
+            <p class="tag">{t.work.magisteria.tag}</p>
+          </div>
+        </div>
+        <p class="body">{t.work.magisteria.body}</p>
+        <ul class="facts">
+          {t.work.magisteria.stats.map(([n, l], i) => <li class={['sky', 'sea', 'sand', 'paper'][i]}><span class="num">{n}</span>{l}</li>)}
+        </ul>
+        <ul class="highlights three-up">
+          {t.work.magisteria.highlights.map((x) => (
+            <li><span class="caption">{x.h}</span><p>{x.p}</p></li>
+          ))}
+        </ul>
+        <p class="links">
+          <a target="_blank" rel="noopener" href={apps.magisteria.appStore}>App Store</a>
+          <a target="_blank" rel="noopener" href={apps.magisteria.googlePlay}>Google Play</a>
+          <a target="_blank" rel="noopener" href={apps.magisteria.ruStore}>RuStore</a>
+        </p>
+        <p class="footnote">{t.work.magisteria.note}</p>
+      </article>
+      <article class="panel sea wide medical">
+        <div class="app-head">
+          <svg class="brand-stack" viewBox="0 0 120 96" width="110" height="88" aria-hidden="true">
+            <rect x="40" y="4" width="64" height="64" rx="15" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" />
+            <rect x="26" y="16" width="64" height="64" rx="15" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" />
+            <rect x="12" y="28" width="64" height="64" rx="15" fill="var(--white)" stroke="var(--ink)" stroke-width="3" />
+            <path d="M38 44h12v12h12v12H50v12H38V68H26V56h12z" fill="var(--red)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
+          </svg>
+          <div>
+            <h3>{t.work.medical.name}</h3>
+            <p class="tag">{t.work.medical.tag}</p>
+          </div>
+        </div>
+        <p class="body">{t.work.medical.body}</p>
+        <ul class="facts">
+          {t.work.medical.stats.map(([n, l], i) => <li class={['paper', 'sand', 'sky', 'paper'][i]}><span class="num">{n}</span>{l}</li>)}
+        </ul>
+        <ul class="highlights">
+          {t.work.medical.highlights.map((x) => (
+            <li>
+              <span class="caption">{x.h}</span>
+              <p>{x.p}{'link' in x && x.link && <> <a target="_blank" rel="noopener" class="inline-link" href={x.link.href}>{x.link.text}</a></>}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="footnote">{t.work.medical.note}</p>
+      </article>
+      <article class="panel sky progulki">
+        <span class="caption">{t.work.progulki.tag}</span>
+        <img class="shot" src="/progulki-top.jpg" alt={`${t.work.progulki.name}: ${ru ? 'главная страница сайта' : 'website home page'}`} width="720" height="778" loading="lazy" decoding="async" />
+        <h3>{t.work.progulki.name}</h3>
+        <p>{t.work.progulki.body}</p>
+      </article>
+      <article class="panel sand studio">
+        <h3>{t.work.studio.name}</h3>
+        <p class="tag">{t.work.studio.tag}</p>
+        <p>{t.work.studio.body}</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="products" class="chapter">
+    <h2>{t.products.title}</h2>
+    <div class="tier products-main">
+      {(['cryptoc', 'ssoul'] as const).map((k, i) => {
+        const p = t.products.items[k]
+        return (
+          <article class={`panel ${i ? 'sea' : 'white'} product`}>
+            <div class="app-head">
+              <img src={`/icons/${k}.png`} alt="" width="72" height="72" class="icon" loading="lazy" />
+              <div><h3>{p.name}</h3><p class="tag">{p.tag}</p></div>
+            </div>
+            <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
+            <ul class={`facts ${p.stats.length === 3 ? 'three' : 'two'}`}>
+              {p.stats.map(([n, l]) => <li class={i ? 'paper' : 'sand'}><span class="num">{n}</span>{l}</li>)}
+            </ul>
+            {k === 'cryptoc' && (
+              <p class="links">
+                {apps.cryptoc.appStore && <a target="_blank" rel="noopener" href={apps.cryptoc.appStore}>App Store</a>}
+                <a target="_blank" rel="noopener" href={apps.cryptoc.googlePlay}>Google Play</a>
+                <a target="_blank" rel="noopener" href={apps.cryptoc.ruStore}>RuStore</a>
+              </p>
+            )}
+          </article>
+        )
+      })}
+    </div>
+    <div class="tier">
+      <article class="panel harbour product tmafarm">
+        <div class="app-head">
+          <svg class="farm-icon" viewBox="0 0 72 72" width="72" height="72" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="69" height="69" rx="16" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" />
+            <path d="M36 58V34" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" /><path d="M36 38c-12 0-18-7-18-17 10 0 18 6 18 17z" fill="var(--sea)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" /><path d="M36 34c0-10 6-17 18-17 0 10-6 17-18 17z" fill="var(--sea)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" /><path d="M20 58h32" stroke="var(--ink)" stroke-width="3" stroke-linecap="round" />
+          </svg>
+          <div><h3>{t.products.items.tmafarm.name}</h3><p class="tag">{t.products.items.tmafarm.tag}</p></div>
+        </div>
+        <p class="body">{t.products.items.tmafarm.body}</p>
+        <ul class="facts three">
+          {t.products.items.tmafarm.stats.map(([n, l], i) => <li class={['red', 'sand', 'sky'][i]}><span class="num">{n}</span>{l}</li>)}
+        </ul>
+      </article>
+    </div>
+    <div class="tier three">
+      {productKeys.map((k, i) => {
+        const p = t.products.items[k]
+        return (
+          <article class={`panel ${['white', 'sky', 'sand'][i]} product small`}>
+            {k === 'diary' && <img class="product-photo" src="/products/diary.webp" alt={p.name} width="900" height="518" loading="lazy" decoding="async" />}
+            <h3>{p.name}</h3>
+            <p class="tag">{p.tag}</p>
+            <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
+            {p.stats.map(([n, l]) => <p class="inline-stat"><span class="num">{n}</span> {l}</p>)}
+          </article>
+        )
+      })}
+    </div>
+  </section>
+
+  <section id="oss" class="chapter">
+    <h2>{t.oss.title}</h2>
+    <div class="tier">
+      <div class="panel ledger">
+        <table>
+          <thead>
+            <tr><th scope="col">{t.oss.cols.lib}</th><th scope="col">{t.oss.cols.month}</th><th scope="col">{t.oss.cols.total}</th><th scope="col">{t.oss.cols.stars}</th></tr>
+          </thead>
+          <tbody>
+            {libOrder.map((k) => {
+              const p = P[k]
+              return (
+                <tr>
+                  <th scope="row"><a target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{p.npm}</a><span>{t.oss.desc[k]}</span></th>
+                  <td data-label={t.oss.cols.month}>{fmt(p.lastMonth)}</td>
+                  <td data-label={t.oss.cols.total}>{fmt(p.allTime)}</td>
+                  <td data-label={t.oss.cols.stars}>{fmt(p.stars)}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </table>
+        <div class="ledger-foot">
+          <span>{L.manifest} {updated}. {t.oss.lead}</span>
+        </div>
+      </div>
+    </div>
+    {sp && sp.count > 0 && (
+      <div class="tier">
+        <div class="panel sand sponsors">
+          <h3>{L.sponsors}</h3>
+          <ul class="sponsor-list">
+            {sponsorList.map((s) => (
+              <li>
+                <a target="_blank" rel="noopener" href={`https://github.com/${s.login}`}>
+                  <img src={`https://github.com/${s.login}.png?size=96`} alt="" width="56" height="56" loading="lazy" decoding="async" />
+                  <span><strong>{s.name}</strong>{s.org && <em>{L.company}</em>}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          {sp.goal && (
+            <div class="goal">
+              <ol class="goal-cells" aria-hidden="true">
+                {Array.from({ length: sp.goal.target }, (_, i) => <li class={i < sp.count ? 'on' : ''} />)}
+              </ol>
+              <span>{L.goal(sp.count, sp.goal.target)}</span>
+            </div>
+          )}
+          <a target="_blank" rel="noopener" class="btn red" href={links.sponsor}>{t.oss.sponsor}</a>
+        </div>
+      </div>
+    )}
+  </section>
+
+  <section id="contests" class="chapter">
+    <h2 class="with-logo">
+      <svg class="tg-logo" viewBox="0 0 48 48" width="64" height="64" role="img" aria-label="Telegram">
+        <circle cx="24" cy="24" r="22" fill="#2aabee" stroke="var(--ink)" stroke-width="2.5" />
+        <path d="M11 23.3l23.6-9.1c1.1-.4 2.1.3 1.7 2l-4 18.9c-.3 1.3-1.1 1.7-2.2 1l-6.1-4.5-2.9 2.8c-.3.3-.6.6-1.3.6l.4-6.2 11.3-10.2c.5-.4-.1-.7-.8-.3l-14 8.8-6-1.9c-1.3-.4-1.3-1.3.3-1.9z" fill="#fff" stroke="var(--ink)" stroke-width="1.6" stroke-linejoin="round" />
+      </svg>
+      <span>{t.contests.title}</span>
+    </h2>
+    <div class="tier three">
+      {contests.map((c, i) => (
+        <a target="_blank" rel="noopener" class="panel contest" href={c.url}>
+          <svg viewBox="0 0 120 150" width="96" height="120" aria-hidden="true" class="medal">
+            <path d="M38 4h18l12 52H50zM64 4h18L70 56H52z" fill="var(--red)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" />
+            <circle cx="60" cy="96" r="44" fill={medalFill[i]} stroke="var(--ink)" stroke-width="3" />
+            <circle cx="60" cy="96" r="32" fill="none" stroke="var(--ink)" stroke-width="3" />
+            <text x="60" y="110" text-anchor="middle" class="medal-num">{c.place}</text>
+          </svg>
+          <div>
+            <p class="place">{t.contests.place(c.place)} <span class="num">${groupInt(c.prize, lang)}</span></p>
+            <h3>{t.contests.items[c.key].name}</h3>
+            <p>{t.contests.items[c.key].body}</p>
+          </div>
+          <img class="proof-shot" src={`/contests/${c.key}.webp`} alt={`contest.com, ${t.contests.items[c.key].name}: Busy Unicorn, your entry`} width="800" height={shotHeight[c.key]} loading="lazy" decoding="async" />
+        </a>
+      ))}
+    </div>
+    <p class="aside">{t.contests.note}</p>
+  </section>
+
+  <section id="path" class="chapter">
+    <h2>{t.path.title}</h2>
+    <ol class="tier years">
+      {t.path.items.map(([year, text], i) => (
+        <li class={`panel ${['white', 'sky', 'white', 'sand', 'white', 'sea', 'white', 'sky'][i]}`}>
+          <span class="num year">{year}</span>
+          <p>{linkParts(text).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="contact" class="tier end">
+    <div class="panel red finale">
+      <h2>{t.contact.title}</h2>
+      <p class="lead">{t.contact.lead}</p>
+      <p>{t.contact.body}</p>
+      <div class="actions">
+        <a target="_blank" rel="noopener" class="btn" href={links.telegram}>Telegram</a>
+        <a class="btn" href={links.email}>{t.contact.email}</a>
+      </div>
+      <ul class="socials">
+        <li><a target="_blank" rel="noopener" href={links.linkedin}>LinkedIn</a></li>
+        <li><a target="_blank" rel="noopener" href={links.github}>{t.contact.github}</a></li>
+        <li><a target="_blank" rel="noopener" href={links.instagram}>Instagram</a></li>
+        <li><a target="_blank" rel="noopener" href={links.sponsor}>{t.contact.sponsor}</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script>
+  // Close the language menu on outside click or Escape.
+  const menu = document.querySelector('.lang-menu')
+  if (menu) {
+    document.addEventListener('click', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false })
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary')?.focus() } })
+  }
+</script>
+
+<footer class="page foot">
+  <p>{t.footer}</p>
+</footer>
+
+<style>
+  /* Masthead: the album title strip */
+  .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: var(--gutter-panel) 0; padding: 10px 14px 10px 16px; }
+  .mark { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 700 clamp(18px, 2vw, 24px)/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  nav { display: flex; align-items: center; gap: clamp(10px, 2vw, 26px); font: 700 15px/1 var(--display); text-transform: uppercase; }
+  nav a:not(.btn) { text-decoration: none; }
+  nav a:not(.btn):hover { text-decoration: underline; }
+  .lang-menu { position: relative; }
+  .lang-menu summary { list-style: none; display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--sky); cursor: pointer; user-select: none; }
+  .lang-menu summary::-webkit-details-marker { display: none; }
+  .lang-menu summary:hover { background: var(--sand); }
+  .lang-menu .caret { transition: transform 120ms ease; }
+  .lang-menu[open] .caret { transform: rotate(180deg); }
+  .lang-menu ul { position: absolute; right: 0; top: calc(100% + 8px); z-index: 10; list-style: none; margin: 0; padding: 0; min-width: 150px; background: var(--white); border: var(--line) solid var(--ink); border-radius: var(--radius-panel); }
+  .lang-menu li + li { border-top: var(--line) solid var(--ink); }
+  .lang-menu ul a { display: block; padding: 10px 14px; text-transform: none; font: 700 17px/1 var(--display); }
+  .lang-menu ul a:hover { background: var(--sky-pale); text-decoration: none; }
+  .lang-menu ul a[aria-current] { background: var(--sand); }
+  .lang-menu ul a[aria-current]::after { content: ''; display: inline-block; width: 8px; height: 8px; margin-left: 8px; border-radius: 50%; background: var(--ink); vertical-align: middle; }
+  @media (prefers-reduced-motion: reduce) { .lang-menu .caret { transition: none; } }
+  nav .btn { min-height: 42px; }
+  @media (max-width: 760px) { nav > a:not(.btn) { display: none; } .mark span { display: none; } }
+
+  /* First tier */
+  .hero { grid-template-columns: minmax(0, 5fr) minmax(0, 3.2fr) minmax(0, 3.3fr); align-items: stretch; }
+  .establishing { display: flex; flex-direction: column; gap: 22px; padding-top: 64px; }
+  .establishing h1 { font-size: clamp(40px, 5.2vw, 76px); letter-spacing: -0.01em; text-wrap: balance; overflow-wrap: anywhere; }
+  :global(html[lang='ru']) .establishing h1 { font-size: clamp(34px, 4vw, 60px); }
+  .hero-sub { font-size: clamp(18px, 1.5vw, 21px); max-width: 34ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+  .phone-panel { display: flex; align-items: center; padding: 18px; background: var(--paper-deep); }
+  .scores { display: grid; grid-template-rows: 1.5fr 1fr 1fr 1fr; gap: var(--gutter-panel); }
+  .score { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px 18px; font: 700 15px/1.2 var(--display); text-transform: uppercase; }
+  .score .num { font-size: clamp(34px, 3.6vw, 52px); }
+  .score .num { white-space: nowrap; }
+  .score.big .num { font-size: clamp(44px, 4.8vw, 84px); }
+  :global(html[lang='ru']) .score.big .num { font-size: clamp(40px, 4vw, 70px); }
+  .score small { font: 400 15px/1.2 var(--hand); text-transform: none; opacity: 0.92; }
+  @media (max-width: 1080px) {
+    .hero { grid-template-columns: 1fr 1fr; }
+    .establishing { grid-column: 1 / -1; }
+  }
+  @media (max-width: 640px) {
+    .hero { grid-template-columns: 1fr; }
+    .scores { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
+    .score.big, .score:last-child { grid-column: 1 / -1; }
+    .phone-panel { order: 3; }
+    .phone-panel :global(.phone) { aspect-ratio: auto; height: 540px; }
+  }
+
+  .strip { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 16px; }
+  .strip-title { font: 700 15px/1 var(--display); text-transform: uppercase; }
+  .strip ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .strip li a { display: block; font-size: 15px; padding: 2px 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--white); text-decoration: none; }
+  .strip li a:hover { background: var(--sky); text-decoration: underline; }
+
+  /* Chapters */
+  .chapter { padding-top: clamp(40px, 6vw, 72px); }
+  .chapter > h2 { font-size: clamp(30px, 4vw, 54px); margin-bottom: 18px; max-width: 22ch; text-wrap: balance; }
+  .chapter > h2.with-logo { display: flex; align-items: center; gap: 18px; max-width: none; }
+  .with-logo span { max-width: 24ch; }
+  .tg-logo { flex: none; width: clamp(52px, 5.4vw, 80px); height: auto; }
+  .narration .panel p { font: 700 clamp(18px, 1.8vw, 24px)/1.3 var(--display); text-transform: uppercase; max-width: 60ch; }
+  ol.tier, ul.tier { list-style: none; padding: 0; margin-top: 0; }
+  .four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .four .panel { display: flex; flex-direction: column; gap: 10px; }
+  .step-mark { font-size: clamp(40px, 4.4vw, 64px); }
+  .inline-link { font-weight: 700; text-decoration-thickness: 2px; }
+  .inline-link:hover { background: var(--white); }
+  @media (max-width: 900px) { .four { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .four { grid-template-columns: 1fr; } }
+
+  .chart-panel { margin: 0; }
+  .successor { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(20px, 3vw, 40px); align-items: center; }
+  .successor-text { display: flex; flex-direction: column; gap: 16px; }
+  .successor h3 { font-size: clamp(24px, 2.6vw, 36px); }
+  .feature-chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .feature-chips li { padding: 4px 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--white); font-size: 15px; line-height: 1.3; }
+  .successor-demo { border: var(--line) solid var(--ink); border-radius: 34px; background: var(--ink); padding: 8px; width: clamp(200px, 22vw, 280px); }
+  .successor-demo video { display: block; width: 100%; height: auto; border-radius: 26px; background: var(--paper); }
+  @media (max-width: 760px) { .successor { grid-template-columns: 1fr; } .successor-demo { justify-self: center; } }
+  .chart-panel svg { width: 100%; height: auto; overflow: visible; margin-top: 12px; }
+  .chart-label { font: 700 20px var(--display); fill: var(--ink); }
+  .chart-label.red { fill: var(--red); }
+  .chart-label.harbour { fill: var(--harbour); }
+  .chart-foot { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 16px; padding-top: 14px; border-top: var(--line) solid var(--ink); font-size: 17px; }
+  .chart-foot .num { font-size: 34px; margin-right: 6px; }
+
+  .work { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .magisteria, .wide { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; }
+  .brand-stack { flex: none; }
+  .medical .facts .num { overflow-wrap: anywhere; }
+  /* Ink shows through the gaps, so every divider is exactly one line. */
+  .highlights { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--line); border: var(--line) solid var(--ink); background: var(--ink); }
+  .highlights li { padding: 14px 18px 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; background: var(--white); }
+  .highlights li:first-child, .highlights li:last-child { grid-column: 1 / -1; }
+  .highlights li:first-child p { font-size: 19px; max-width: 80ch; }
+  .highlights p { font-size: 16px; }
+  .highlights.three-up { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .highlights.three-up li { grid-column: auto; }
+  .highlights.three-up li:first-child p { font-size: 16px; }
+  @media (max-width: 900px) { .highlights.three-up { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) {
+    .highlights { grid-template-columns: 1fr; }
+  }
+    .app-head { display: flex; gap: 16px; align-items: center; }
+  .icon { border: var(--line) solid var(--ink); border-radius: 22%; flex: none; }
+  .app-head h3, .product h3, .studio h3, .progulki h3 { font-size: clamp(24px, 2.4vw, 34px); }
+  .tag { font-size: 16px; opacity: 0.85; }
+  .body { max-width: 62ch; }
+  .facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .facts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .facts li.red { background: var(--red); color: var(--white); }
+  .tmafarm { width: 100%; }
+  .tmafarm .facts li { color: var(--ink); }
+  .tmafarm .facts li.red { color: var(--white); }
+  .facts li { border: var(--line) solid var(--ink); padding: 10px 12px; font-size: 15px; line-height: 1.25; background: var(--white); }
+  .facts li.sky { background: var(--sky); } .facts li.sea { background: var(--sea-pale); } .facts li.sand { background: var(--sand); } .facts li.paper { background: var(--paper); }
+  .facts .num { display: block; font-size: clamp(26px, 2.6vw, 38px); margin-bottom: 4px; }
+  @media (max-width: 700px) { .facts { grid-template-columns: 1fr 1fr; } }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 18px; font: 700 15px/1 var(--display); text-transform: uppercase; }
+  .footnote { font-size: 15px; opacity: 0.85; max-width: 70ch; }
+  .progulki { display: flex; flex-direction: column; gap: 10px; }
+  .shot { border: var(--line) solid var(--ink); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; height: auto; }
+  .studio, .product { display: flex; flex-direction: column; gap: 10px; }
+  @media (max-width: 900px) { .work { grid-template-columns: 1fr; } }
+
+  .products-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .product.small h3 { font-size: 24px; }
+  .inline-stat { margin-top: auto; font-size: 16px; }
+  .product-photo { width: 100%; height: auto; aspect-ratio: 900 / 518; object-fit: cover; border: var(--line) solid var(--ink); margin-bottom: 6px; }
+  .inline-stat .num { font-size: 30px; }
+  @media (max-width: 900px) { .products-main, .three { grid-template-columns: 1fr; } }
+
+  /* Libraries ledger */
+  .ledger { padding: 0; overflow: hidden; }
+  .ledger table { width: 100%; border-collapse: collapse; }
+  .ledger th, .ledger td { padding: 14px 20px; border-bottom: var(--line) solid var(--ink); text-align: right; vertical-align: middle; }
+  .ledger thead th { background: var(--sky); font: 700 14px/1 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
+  .ledger thead th:first-child, .ledger tbody th { text-align: left; }
+  .ledger tbody th { font-weight: 400; }
+  .ledger tbody th a { display: block; font: 700 17px/1.2 var(--display); text-decoration: none; overflow-wrap: anywhere; }
+  .ledger tbody th a:hover { text-decoration: underline; }
+  .ledger tbody th span { font-size: 15px; opacity: 0.8; }
+  .ledger td { font: 700 22px/1 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .ledger tbody tr:first-child td:nth-child(3) { color: var(--red); }
+  .ledger-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 20px; background: var(--paper); font-size: 15px; }
+  @media (max-width: 700px) {
+    .ledger thead { display: none; }
+    .ledger tr { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: var(--line) solid var(--ink); }
+    .ledger tbody th { grid-column: 1 / -1; border-bottom: 0; padding-bottom: 6px; }
+    .ledger td { border-bottom: 0; text-align: left; padding-top: 4px; font-size: 20px; }
+    .ledger td::before { content: attr(data-label); display: block; font: 700 11px/1.4 var(--display); text-transform: uppercase; opacity: 0.7; }
+  }
+
+  /* Sponsors */
+  .sponsors { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px 28px; }
+  .sponsors h3 { font-size: clamp(22px, 2.2vw, 30px); max-width: 16ch; }
+  .sponsor-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+  .sponsor-list a { display: flex; align-items: center; gap: 12px; padding: 8px 16px 8px 8px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--white); text-decoration: none; }
+  .sponsor-list a:hover strong { text-decoration: underline; }
+  .sponsor-list img { width: 56px; height: 56px; border: var(--line) solid var(--ink); border-radius: 50%; }
+  .sponsor-list strong { display: block; font: 700 19px/1.1 var(--display); text-transform: uppercase; }
+  .sponsor-list em { font-style: normal; font-size: 14px; }
+  .goal { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-size: 16px; }
+  .goal-cells { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; }
+  .goal-cells li { width: 22px; height: 22px; border: var(--line) solid var(--ink); background: var(--white); }
+  .goal-cells li.on { background: var(--red); }
+  .sponsors .btn { grid-row: 1; grid-column: 3; }
+  @media (max-width: 900px) { .sponsors { grid-template-columns: 1fr; } .sponsors .btn { grid-row: auto; grid-column: auto; justify-self: start; } }
+
+  /* Contests */
+  .contest { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto 1fr; gap: 16px; text-decoration: none; }
+  .contest > div { display: flex; flex-direction: column; gap: 8px; }
+  .proof-shot { grid-column: 1 / -1; align-self: end; width: 100%; height: auto; border: var(--line) solid var(--ink); background: #fff; }
+  .contest h3 { font-size: 22px; }
+  .contest:hover h3 { text-decoration: underline; text-decoration-thickness: 3px; }
+  .medal { flex: none; }
+  .medal-num { font: 700 44px var(--display); fill: var(--ink); }
+  .place { font: 700 15px/1 var(--display); text-transform: uppercase; }
+  .place .num { color: var(--red); font-size: 22px; margin-left: 6px; }
+  .aside { font-size: 15px; margin-top: 4px; opacity: 0.85; }
+
+  /* Year strip */
+  .years { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .years .panel { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+  .year { font-size: 40px; }
+  .years p { font-size: 16px; line-height: 1.35; }
+  @media (max-width: 900px) { .years { grid-template-columns: 1fr 1fr; } }
+
+  /* The end panel */
+  .end { margin-top: clamp(40px, 6vw, 72px); }
+  .finale { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 5vw, 64px); }
+  .finale h2 { font-size: clamp(44px, 7vw, 104px); }
+  .finale .lead { font: 700 clamp(20px, 2.2vw, 30px)/1.2 var(--display); text-transform: uppercase; }
+  .finale p { max-width: 62ch; font-size: 19px; }
+  .finale .btn { background: var(--white); color: var(--ink); }
+  .finale .btn:hover { background: var(--sand); }
+  .finale .btn.ghost { background: transparent; color: var(--white); border-color: var(--white); }
+  .finale .btn.ghost:hover { background: rgba(255, 255, 255, 0.12); }
+  .socials { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font: 700 17px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .socials a { color: var(--white); text-decoration-thickness: 2px; }
+
+  .foot { padding-top: 6px; padding-bottom: 40px; font-size: 15px; opacity: 0.85; }
+</style>

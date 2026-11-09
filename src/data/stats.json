@@ -1,0 +1,281 @@
+{
+  "updatedAt": "2026-11-09",
+  "packages": {
+    "gifted-chat": {
+      "npm": "react-native-gifted-chat",
+      "repo": "FaridSafi/react-native-gifted-chat",
+      "allTime": 15678627,
+      "lastMonth": 344428,
+      "peakMonth": {
+        "month": "2026-01",
+        "value": 525460
+      },
+      "sinceMaintenance": 6326815,
+      "series": [
+        [
+          "2023-01",
+          137012
+        ],
+        [
+          "2023-02",
+          139665
+        ],
+        [
+          "2023-03",
+          156129
+        ],
+        [
+          "2023-04",
+          128222
+        ],
+        [
+          "2023-05",
+          146499
+        ],
+        [
+          "2023-06",
+          170274
+        ],
+        [
+          "2023-07",
+          144409
+        ],
+        [
+          "2023-08",
+          145178
+        ],
+        [
+          "2023-09",
+          128984
+        ],
+        [
+          "2023-10",
+          144818
+        ],
+        [
+          "2023-11",
+          129989
+        ],
+        [
+          "2023-12",
+          122511
+        ],
+        [
+          "2024-01",
+          143489
+        ],
+        [
+          "2024-02",
+          150907
+        ],
+        [
+          "2024-03",
+          166941
+        ],
+        [
+          "2024-04",
+          163739
+        ],
+        [
+          "2024-05",
+          150433
+        ],
+        [
+          "2024-06",
+          142034
+        ],
+        [
+          "2024-07",
+          168113
+        ],
+        [
+          "2024-08",
+          168655
+        ],
+        [
+          "2024-09",
+          177217
+        ],
+        [
+          "2024-10",
+          193027
+        ],
+        [
+          "2024-11",
+          179496
+        ],
+        [
+          "2024-12",
+          157042
+        ],
+        [
+          "2025-01",
+          182450
+        ],
+        [
+          "2025-02",
+          190154
+        ],
+        [
+          "2025-03",
+          206867
+        ],
+        [
+          "2025-04",
+          197599
+        ],
+        [
+          "2025-05",
+          205097
+        ],
+        [
+          "2025-06",
+          217643
+        ],
+        [
+          "2025-07",
+          223042
+        ],
+        [
+          "2025-08",
+          229692
+        ],
+        [
+          "2025-09",
+          256551
+        ],
+        [
+          "2025-10",
+          267612
+        ],
+        [
+          "2025-11",
+          241833
+        ],
+        [
+          "2025-12",
+          274902
+        ],
+        [
+          "2026-01",
+          525460
+        ],
+        [
+          "2026-02",
+          460726
+        ],
+        [
+          "2026-03",
+          447153
+        ],
+        [
+          "2026-04",
+          408162
+        ],
+        [
+          "2026-05",
+          443563
+        ],
+        [
+          "2026-06",
+          472872
+        ],
+        [
+          "2026-07",
+          451139
+        ],
+        [
+          "2026-08",
+          408235
+        ],
+        [
+          "2026-09",
+          377378
+        ],
+        [
+          "2026-10",
+          344428
+        ]
+      ],
+      "stars": 14447
+    },
+    "react-native-chat": {
+      "npm": "@kesha-antonov/react-native-chat",
+      "repo": "kesha-antonov/react-native-chat",
+      "allTime": 63128,
+      "lastMonth": 19441,
+      "peakMonth": {
+        "month": "2026-10",
+        "value": 19441
+      },
+      "stars": 82
+    },
+    "zoom-reanimated": {
+      "npm": "react-native-zoom-reanimated",
+      "repo": "kesha-antonov/react-native-zoom-reanimated",
+      "allTime": 2090029,
+      "lastMonth": 194954,
+      "peakMonth": {
+        "month": "2026-06",
+        "value": 245412
+      },
+      "stars": 320
+    },
+    "background-downloader": {
+      "npm": "@kesha-antonov/react-native-background-downloader",
+      "repo": "kesha-antonov/react-native-background-downloader",
+      "allTime": 1422867,
+      "lastMonth": 78471,
+      "peakMonth": {
+        "month": "2024-10",
+        "value": 116668
+      },
+      "stars": 224
+    },
+    "action-cable": {
+      "npm": "@kesha-antonov/react-native-action-cable",
+      "repo": "kesha-antonov/react-native-action-cable",
+      "allTime": 659538,
+      "lastMonth": 17893,
+      "peakMonth": {
+        "month": "2024-11",
+        "value": 26984
+      },
+      "stars": 68
+    },
+    "cloud-sync": {
+      "npm": "react-native-cloud-sync",
+      "repo": "kesha-antonov/react-native-cloud-sync",
+      "allTime": 1365,
+      "lastMonth": 158,
+      "peakMonth": {
+        "month": "2026-08",
+        "value": 568
+      },
+      "stars": 6
+    }
+  },
+  "sponsors": {
+    "count": 2,
+    "list": [
+      {
+        "login": "CoolSpot",
+        "name": "Ivan Kold",
+        "org": false
+      },
+      {
+        "login": "GetStream",
+        "name": "Stream",
+        "org": true
+      }
+    ],
+    "goal": {
+      "title": "10 monthly sponsors",
+      "target": 10
+    }
+  },
+  "totals": {
+    "allTime": 19915554,
+    "lastMonth": 655345
+  }
+}

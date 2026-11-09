@@ -1,0 +1,174 @@
+---
+import '@fontsource/balsamiq-sans/400.css'
+import '@fontsource/balsamiq-sans/700.css'
+import '@fontsource/pangolin'
+import '../styles/global.css'
+import stats from '../data/stats.json'
+import { dict, links, contests, compact, type Lang } from '../data/content'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const t = dict[lang]
+const ru = lang === 'ru'
+const site = Astro.site ?? new URL('https://kesha-antonov.github.io')
+const abs = (p: string) => new URL(p, site).href
+
+const path = ru ? '/ru/' : '/'
+const pageUrl = abs(path)
+const homeEn = abs('/')
+const homeRu = abs('/ru/')
+
+// Search snippets: name first, then the proof numbers. Long copy stays in content.ts.
+const npmTotal = compact(stats.totals.allTime, lang)
+const seo = ru
+  ? {
+      title: 'Кеша Антонов - ведущий разработчик React Native и продакт-менеджер',
+      description: `Иннокентий (Кеша) Антонов, ведущий разработчик React Native и основатель. Мейнтейнер react-native-gifted-chat; библиотеки с ${npmTotal} установок в npm, приложения с 250 тыс.+ установок.`,
+      locale: 'ru_RU',
+      altLocale: 'en_US',
+      ogAlt: `Кеша Антонов: ${npmTotal} установок библиотек в npm, 250 тыс.+ установок приложений`,
+    }
+  : {
+      title: 'Kesha Antonov - React Native lead engineer and product manager',
+      description: `Kesha (Innokenty) Antonov, React Native lead engineer and founder. Maintainer of react-native-gifted-chat; libraries with ${npmTotal} npm installs, apps with 250K+ installs.`,
+      locale: 'en_US',
+      altLocale: 'ru_RU',
+      ogAlt: `Kesha Antonov: ${npmTotal} npm installs of his libraries, 250K+ installs of apps he built`,
+    }
+const ogImage = abs(ru ? '/og-ru.png' : '/og.png')
+const avatar = 'https://avatars.githubusercontent.com/u/11584712?v=4&s=460'
+
+// Structured data. One Person node shared by both language versions via a stable @id.
+const personId = abs('/#person')
+const websiteId = abs('/#website')
+const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync'] as const
+const P = stats.packages as Record<string, { npm: string; repo: string; allTime?: number; stars?: number }>
+const contestText = (place: number, name: string) => `${name}, ${t.contests.place(place)}`
+// The ledger says "Maintainer." after Gifted Chat; that role is already in the maintainer field.
+const libDesc = (k: string) => t.oss.desc[k].replace(/\s*(Maintainer|Мейнтейнер)\.$/, '')
+
+const person = {
+  '@type': 'Person',
+  '@id': personId,
+  name: 'Kesha Antonov',
+  givenName: 'Innokenty',
+  familyName: 'Antonov',
+  alternateName: ['Innokenty Antonov', 'Кеша Антонов', 'Иннокентий Антонов'],
+  description: seo.description,
+  jobTitle: ru ? 'Ведущий разработчик, продакт-менеджер, основатель' : 'Lead Software Engineer, Product Manager, Founder',
+  url: homeEn,
+  image: avatar,
+  email: links.email.replace('mailto:', ''),
+  sameAs: [links.github, links.linkedin, links.telegram, links.instagram, links.npm, links.youtube],
+  knowsAbout: ['React Native', 'React', 'TypeScript', 'iOS', 'Android', 'Ruby on Rails', 'Product management', 'App Store Optimization', 'Telegram Mini Apps', 'TON'],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Peter the Great St. Petersburg Polytechnic University',
+    alternateName: 'СПбПУ Петра Великого',
+  },
+  award: contests.map((c) => contestText(c.place, t.contests.items[c.key].name)),
+}
+
+const libraries = libOrder.map((k) => {
+  const p = P[k]
+  return {
+    '@type': 'SoftwareSourceCode',
+    '@id': `https://github.com/${p.repo}`,
+    name: p.npm,
+    description: libDesc(k),
+    url: `https://www.npmjs.com/package/${p.npm}`,
+    codeRepository: `https://github.com/${p.repo}`,
+    runtimePlatform: 'React Native',
+    maintainer: { '@id': personId },
+    ...(typeof p.allTime === 'number' && {
+      interactionStatistic: {
+        '@type': 'InteractionCounter',
+        interactionType: 'https://schema.org/DownloadAction',
+        userInteractionCount: p.allTime,
+      },
+    }),
+  }
+})
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': websiteId,
+      url: homeEn,
+      name: 'Kesha Antonov',
+      alternateName: 'Кеша Антонов',
+      inLanguage: ['en', 'ru'],
+      publisher: { '@id': personId },
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${pageUrl}#profilepage`,
+      url: pageUrl,
+      name: seo.title,
+      description: seo.description,
+      inLanguage: lang,
+      isPartOf: { '@id': websiteId },
+      mainEntity: { '@id': personId },
+      about: { '@id': personId },
+      primaryImageOfPage: { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 },
+      dateModified: stats.updatedAt,
+      mentions: libraries.map((l) => ({ '@id': l['@id'] })),
+    },
+    person,
+    ...libraries,
+  ],
+}
+// Keep "<" out of the inline script so no string can close the tag early.
+const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{seo.title}</title>
+    <meta name="description" content={seo.description} />
+    <meta name="author" content={ru ? 'Кеша Антонов' : 'Kesha Antonov'} />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href={pageUrl} />
+    <link rel="alternate" hreflang="en" href={homeEn} />
+    <link rel="alternate" hreflang="ru" href={homeRu} />
+    <link rel="alternate" hreflang="x-default" href={homeEn} />
+    <link rel="sitemap" type="application/xml" href={abs('/sitemap.xml')} />
+    <link rel="alternate" type="text/plain" title="llms.txt" href={abs('/llms.txt')} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f6f3e6" />
+    <meta name="color-scheme" content="light" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={ru ? 'Кеша Антонов' : 'Kesha Antonov'} />
+    <meta property="og:title" content={seo.title} />
+    <meta property="og:description" content={seo.description} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:locale" content={seo.locale} />
+    <meta property="og:locale:alternate" content={seo.altLocale} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={seo.ogAlt} />
+    <meta property="profile:first_name" content="Kesha" />
+    <meta property="profile:last_name" content="Antonov" />
+    <meta property="profile:username" content="kesha-antonov" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={seo.ogAlt} />
+
+    <script type="application/ld+json" set:html={jsonLdText} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

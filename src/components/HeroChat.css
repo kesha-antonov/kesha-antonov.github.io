@@ -1,0 +1,99 @@
+/* A phone drawn in the album's single ink line; messages are speech balloons. */
+.phone {
+  width: 100%; max-width: 340px; margin: 0 auto;
+  aspect-ratio: 9 / 18.5;
+  max-height: 640px;
+  border: var(--line) solid var(--ink);
+  border-radius: 40px;
+  background: var(--ink);
+  padding: 10px;
+  display: flex;
+}
+.phone-screen {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column;
+  border-radius: 31px;
+  background: var(--paper);
+  overflow: hidden;
+}
+.phone-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 26px 16px 12px;
+  border-bottom: var(--line) solid var(--ink);
+  background: var(--white);
+}
+.phone-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: var(--line) solid var(--ink);
+  background: var(--sand);
+  display: grid; place-items: center;
+  font: 700 17px/1 var(--display);
+}
+.phone-name { font: 700 16px/1.1 var(--display); text-transform: uppercase; }
+.phone-status { font-size: 13px; color: var(--ink-soft); }
+
+.balloons {
+  flex: 1; overflow-y: auto;
+  padding: 16px 14px 20px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.balloon {
+  position: relative;
+  align-self: flex-start;
+  max-width: 88%;
+  padding: 10px 14px;
+  background: var(--white);
+  border: var(--line) solid var(--ink);
+  border-radius: 22px;
+  font: 400 16px/1.35 var(--hand);
+  overflow-wrap: anywhere;
+}
+/* Balloon tail: an ink triangle with a paper triangle inside it. */
+.balloon::before, .balloon::after {
+  content: ''; position: absolute; left: 18px; width: 0; height: 0;
+  border-style: solid;
+}
+.balloon::before { bottom: -14px; border-width: 14px 12px 0 0; border-color: var(--ink) transparent transparent transparent; }
+.balloon::after { bottom: -8px; left: 21px; border-width: 9px 7px 0 0; border-color: var(--white) transparent transparent transparent; }
+
+/* The visitor's lines read as yellow narration captions, not balloons. */
+.balloon.you {
+  align-self: flex-end;
+  border-radius: 0;
+  background: var(--sand);
+  font: 700 14px/1.25 var(--display);
+  text-transform: uppercase;
+}
+.balloon.you::before, .balloon.you::after { display: none; }
+
+.balloon-link {
+  display: inline-block; margin-top: 6px;
+  font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: 0.03em;
+  color: var(--harbour);
+}
+.balloon.typing { display: flex; gap: 5px; padding: 14px 16px; }
+.balloon.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--ink); opacity: 0.25; }
+.balloon.typing span:nth-child(1) { animation: dot 900ms steps(1) infinite; }
+.balloon.typing span:nth-child(2) { animation: dot 900ms steps(1) 300ms infinite; }
+.balloon.typing span:nth-child(3) { animation: dot 900ms steps(1) 600ms infinite; }
+@keyframes dot { 0% { opacity: 1; } 34% { opacity: 0.25; } }
+
+.replies {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  padding: 12px;
+  border-top: var(--line) solid var(--ink);
+  background: var(--white);
+}
+.reply {
+  min-height: 38px; padding: 0 12px;
+  border: var(--line) solid var(--ink);
+  border-radius: var(--radius-panel);
+  background: var(--sky);
+  font: 700 13px/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em;
+  color: var(--ink); cursor: pointer;
+}
+.reply:hover { background: var(--sand); }
+.reply:active { transform: translateY(1px); }
+.replies-done { font-size: 14px; color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce) { .balloon.typing span { animation: none; opacity: 0.6; } }
