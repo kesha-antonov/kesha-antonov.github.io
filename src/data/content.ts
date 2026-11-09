@@ -88,7 +88,7 @@ const en = {
     ],
     placeholder: 'Pick a question above',
   },
-  proof: { merged: 'Code merged into', clients: 'Shipped for', contests: 'Contest wins', handwritten: 'Written by hand, before AI coding tools existed: my merged code in rails (2016), react-native-permissions (2017), the Expo action sheet (2017), react-native (2019), tdlib (2019) and react-native-webview (2020), the Telegram JavaScript Chart contest (2019), SportSoul (since 2015) and Magisteria (since 2018).' },
+  proof: { merged: 'Code merged into', clients: 'Shipped for', contests: 'Contest wins', handwritten: 'Written by hand: I started using AI tools only in autumn 2025. Before that: my code merged into rails (2016), react-native-permissions (2017), the Expo action sheet (2017), react-native (2019), tdlib (2019), react-native-webview (2020), expo (2023) and edge-to-edge (2025); my first year of Gifted Chat, 156 commits and 14 releases from 08.2024 to 08.2025, including the Reanimated rewrite and the new keyboard handling; my libraries zoom-reanimated, background-downloader and action-cable; the Telegram JavaScript Chart contest (2019); SportSoul (since 2015) and Magisteria (since 2018).' },
   gifted: {
     eyebrow: 'Case study. Open source as a product',
     title: 'Gifted Chat: from abandoned to the fastest-growing chat UI',
@@ -269,7 +269,7 @@ const ru: Dict = {
     ],
     placeholder: 'Выберите вопрос выше',
   },
-  proof: { merged: 'Мой код принят в', clients: 'Делал для', contests: 'Победы', handwritten: 'Написано руками, до появления AI-инструментов для кода: мой код в rails (2016), react-native-permissions (2017), Expo action sheet (2017), react-native (2019), tdlib (2019) и react-native-webview (2020), конкурс Telegram JavaScript Chart (2019), SportSoul (с 2015 года) и Магистерия (с 2018 года).' },
+  proof: { merged: 'Мой код принят в', clients: 'Делал для', contests: 'Победы', handwritten: 'Написано руками: AI-инструментами я начал пользоваться только осенью 2025 года. До этого: мой код в rails (2016), react-native-permissions (2017), Expo action sheet (2017), react-native (2019), tdlib (2019), react-native-webview (2020), expo (2023) и edge-to-edge (2025); первый год Gifted Chat, 156 коммитов и 14 релизов с 08.2024 по 08.2025, включая переписывание на Reanimated и новую работу с клавиатурой; мои библиотеки zoom-reanimated, background-downloader и action-cable; конкурс Telegram JavaScript Chart (2019); SportSoul (с 2015 года) и Магистерия (с 2018 года).' },
   gifted: {
     eyebrow: 'Кейс. Open source как продукт',
     title: 'Gifted Chat: от заброшенной библиотеки до самого быстрорастущего чат-интерфейса для React Native',
