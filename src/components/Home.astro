@@ -236,7 +236,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
       </article>
       <article class="panel sky progulki">
         <span class="caption">{t.work.progulki.tag}</span>
-        <img class="shot" src="/progulki-top.jpg" alt={`${t.work.progulki.name}: ${ru ? 'главная страница сайта' : 'website home page'}`} width="720" height="778" loading="lazy" decoding="async" />
+        <img class="light-only shot" src="/progulki-top.jpg" alt={`${t.work.progulki.name}: ${ru ? 'главная страница сайта' : 'website home page'}`} width="720" height="778" loading="lazy" decoding="async" />
+        <img class="dark-only shot" src="/progulki-top-dark.jpg" alt={`${t.work.progulki.name}: ${ru ? 'главная страница сайта' : 'website home page'}`} width="720" height="778" loading="lazy" decoding="async" />
         <h3><a class="title-link" target="_blank" rel="noopener" href="https://progulka-v-temnote.ru/">{t.work.progulki.name}</a></h3>
         <p>{t.work.progulki.body}</p>
         <p class="links"><a target="_blank" rel="noopener" href="https://progulka-v-temnote.ru/">progulka-v-temnote.ru</a></p>
@@ -391,7 +392,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
             <h3>{t.contests.items[c.key].name}</h3>
             <p>{t.contests.items[c.key].body}</p>
           </div>
-          <img class="proof-shot" src={`/contests/${c.key}.webp`} alt={`contest.com, ${t.contests.items[c.key].name}: Busy Unicorn, your entry`} width="800" height={shotHeight[c.key]} loading="lazy" decoding="async" />
+          <img class="light-only proof-shot" src={`/contests/${c.key}.webp`} alt={`contest.com, ${t.contests.items[c.key].name}: Busy Unicorn, your entry`} width="800" height={shotHeight[c.key]} loading="lazy" decoding="async" />
+          <img class="dark-only proof-shot" src={`/contests/${c.key}-dark.webp`} alt={`contest.com, ${t.contests.items[c.key].name}: Busy Unicorn, your entry`} width="800" height={shotHeight[c.key]} loading="lazy" decoding="async" />
         </a>
       ))}
     </div>

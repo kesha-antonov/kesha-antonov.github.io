@@ -153,3 +153,12 @@ a:focus-visible, button:focus-visible {
 .num { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; line-height: 0.95; }
 .nw { white-space: nowrap; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Images with a light and a dark variant follow the active theme. */
+.dark-only { display: none !important; }
+:root[data-theme='dark'] .light-only { display: none !important; }
+:root[data-theme='dark'] .dark-only { display: block !important; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .light-only { display: none !important; }
+  :root:not([data-theme='light']) .dark-only { display: block !important; }
+}
