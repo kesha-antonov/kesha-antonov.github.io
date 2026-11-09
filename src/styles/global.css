@@ -13,6 +13,10 @@
   --sea-pale: #b6d1b2;
   --red: #d63a2b;
   --white: #fffdf6;
+  --on-accent: #fffdf6;
+  --bezel: #141414;
+  --mark-red: #d63a2b;
+  --mark-blue: #1e4a7a;
 
   --line: 3px;
   --gutter-panel: 14px;
@@ -24,6 +28,50 @@
   --wrap: 1280px;
   --pad: clamp(12px, 3vw, 32px);
   color-scheme: light;
+}
+
+/* Dark theme: follows the OS unless the visitor picked a theme in the header. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --paper: #14161b;
+    --paper-deep: #1b1e24;
+    --ink: #ece5d3;
+    --ink-soft: #b9b2a2;
+    --sky: #2b4c6b;
+    --sky-pale: #33536f;
+    --sand: #6b5526;
+    --sand-pale: #57482a;
+    --harbour: #1d3a5c;
+    --sea: #2f5d3a;
+    --sea-pale: #2c4a31;
+    --red: #b8372a;
+    --white: #1d2027;
+    --on-accent: #fff6e8;
+    --bezel: #08090b;
+    --mark-red: #ff7a66;
+    --mark-blue: #8fbbe6;
+    color-scheme: dark;
+  }
+}
+:root[data-theme='dark'] {
+  --paper: #14161b;
+  --paper-deep: #1b1e24;
+  --ink: #ece5d3;
+  --ink-soft: #b9b2a2;
+  --sky: #2b4c6b;
+  --sky-pale: #33536f;
+  --sand: #6b5526;
+  --sand-pale: #57482a;
+  --harbour: #1d3a5c;
+  --sea: #2f5d3a;
+  --sea-pale: #2c4a31;
+  --red: #b8372a;
+  --white: #1d2027;
+  --on-accent: #fff6e8;
+  --bezel: #08090b;
+  --mark-red: #ff7a66;
+  --mark-blue: #8fbbe6;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -62,8 +110,8 @@ a:focus-visible, button:focus-visible {
 .panel.sky { background: var(--sky); }
 .panel.sand { background: var(--sand); }
 .panel.sea { background: var(--sea); }
-.panel.harbour { background: var(--harbour); color: var(--white); }
-.panel.red { background: var(--red); color: var(--white); }
+.panel.harbour { background: var(--harbour); color: var(--on-accent); }
+.panel.red { background: var(--red); color: var(--on-accent); }
 .panel.paper { background: var(--paper); }
 
 /* Selection is the same line drawn heavier. */
@@ -98,7 +146,7 @@ a:focus-visible, button:focus-visible {
   text-decoration: none; cursor: pointer;
 }
 .btn:hover { background: var(--sky-pale); }
-.btn.red { background: var(--red); color: var(--white); }
+.btn.red { background: var(--red); color: var(--on-accent); }
 .btn.red:hover { background: #bf2f21; }
 .btn:active { transform: translateY(1px); }
 

@@ -5,7 +5,7 @@
   max-height: 640px;
   border: var(--line) solid var(--ink);
   border-radius: 40px;
-  background: var(--ink);
+  background: var(--bezel);
   padding: 10px;
   display: flex;
 }
