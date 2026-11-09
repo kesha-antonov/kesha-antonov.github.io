@@ -88,7 +88,7 @@ const en = {
     ],
     placeholder: 'Pick a question above',
   },
-  proof: { merged: 'Code merged into', clients: 'Shipped for', contests: 'Contest wins' },
+  proof: { merged: 'Code merged into', clients: 'Shipped for', contests: 'Contest wins', handwritten: 'Written by hand, before AI coding tools existed: my merged code in rails (2016), react-native-permissions (2017), the Expo action sheet (2017), react-native (2019), tdlib (2019) and react-native-webview (2020), the Telegram JavaScript Chart contest (2019), SportSoul (since 2015) and Magisteria (since 2018).' },
   gifted: {
     eyebrow: 'Case study. Open source as a product',
     title: 'Gifted Chat: from abandoned to the fastest-growing chat UI',
@@ -269,7 +269,7 @@ const ru: Dict = {
     ],
     placeholder: 'Выберите вопрос выше',
   },
-  proof: { merged: 'Мой код принят в', clients: 'Делал для', contests: 'Победы' },
+  proof: { merged: 'Мой код принят в', clients: 'Делал для', contests: 'Победы', handwritten: 'Написано руками, до появления AI-инструментов для кода: мой код в rails (2016), react-native-permissions (2017), Expo action sheet (2017), react-native (2019), tdlib (2019) и react-native-webview (2020), конкурс Telegram JavaScript Chart (2019), SportSoul (с 2015 года) и Магистерия (с 2018 года).' },
   gifted: {
     eyebrow: 'Кейс. Open source как продукт',
     title: 'Gifted Chat: от заброшенной библиотеки до самого быстрорастущего чат-интерфейса для React Native',
