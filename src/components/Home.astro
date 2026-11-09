@@ -413,6 +413,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <div class="panel red finale">
       <h2>{t.contact.title}</h2>
       <p class="lead">{t.contact.lead}</p>
+      <p class="income"><span class="num">{ru ? 'Топ-10%' : 'Top 10%'}</span> {t.contact.income}</p>
       <p>{t.contact.body}</p>
       <div class="actions">
         <a target="_blank" rel="noopener" class="btn" href={links.telegram}>Telegram</a>
@@ -645,6 +646,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .end { margin-top: clamp(40px, 6vw, 72px); }
   .finale { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 5vw, 64px); }
   .finale h2 { font-size: clamp(44px, 7vw, 104px); }
+  .finale .income { display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; width: fit-content; max-width: 100%; padding: 8px 14px; background: var(--sand); color: var(--ink); border: var(--line) solid var(--ink); font-size: 17px; }
+  .finale .income .num { font-size: 28px; }
   .finale .lead { font: 700 clamp(20px, 2.2vw, 30px)/1.2 var(--display); text-transform: uppercase; }
   .finale p { max-width: 62ch; font-size: 19px; }
   .finale .btn { background: var(--white); color: var(--ink); }

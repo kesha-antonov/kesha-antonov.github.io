@@ -115,6 +115,9 @@ async function sponsors() {
 }
 try {
   result.sponsors = await sponsors()
+  // The Actions token cannot read the sponsorship goal; keep the last known one.
+  if (!result.sponsors.goal && previous.sponsors?.goal) result.sponsors.goal = previous.sponsors.goal
+  if (result.sponsors.count === 0 && previous.sponsors?.count) result.sponsors = previous.sponsors
   console.log('sponsors', result.sponsors.count)
 } catch (e) {
   console.warn(`sponsors: ${e.message}, keeping previous`)

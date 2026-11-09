@@ -140,7 +140,7 @@ const en = {
         ['26', 'clinic brands from one codebase'],
         ['6+ years', 'my main client, since 2019'],
         ['5309', 'my commits, top contributor'],
-        ['Top 10%', 'my monthly income among IT salaries (Habr Career, 2026)'],
+        ['RU / EN / FR', 'languages'],
       ],
       highlights: [
         { h: 'Our own video-call service', p: 'I replaced a paid per-clinic video SDK with our own LiveKit service, built alone. No license fees, and the module is 54% lighter on iOS, 80% on Android.' },
@@ -220,6 +220,7 @@ const en = {
     ],
   },
   contact: {
+    income: 'of IT salaries by monthly income (Habr Career, 2026)',
     eyebrow: 'Contact',
     title: 'To be continued',
     lead: "Let's build the next thing that grows.",
@@ -321,7 +322,7 @@ const ru: Dict = {
         ['26', 'брендов клиник из одной кодовой базы'],
         ['6+ лет', 'мой главный клиент, с 2019 года'],
         ['5309', 'моих коммитов, больше всех в проекте'],
-        ['Топ-10%', 'мой доход в месяц среди IT-зарплат (Хабр Карьера, 2026)'],
+        ['RU / EN / FR', 'три языка'],
       ],
       highlights: [
         { h: 'Свой сервис видеозвонков', p: 'Заменил платный видео-SDK с лицензией на каждую клинику своим сервисом на LiveKit и сделал его в одиночку. Лицензии больше не нужны, а модуль легче на 54% на iOS и на 80% на Android.' },
@@ -401,6 +402,7 @@ const ru: Dict = {
     ],
   },
   contact: {
+    income: 'IT-зарплат по моему доходу в месяц (Хабр Карьера, 2026)',
     eyebrow: 'Контакты',
     title: 'Продолжение следует',
     lead: 'Давайте сделаем следующий продукт, который вырастет.',
