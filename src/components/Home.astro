@@ -193,7 +193,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         <ul class="facts">
           {t.work.magisteria.stats.map(([n, l], i) => <li class={['sky', 'sea', 'sand', 'paper'][i]}><span class="num">{n}</span>{l}</li>)}
         </ul>
-        <ul class="highlights three-up">
+        <ul class="highlights">
           {t.work.magisteria.highlights.map((x) => (
             <li><span class="caption">{x.h}</span><p>{x.p}</p></li>
           ))}
@@ -238,11 +238,19 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         <h3>{t.work.progulki.name}</h3>
         <p>{t.work.progulki.body}</p>
       </article>
-      <article class="panel sand studio">
-        <h3>{t.work.studio.name}</h3>
-        <p class="tag">{t.work.studio.tag}</p>
-        <p>{t.work.studio.body}</p>
-      </article>
+      <div class="work-stack">
+        <article class="panel red aviasales">
+          <h3>{t.work.aviasales.name}</h3>
+          <p class="tag">{t.work.aviasales.tag}</p>
+          <p>{t.work.aviasales.body}</p>
+          <p class="links"><a target="_blank" rel="noopener" href="https://www.aviasales.ru/">aviasales.ru</a></p>
+        </article>
+        <article class="panel sand studio">
+          <h3>{t.work.studio.name}</h3>
+          <p class="tag">{t.work.studio.tag}</p>
+          <p>{t.work.studio.body}</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -557,6 +565,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .progulki { display: flex; flex-direction: column; gap: 10px; }
   .shot { border: var(--line) solid var(--ink); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; height: auto; }
   .studio, .product { display: flex; flex-direction: column; gap: 10px; }
+  .work-stack { display: flex; flex-direction: column; gap: var(--gutter-panel); }
+  .work-stack .panel { flex: 1; }
+  .aviasales { display: flex; flex-direction: column; gap: 10px; }
+  .aviasales h3 { font-size: clamp(24px, 2.4vw, 34px); }
+  .aviasales .links a { color: var(--white); }
   @media (max-width: 900px) { .work { grid-template-columns: 1fr; } }
 
   .products-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
