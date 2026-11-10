@@ -232,6 +232,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 
 - Crypto portfolio tracker for iOS, Android, Apple Watch, Wear OS, with widgets. Launched in 2017, relaunched in 2026 with subscriptions.
 - He does its ASO himself: keyword research, competitor review analysis, store listings in 21 App Store and 18 Google Play locales plus RuStore.
+- Highlights: native home and lock screen widgets, StandBy, Apple Watch complications, Wear OS and Android widgets; no account, the portfolio stays on the device, optional sync through the user's own iCloud or Google Drive via his react-native-cloud-sync; 5,000+ coins in real time, push price alerts, Skia charts; 17 app languages, full VoiceOver support, iPad layouts.
 - 31K App Store downloads (30.8K). Rating 4.4 from 639 ratings. Checked ${STORES_CHECKED}.
 - Links: Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
 
@@ -393,6 +394,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 
 - Трекер криптопортфеля для iOS, Android, Apple Watch, Wear OS, с виджетами. Запущен в 2017 году, перезапущен в 2026 году с подписками.
 - ASO делает сам: подбор ключевых слов, разбор отзывов конкурентов, страницы в сторах на 21 языке в App Store, 18 в Google Play и в RuStore.
+- Что внутри: нативные виджеты на домашнем экране и экране блокировки, StandBy, усложнения для Apple Watch, Wear OS и виджеты Android; без аккаунта, портфель хранится на устройстве, синхронизация по желанию через собственный iCloud или Google Drive пользователя на его react-native-cloud-sync; 5000+ монет в реальном времени, уведомления о цене через пуши, графики на Skia; 17 языков в приложении, полная поддержка VoiceOver, раскладка для iPad.
 - 31 тыс. загрузок в App Store (30.8 тыс.). Оценка 4.4 из 639 оценок. Проверено ${STORES_CHECKED}.
 - Ссылки: Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
 
