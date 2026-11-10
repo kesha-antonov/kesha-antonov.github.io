@@ -711,8 +711,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   @media (max-width: 640px) {
     .magisteria, .product:has(.store-shot) { grid-template-columns: 1fr !important; }
     .magisteria > .store-shot, .product > .store-shot { grid-column: 1; grid-row: 3; justify-self: center; width: 170px; }
-    .magisteria > .shots, .product > .shots { grid-column: 1; grid-row: 3; justify-self: center; }
-    .shots, .shots.small { --w: 140px; }
+    .magisteria > .shots, .product > .shots { grid-column: 1; grid-row: 3; justify-self: stretch; }
+    /* On phones the three screens sit side by side, main one in the middle. */
+    .shots, .shots.small { display: flex; gap: 10px; width: 100%; padding: 0; }
+    .shots .store-shot, .shots .store-shot.small { flex: 1 1 0; min-width: 0; width: auto; transform: none !important; border-radius: 14px; }
+    .shots .l { order: 1; } .shots .c { order: 2; } .shots .r { order: 3; }
   }
   .magisteria, .wide { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; }
   .brand-stack { flex: none; }
