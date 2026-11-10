@@ -182,7 +182,7 @@ const en = {
   oss: {
     eyebrow: 'Open source',
     revival: {
-      title: 'Brought react-native-background-downloader back',
+      title: (x: number) => `Background Downloader: from archived to ${x}x the original`,
       lead: 'The original library was archived in 2022 and stopped getting fixes. In 2023 I picked it up and kept shipping. I still maintain it actively.',
       compare: (y: number) => `npm downloads in ${y}`,
       original: 'Original, archived',
@@ -381,7 +381,7 @@ const ru: Dict = {
   oss: {
     eyebrow: 'Open source',
     revival: {
-      title: 'Вернул к жизни react-native-background-downloader',
+      title: (x: number) => `Background Downloader: из архива в ${x} ${x % 10 >= 2 && x % 10 <= 4 && (x % 100 < 12 || x % 100 > 14) ? 'раза' : 'раз'} популярнее оригинала`,
       lead: 'Оригинальную библиотеку заархивировали в 2022 году, исправления прекратились. В 2023 году я подхватил её и продолжил выпускать релизы. До сих пор активно поддерживаю.',
       compare: (y: number) => `Загрузок из npm за ${y} год`,
       original: 'Оригинал, в архиве',
