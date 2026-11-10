@@ -15,8 +15,7 @@ const PACKAGES = [
 
 // Kesha started maintaining Gifted Chat in August 2024.
 const MAINTENANCE_START = '2024-08'
-// June 2026: last feature release, development moved to @kesha-antonov/react-native-chat.
-const MAINTENANCE_END = '2026-06'
+// Still the maintainer (bug fixes only since June 2026), so the window runs to today.
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
@@ -75,7 +74,7 @@ for (const p of PACKAGES) {
     entry.lastMonth = keep(lastMonth ? months[lastMonth] : 0, prev.lastMonth)
     entry.peakMonth = complete.reduce((best, m) => (months[m] > (best?.value ?? 0) ? { month: m, value: months[m] } : best), null) ?? prev.peakMonth
     if (p.key === 'gifted-chat') {
-      entry.sinceMaintenance = keep(sorted.filter((m) => m >= MAINTENANCE_START && m <= MAINTENANCE_END).reduce((a, m) => a + months[m], 0), prev.sinceMaintenance)
+      entry.sinceMaintenance = keep(sorted.filter((m) => m >= MAINTENANCE_START).reduce((a, m) => a + months[m], 0), prev.sinceMaintenance)
       entry.series = complete.filter((m) => m >= '2023-01').map((m) => [m, months[m]])
     }
   } catch (e) {

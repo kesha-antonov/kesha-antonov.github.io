@@ -161,7 +161,7 @@ How to read this file:
 
 - ${n(stats.totals.allTime)} all-time npm downloads across the 6 libraries he maintains. This includes Gifted Chat downloads from before his maintenance. Source: npm, as of ${asOf}.
 - ${n(stats.totals.lastMonth)} npm downloads of those libraries in ${lastMonth}. Source: npm.
-- ${n(g.sinceMaintenance ?? 0)} npm downloads of react-native-gifted-chat while he maintained it, 2024-08 to 2026-06. Source: npm.
+- ${n(g.sinceMaintenance ?? 0)} npm downloads of react-native-gifted-chat since he became its maintainer in 2024-08, to date. Source: npm.
 - ${n(g.stars)} GitHub stars on react-native-gifted-chat. Source: GitHub, as of ${asOf}.
 - About ${n(APPS_INSTALLS)} installs of apps he built, across Magisteria, CryptoC, SportSoul and sticker packs. Source: App Store Connect, Google Play, RuStore, checked ${STORES_CHECKED}.
 - ${CONTEST_WINS} prize places in Telegram developer contests on contest.com.
@@ -176,7 +176,7 @@ How to read this file:
 - Under his maintenance: 400+ commits and 26 releases (TypeScript, Reanimated, new architecture, keyboard handling, Web).
 - Open issues went from 154 to 3.
 - Monthly npm downloads went from ${n(start)} in 2024-08 to a peak of ${n(peak.value)} in ${peak.month}. Source: npm.
-- In June 2026 he made the last feature release; development moved to his successor library @kesha-antonov/react-native-chat.
+- In June 2026 he made the last feature release; development moved to his successor library @kesha-antonov/react-native-chat. He still maintains Gifted Chat with bug fixes.
 
 ### Libraries
 
@@ -320,7 +320,7 @@ function fullRu(b: string): string {
 
 - ${n(stats.totals.allTime)} загрузок из npm за всё время у 6 библиотек, которые он поддерживает. Сюда входят загрузки Gifted Chat до начала его поддержки. Источник: npm, на ${asOf}.
 - ${n(stats.totals.lastMonth)} загрузок этих библиотек из npm за ${lastMonth}. Источник: npm.
-- ${n(g.sinceMaintenance ?? 0)} загрузок react-native-gifted-chat из npm за время его поддержки, 2024-08 - 2026-06. Источник: npm.
+- ${n(g.sinceMaintenance ?? 0)} загрузок react-native-gifted-chat из npm с тех пор, как он стал мейнтейнером в 2024-08, по сей день. Источник: npm.
 - ${n(g.stars)} звёзд у react-native-gifted-chat на GitHub. Источник: GitHub, на ${asOf}.
 - Около ${n(APPS_INSTALLS)} установок приложений, которые он сделал: Магистерия, CryptoC, SportSoul и стикерпаки. Источник: App Store Connect, Google Play, RuStore, проверено ${STORES_CHECKED}.
 - ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков на contest.com.
@@ -335,7 +335,7 @@ function fullRu(b: string): string {
 - За время его поддержки: 400+ коммитов и 26 релизов (TypeScript, Reanimated, новая архитектура, клавиатура, Web).
 - Открытых issues стало 3 вместо 154.
 - Загрузки из npm в месяц выросли с ${n(start)} в 2024-08 до пика ${n(peak.value)} в ${peak.month}. Источник: npm.
-- В июне 2026 года вышел последний релиз с новыми функциями; разработка перешла в его библиотеку-преемника @kesha-antonov/react-native-chat.
+- В июне 2026 года вышел последний релиз с новыми функциями; разработка перешла в его библиотеку-преемника @kesha-antonov/react-native-chat. Gifted Chat он по-прежнему поддерживает, исправляет ошибки.
 
 ### Библиотеки
 

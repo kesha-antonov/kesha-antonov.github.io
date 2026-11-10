@@ -109,7 +109,7 @@ const en = {
     chartTitle: 'Gifted Chat npm downloads per month',
     chartNote: 'Maintenance starts',
     chartFork: 'Moved to my fork',
-    statSince: 'downloads under my maintenance, 08.2024 to 06.2026',
+    statSince: 'downloads under my maintenance, since 08.2024',
     statStars: 'GitHub stars',
   },
   work: {
@@ -297,7 +297,7 @@ const ru: Dict = {
     chartTitle: 'Загрузки Gifted Chat в npm по месяцам',
     chartNote: 'Начало поддержки',
     chartFork: 'Переход на мой форк',
-    statSince: 'загрузок за время моей поддержки, 08.2024-06.2026',
+    statSince: 'загрузок за время моей поддержки, с 08.2024',
     statStars: 'звёзд на GitHub',
   },
   work: {
