@@ -300,8 +300,10 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
           <p class="links"><a target="_blank" rel="noopener" href={ru ? 'https://www.travelpayouts.com/ru/offers/aviasales-partnerskaya-programma/' : 'https://www.travelpayouts.com/en/offers/aviasales-affiliate-program/'}>{ru ? 'Партнёрская программа' : 'Partner program'}</a><a target="_blank" rel="noopener" href="https://www.aviasales.ru/">aviasales.ru</a></p>
         </article>
         <article class="panel sand studio">
-          <h3>{t.work.studio.name}</h3>
-          <p class="tag">{t.work.studio.tag}</p>
+          <div class="app-head">
+            <img src="/logos/skill-surf.webp" alt="" width="72" height="72" class="icon logo-tile" loading="lazy" decoding="async" />
+            <div><h3>{t.work.studio.name}</h3><p class="tag">{t.work.studio.tag}</p></div>
+          </div>
           <p>{t.work.studio.body}</p>
         </article>
       </div>
@@ -718,6 +720,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .title-link:hover { text-decoration: underline; text-decoration-thickness: 3px; }
   .shot { border: var(--line) solid var(--ink); aspect-ratio: 16 / 10; object-fit: cover; object-position: top; width: 100%; height: auto; }
   .studio, .product { display: flex; flex-direction: column; gap: 10px; }
+  .logo-tile { width: 72px; height: 72px; background: #fff; object-fit: contain; }
   .work-stack { display: flex; flex-direction: column; gap: var(--gutter-panel); }
   .work-stack .panel { flex: 1; }
   .aviasales { display: flex; flex-direction: column; gap: 10px; }
