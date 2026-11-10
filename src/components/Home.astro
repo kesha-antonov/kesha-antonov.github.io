@@ -358,16 +358,16 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         return (
           <article class={`panel ${['white', 'sky', 'sand'][i]} product small`}>
             {k === 'diary' && <img class="product-photo" src="/products/diary.webp" alt={p.name} width="900" height="518" loading="lazy" decoding="async" />}
+            <h3>{p.name}</h3>
+            <p class="tag">{p.tag}</p>
+            <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
+            {p.stats.map(([n, l]) => <p class="inline-stat"><span class="num">{n}</span> {l}</p>)}
             {k === 'stickers' && (
               <div class="sticker-shots">
                 <img src="/products/stickers-fall.webp" alt="Falling in Fall: iMessage stickers" width="300" height="534" loading="lazy" decoding="async" />
                 <img src="/products/stickers-sport.webp" alt="Sports Sticker Pack: iMessage chat" width="300" height="534" loading="lazy" decoding="async" />
               </div>
             )}
-            <h3>{p.name}</h3>
-            <p class="tag">{p.tag}</p>
-            <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
-            {p.stats.map(([n, l]) => <p class="inline-stat"><span class="num">{n}</span> {l}</p>)}
           </article>
         )
       })}
@@ -738,7 +738,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .product.small h3 { font-size: 24px; }
   .inline-stat { margin-top: auto; font-size: 16px; }
-  .sticker-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 6px; }
+  .sticker-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; padding-top: 6px; }
   .sticker-shots img { width: 100%; height: auto; border: var(--line) solid var(--ink); border-radius: 14px; background: var(--bezel); }
   .product-photo { width: 100%; height: auto; aspect-ratio: 900 / 518; object-fit: cover; border: var(--line) solid var(--ink); margin-bottom: 6px; }
   .inline-stat .num { font-size: 30px; }
