@@ -330,7 +330,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
                 ))}
               </div>
             ) : (
-              <img class="store-shot small" src="/products/sportsoul.webp" alt={`${p.name}: ${ru ? 'экран приложения' : 'app screenshot'}`} width="400" height="712" loading="lazy" decoding="async" />
+              <div class="shots small" role="group" aria-label={ru ? 'Экраны приложения SportSoul' : 'SportSoul app screens'}>
+                {[[2, ru ? 'поиск партнёра или тренера' : 'finding a partner or coach'], [1, ru ? 'расписание тренировок' : 'workout schedule'], [3, ru ? 'статистика тренировок' : 'workout stats']].map(([n, label], i) => (
+                  <img class={`store-shot small ${['l', 'c', 'r'][i]}`} src={`/products/sportsoul-${n}.webp`} alt={`SportSoul: ${label}`} width="400" height="712" loading="lazy" decoding="async" />
+                ))}
+              </div>
             )}
             <div class="app-head">
               <img src={`/icons/${k}.png`} alt="" width="72" height="72" class="icon" loading="lazy" />
@@ -402,9 +406,9 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
               return (
                 <tr>
                   <th scope="row"><div class="lib-row"><svg class="lib-icon" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" set:html={LIB_ICONS[k]} /><div><a target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{p.npm}</a><span>{t.oss.desc[k]}</span></div></div></th>
-                  <td data-label={t.oss.cols.month}><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.lastMonth)}</a></td>
-                  <td data-label={t.oss.cols.total}><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.allTime)}</a></td>
-                  <td data-label={t.oss.cols.stars}>{fmt(p.stars)}</td>
+                  <td data-label={t.oss.cols.month}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[0]} />{t.oss.cols.month}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.lastMonth)}</a></td>
+                  <td data-label={t.oss.cols.total}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[1]} />{t.oss.cols.total}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.allTime)}</a></td>
+                  <td data-label={t.oss.cols.stars}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[2]} />{t.oss.cols.stars}</span>{fmt(p.stars)}</td>
                 </tr>
               )
             })}
@@ -801,6 +805,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .ledger td { font: 700 22px/1 var(--display); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .ledger tbody tr:first-child td:nth-child(3) { color: var(--mark-red); }
   .npm-link { color: inherit; text-decoration: none; }
+  .m-label { display: none; }
   .npm-link:hover, .npm-link:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
   .ledger-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 20px; background: var(--paper); font-size: 15px; }
   @media (max-width: 700px) {
@@ -808,7 +813,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     .ledger tr { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: var(--line) solid var(--ink); }
     .ledger tbody th { grid-column: 1 / -1; border-bottom: 0; padding-bottom: 6px; }
     .ledger td { border-bottom: 0; text-align: left; padding-top: 4px; font-size: 20px; }
-    .ledger td::before { content: attr(data-label); display: block; font: 700 11px/1.4 var(--display); text-transform: uppercase; opacity: 0.7; }
+    .ledger td .m-label { display: flex; align-items: center; gap: 5px; margin-bottom: 4px; font: 700 11px/1.4 var(--display); text-transform: uppercase; }
+    .ledger td .m-label svg { flex: none; }
   }
 
   /* Sponsors */
