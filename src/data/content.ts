@@ -182,7 +182,7 @@ const en = {
   oss: {
     eyebrow: 'Open source',
     revival: {
-      title: (x: number) => `Background Downloader: from archived to ${x}x the original`,
+      title: (n: string) => `Background Downloader: from archived to ${n} downloads`,
       lead: 'The original library was archived in 2022 and stopped getting fixes. In 2023 I picked it up and kept shipping. I still maintain it actively.',
       compare: 'npm downloads over a year',
       original: (y: number) => `Original, ${y}`,
@@ -382,7 +382,7 @@ const ru: Dict = {
   oss: {
     eyebrow: 'Open source',
     revival: {
-      title: (x: number) => `Background Downloader: из архива в ${x} ${x % 10 >= 2 && x % 10 <= 4 && (x % 100 < 12 || x % 100 > 14) ? 'раза' : 'раз'} популярнее оригинала`,
+      title: (n: string) => `Background Downloader: от архива до ${n} загрузок`,
       lead: 'Оригинальную библиотеку заархивировали в 2022 году, исправления прекратились. В 2023 году я подхватил её и продолжил выпускать релизы. До сих пор активно поддерживаю.',
       compare: 'Загрузок из npm за год',
       original: (y: number) => `Оригинал, ${y}`,

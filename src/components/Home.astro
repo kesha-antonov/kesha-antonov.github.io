@@ -263,7 +263,7 @@ const SHOTS = {
       </article>
     </div>
     {rv && (
-      <h2 class="sub-chapter">{t.oss.revival.title(Math.round(rv.mine / rv.original.downloads))}</h2>
+      <h2 class="sub-chapter">{t.oss.revival.title(`${Math.floor(P['background-downloader'].allTime / 1e5) / 10}${ru ? ' млн' : 'M'}`)}</h2>
     )}
     {rv && (
       <div class="tier">
