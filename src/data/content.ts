@@ -34,18 +34,19 @@ export const contests = [
 ] as const
 
 // Each link lists Kesha's merged commits in that repo.
-export const upstream = [
-  { label: 'rails/rails', repo: 'rails/rails' },
-  { label: 'tdlib/td', repo: 'tdlib/td' },
-  { label: 'react-native', repo: 'react/react-native' },
-  { label: 'expo', repo: 'expo/expo' },
-  { label: 'expo/react-native-action-sheet', repo: 'expo/react-native-action-sheet' },
+// logo: a monochrome mark in public/logos/, only for repos owned by that project's own organization.
+export const upstream: { label: string; repo: string; logo?: string }[] = [
+  { label: 'rails/rails', repo: 'rails/rails', logo: 'rails' },
+  { label: 'tdlib/td', repo: 'tdlib/td', logo: 'telegram' },
+  { label: 'react-native', repo: 'react/react-native', logo: 'react' },
+  { label: 'expo', repo: 'expo/expo', logo: 'expo' },
+  { label: 'expo/react-native-action-sheet', repo: 'expo/react-native-action-sheet', logo: 'expo' },
   { label: 'react-native-webview', repo: 'react-native-webview/react-native-webview' },
   { label: 'react-native-permissions', repo: 'zoontek/react-native-permissions' },
   { label: 'react-native-device-info', repo: 'react-native-device-info/react-native-device-info' },
   { label: 'react-native-edge-to-edge', repo: 'zoontek/react-native-edge-to-edge' },
   { label: 'react-native-community/directory', repo: 'react-native-community/directory' },
-  { label: 'react-native-website', repo: 'react/react-native-website' },
+  { label: 'react-native-website', repo: 'react/react-native-website', logo: 'react' },
 ]
 
 const en = {
