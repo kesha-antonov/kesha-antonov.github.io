@@ -250,6 +250,41 @@ const SHOTS = {
         </div>
       </article>
     </div>
+    {rv && (
+      <div class="tier">
+        <article class="panel white revival">
+          <div class="revival-text">
+            <h3>{t.oss.revival.title}</h3>
+            <p>{t.oss.revival.lead}</p>
+            <p class="revival-added">{t.oss.revival.added}</p>
+            <p class="links">
+              <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-background-downloader">{t.oss.revival.repo}</a>
+              <a target="_blank" rel="noopener" href="https://kesha-antonov.github.io/react-native-background-downloader/">{t.oss.revival.docs}</a>
+            </p>
+          </div>
+          <div class="revival-data">
+            <p class="caption">{t.oss.revival.compare(rv.year)}</p>
+            <div class="bars">
+              <div class="bar-row">
+                <span class="bar-label">{t.oss.revival.original}</span>
+                <span class="bar"><span class="fill old" style={`width: ${Math.max(1.5, (rv.original / rv.mine) * 100).toFixed(1)}%`} /></span>
+                <span class="num">{fmt(rv.original)}</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">{t.oss.revival.mine}</span>
+                <span class="bar"><span class="fill mine" style="width: 100%" /></span>
+                <span class="num">{fmt(rv.mine)}</span>
+              </div>
+            </div>
+            <ul class="facts three">
+              <li class="red"><span class="num">{fmt(P['background-downloader'].allTime)}</span>{t.oss.revival.facts.total}</li>
+              <li class="sand"><span class="num">{rv.releases}</span>{t.oss.revival.facts.releases}</li>
+              <li class="sky"><span class="num">430+</span>{t.oss.revival.facts.commits}</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    )}
   </section>
 
   <section id="work" class="chapter">
@@ -435,41 +470,6 @@ const SHOTS = {
         </div>
       </div>
     </div>
-    {rv && (
-      <div class="tier">
-        <article class="panel white revival">
-          <div class="revival-text">
-            <h3>{t.oss.revival.title}</h3>
-            <p>{t.oss.revival.lead}</p>
-            <p class="revival-added">{t.oss.revival.added}</p>
-            <p class="links">
-              <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-background-downloader">{t.oss.revival.repo}</a>
-              <a target="_blank" rel="noopener" href="https://kesha-antonov.github.io/react-native-background-downloader/">{t.oss.revival.docs}</a>
-            </p>
-          </div>
-          <div class="revival-data">
-            <p class="caption">{t.oss.revival.compare(rv.year)}</p>
-            <div class="bars">
-              <div class="bar-row">
-                <span class="bar-label">{t.oss.revival.original}</span>
-                <span class="bar"><span class="fill old" style={`width: ${Math.max(1.5, (rv.original / rv.mine) * 100).toFixed(1)}%`} /></span>
-                <span class="num">{fmt(rv.original)}</span>
-              </div>
-              <div class="bar-row">
-                <span class="bar-label">{t.oss.revival.mine}</span>
-                <span class="bar"><span class="fill mine" style="width: 100%" /></span>
-                <span class="num">{fmt(rv.mine)}</span>
-              </div>
-            </div>
-            <ul class="facts three">
-              <li class="red"><span class="num">{fmt(P['background-downloader'].allTime)}</span>{t.oss.revival.facts.total}</li>
-              <li class="sand"><span class="num">{rv.releases}</span>{t.oss.revival.facts.releases}</li>
-              <li class="sky"><span class="num">430+</span>{t.oss.revival.facts.commits}</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    )}
     {sp && sp.count > 0 && (
       <div class="tier">
         <div class="panel sand sponsors">
