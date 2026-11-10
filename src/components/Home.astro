@@ -101,7 +101,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
       <a href="#work">{t.nav.work}</a>
       <a href="#products">{t.nav.products}</a>
       <a href="#oss">{t.nav.oss}</a>
-      <button type="button" class="theme-toggle" aria-label={ru ? 'Сменить тему' : 'Switch theme'} title={ru ? 'Сменить тему' : 'Switch theme'}>
+      <button type="button" class="theme-toggle" aria-label={ru ? 'Тема: как в системе' : 'Theme: system'} title={ru ? 'Тема: как в системе' : 'Theme: system'} data-l-system={ru ? 'Тема: как в системе' : 'Theme: system'} data-l-light={ru ? 'Тема: светлая' : 'Theme: light'} data-l-dark={ru ? 'Тема: тёмная' : 'Theme: dark'}>
+        <svg class="icon-auto" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="2" fill="var(--white)" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round" /><path d="M12 5.2a5 5 0 0 1 0 10z" fill="var(--sand)" /><path d="M8 21h8M12 17v4" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" /></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="var(--sand)" stroke="var(--ink)" stroke-width="2.2" /><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" /></svg>
         <svg class="icon-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="var(--sand)" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round" /></svg>
       </button>
@@ -515,19 +516,27 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   import { initMotion } from '../scripts/motion'
   initMotion()
 
-  // Theme switch: flips between light and dark; matching the OS again clears the saved choice.
-  const toggle = document.querySelector('.theme-toggle')
+  // Theme switch: cycles system, light, dark. "System" follows the OS and stores nothing.
+  const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle')
   if (toggle) {
-    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const root = document.documentElement
+    const order = ['system', 'light', 'dark']
+    const label = () => {
+      const mode = root.dataset.theme || 'system'
+      const text = toggle.dataset['l' + mode[0].toUpperCase() + mode.slice(1)] || ''
+      toggle.setAttribute('aria-label', text)
+      toggle.title = text
+    }
+    label()
     toggle.addEventListener('click', () => {
-      const root = document.documentElement
-      const current = root.dataset.theme || (media.matches ? 'dark' : 'light')
-      const next = current === 'dark' ? 'light' : 'dark'
-      const system = media.matches ? 'dark' : 'light'
+      const next = order[(order.indexOf(root.dataset.theme || 'system') + 1) % order.length]
+      if (next === 'system') delete root.dataset.theme
+      else root.dataset.theme = next
       try {
-        if (next === system) { delete root.dataset.theme; localStorage.removeItem('theme') }
-        else { root.dataset.theme = next; localStorage.setItem('theme', next) }
-      } catch (e) { root.dataset.theme = next }
+        if (next === 'system') localStorage.removeItem('theme')
+        else localStorage.setItem('theme', next)
+      } catch (e) {}
+      label()
     })
   }
 
@@ -567,13 +576,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   nav a:not(.btn):hover { text-decoration: underline; }
   .theme-toggle { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--sky); cursor: pointer; }
   .theme-toggle:hover { background: var(--sand-pale); }
-  .theme-toggle .icon-moon { display: none; }
-  :global(:root[data-theme='dark']) .theme-toggle .icon-sun { display: none; }
+  .theme-toggle svg { display: none; }
+  .theme-toggle .icon-auto { display: block; }
+  :global(:root[data-theme='light']) .theme-toggle .icon-auto, :global(:root[data-theme='dark']) .theme-toggle .icon-auto { display: none; }
+  :global(:root[data-theme='light']) .theme-toggle .icon-sun { display: block; }
   :global(:root[data-theme='dark']) .theme-toggle .icon-moon { display: block; }
-  @media (prefers-color-scheme: dark) {
-    :global(:root:not([data-theme='light'])) .theme-toggle .icon-sun { display: none; }
-    :global(:root:not([data-theme='light'])) .theme-toggle .icon-moon { display: block; }
-  }
   .avatar { width: 44px; height: 44px; border-radius: 50%; border: var(--line) solid var(--ink); flex: none; }
   .lang-menu { position: relative; }
   .lang-menu summary { list-style: none; display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--sky); cursor: pointer; user-select: none; }
