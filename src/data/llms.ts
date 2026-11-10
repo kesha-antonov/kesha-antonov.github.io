@@ -251,7 +251,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 
 ### Smaller products
 
-- Achievement Diary (2017): printed goal planner. Designed the product and its pages, printed it in six cover colors, prepared a Boomstarter crowdfunding campaign.
+- Achievement Diary (2017): printed goal planner. Made it together with a designer, printed it in six cover colors, prepared a Boomstarter crowdfunding campaign.
 - 1dbgym: fitness tracker as a Telegram Mini App with game mechanics and referrals.
 - iMessage sticker packs Falling in Fall and Sports Sticker Pack: 3.2K downloads.
 
@@ -410,7 +410,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 
 ### Небольшие продукты
 
-- Ежедневник достижений (2017): бумажный планер для целей. Придумал продукт и развороты, напечатал в шести цветах обложки, подготовил краудфандинг на Boomstarter.
+- Ежедневник достижений (2017): бумажный планер для целей. Сделал вместе с дизайнером, напечатал в шести цветах обложки, подготовил краудфандинг на Boomstarter.
 - 1dbgym: фитнес-трекер в Telegram Mini App с игровой механикой и рефералами.
 - Стикерпаки для iMessage Falling in Fall и Sports Sticker Pack: 3.2 тыс. загрузок.
 
