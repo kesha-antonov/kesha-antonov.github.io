@@ -511,6 +511,9 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
 </main>
 
 <script>
+  import { initMotion } from '../scripts/motion'
+  initMotion()
+
   // Theme switch: flips between light and dark; matching the OS again clears the saved choice.
   const toggle = document.querySelector('.theme-toggle')
   if (toggle) {
