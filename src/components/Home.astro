@@ -1,6 +1,7 @@
 ---
 import HeroChat from './HeroChat.tsx'
 import WorldMap from './WorldMap.astro'
+import Shots from './Shots.astro'
 import stats from '../data/stats.json'
 import { dict, links, apps, contests, upstream, compact, groupInt, CONTEST_WINS, type Lang } from '../data/content'
 
@@ -90,6 +91,28 @@ const linkParts = (text: string) => {
 const shotHeight: Record<string, number> = { fixes: 251, ton: 259, chart: 199 }
 const sp = (stats as any).sponsors as { count: number; list: { login: string; name: string; org: boolean }[]; goal: { title: string; target: number } | null } | undefined
 const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.org)) : []
+// App screens, main one first.
+const shot = (prefix: string, name: string, list: [string, string][]) => list.map(([n, label]) => ({ src: `/products/${prefix}-${n}.webp`, alt: `${name}: ${label}` }))
+const SHOTS = {
+  magisteria: shot('magisteria', ru ? 'Магистерия' : 'Magisteria', ru
+    ? [['1', 'каталог курсов и лекций'], ['4', 'страница курса'], ['5', 'план курса'], ['3', 'плеер лекции'], ['2', 'библиотека'], ['6', 'проверка знаний']]
+    : [['1', 'course catalog'], ['4', 'course page'], ['5', 'course plan'], ['3', 'lecture player'], ['2', 'library'], ['6', 'knowledge check']]),
+  cryptoc: shot(`cryptoc-${ru ? 'ru' : 'en'}`, 'CryptoC', ru
+    ? [['1', 'портфель'], ['2', 'виджеты'], ['3', 'уведомления о цене'], ['4', 'тёмная тема'], ['6', 'конвертер'], ['5', 'курсы валют']]
+    : [['1', 'portfolio'], ['2', 'widgets'], ['3', 'price alerts'], ['4', 'dark theme'], ['6', 'converter'], ['5', 'exchange rates']]),
+  sportsoul: shot('sportsoul', 'SportSoul', ru
+    ? [['1', 'расписание тренировок'], ['2', 'поиск партнёра или тренера'], ['3', 'статистика тренировок'], ['4', 'фото и видео тренировок']]
+    : [['1', 'workout schedule'], ['2', 'finding a partner or coach'], ['3', 'workout stats'], ['4', 'workout photos and videos']]),
+  stickers: [
+    { src: '/products/stickers-1.webp', alt: ru ? 'Falling in Fall: все стикеры' : 'Falling in Fall: the sticker set' },
+    { src: '/products/stickers-2.webp', alt: ru ? 'Sports Sticker Pack: стикеры в чате' : 'Sports Sticker Pack in a chat' },
+    { src: '/products/stickers-3.webp', alt: ru ? 'Falling in Fall: доброе утро' : 'Falling in Fall: good morning' },
+    { src: '/products/stickers-4.webp', alt: ru ? 'Falling in Fall: выздоравливай' : 'Falling in Fall: get well soon' },
+    { src: '/products/stickers-5.webp', alt: ru ? 'Falling in Fall: выбор стикера' : 'Falling in Fall: sticker picker' },
+    { src: '/products/stickers-6.webp', alt: ru ? 'Sports Sticker Pack: все стикеры' : 'Sports Sticker Pack: the sticker set' },
+  ],
+}
+
 ---
 <header class="page">
   <div class="masthead panel">
@@ -227,11 +250,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <h2>{t.work.title}</h2>
     <div class="tier work">
       <article class="panel magisteria">
-        <div class="shots" role="group" aria-label={ru ? 'Экраны приложения Магистерия' : 'Magisteria app screens'}>
-          {[[2, ru ? 'Библиотека' : 'Library'], [1, ru ? 'Каталог курсов и лекций' : 'Course catalog'], [3, ru ? 'Плеер лекции' : 'Lecture player']].map(([n, label], i) => (
-            <img class={`store-shot ${['l', 'c', 'r'][i]}`} src={`/products/magisteria-${n}.webp`} alt={`${ru ? 'Магистерия' : 'Magisteria'}: ${label}`} width="400" height="870" loading="lazy" decoding="async" />
-          ))}
-        </div>
+        <Shots items={SHOTS.magisteria} width={400} height={870} label={ru ? 'Экраны приложения Магистерия' : 'Magisteria app screens'} ru={ru} />
         <div class="app-head">
           <img src="/icons/magisteria.png" alt="" width="88" height="88" class="icon" />
           <div>
@@ -323,19 +342,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         const p = t.products.items[k]
         return (
           <article class={`panel ${i ? 'sea' : 'white'} product`}>
-            {k === 'cryptoc' ? (
-              <div class="shots small" role="group" aria-label={ru ? 'Экраны приложения CryptoC' : 'CryptoC app screens'}>
-                {[[2, ru ? 'виджеты' : 'widgets'], [1, ru ? 'портфель' : 'portfolio'], [3, ru ? 'уведомления о цене' : 'price alerts']].map(([n, label], i) => (
-                  <img class={`store-shot small ${['l', 'c', 'r'][i]}`} src={`/products/cryptoc-${ru ? 'ru' : 'en'}-${n}.webp`} alt={`CryptoC: ${label}`} width="400" height="870" loading="lazy" decoding="async" />
-                ))}
-              </div>
-            ) : (
-              <div class="shots small" role="group" aria-label={ru ? 'Экраны приложения SportSoul' : 'SportSoul app screens'}>
-                {[[2, ru ? 'поиск партнёра или тренера' : 'finding a partner or coach'], [1, ru ? 'расписание тренировок' : 'workout schedule'], [3, ru ? 'статистика тренировок' : 'workout stats']].map(([n, label], i) => (
-                  <img class={`store-shot small ${['l', 'c', 'r'][i]}`} src={`/products/sportsoul-${n}.webp`} alt={`SportSoul: ${label}`} width="400" height="712" loading="lazy" decoding="async" />
-                ))}
-              </div>
-            )}
+            <Shots small items={k === 'cryptoc' ? SHOTS.cryptoc : SHOTS.sportsoul} width={400} height={k === 'cryptoc' ? 870 : 711} label={`${p.name}: ${ru ? 'экраны приложения' : 'app screens'}`} ru={ru} />
             <div class="app-head">
               <img src={`/icons/${k}.png`} alt="" width="72" height="72" class="icon" loading="lazy" />
               <div><h3>{p.name}</h3><p class="tag">{p.tag}</p></div>
@@ -380,12 +387,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
             <p class="tag">{p.tag}</p>
             <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
             {p.stats.map(([n, l]) => <p class="inline-stat"><span class="num">{n}</span> {l}</p>)}
-            {k === 'stickers' && (
-              <div class="sticker-shots">
-                <img src="/products/stickers-fall.webp" alt="Falling in Fall: iMessage stickers" width="300" height="534" loading="lazy" decoding="async" />
-                <img src="/products/stickers-sport.webp" alt="Sports Sticker Pack: iMessage chat" width="300" height="534" loading="lazy" decoding="async" />
-              </div>
-            )}
+            {k === 'stickers' && <Shots small items={SHOTS.stickers} width={300} height={534} label={ru ? 'Стикеры в iMessage' : 'The stickers in iMessage'} ru={ru} />}
           </article>
         )
       })}
@@ -693,34 +695,17 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .chart-foot .num { font-size: 34px; margin-right: 6px; }
 
   .work { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
-  .store-shot { width: clamp(140px, 15vw, 190px); height: auto; border: var(--line) solid var(--ink); border-radius: 18px; background: var(--bezel); }
-  .store-shot.small { width: clamp(100px, 10vw, 130px); border-radius: 14px; }
-  .magisteria, .product:has(.store-shot) { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: clamp(16px, 2.4vw, 32px); row-gap: 14px; align-content: start; }
-  .magisteria > *, .product:has(.store-shot) > * { grid-column: 1; }
-  .magisteria > .shots { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
-  .product > .shots { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
-  /* Three screens fanned out: the main one in front, the others tilted behind it. */
-  .shots { --w: clamp(130px, 13vw, 175px); display: grid; grid-template-areas: 'stack'; place-items: center; width: calc(var(--w) * 1.85); padding: 6px 0 10px; }
-  .shots.small { --w: clamp(92px, 8.5vw, 116px); }
-  .shots .store-shot { grid-area: stack; width: var(--w); transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1.1); }
-  .shots .c { position: relative; z-index: 2; }
-  .shots .l { transform: translateX(-44%) rotate(-7deg) scale(0.86); }
-  .shots .r { transform: translateX(44%) rotate(7deg) scale(0.86); }
-  .shots:hover .l { transform: translateX(-56%) rotate(-9deg) scale(0.88); }
-  .shots:hover .r { transform: translateX(56%) rotate(9deg) scale(0.88); }
-  .product > .store-shot { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
-  .product:has(.store-shot) > .facts, .product:has(.store-shot) > .links { grid-column: 1 / -1; }
+  .magisteria, .product:not(.small):has(.store-shot) { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: clamp(16px, 2.4vw, 32px); row-gap: 14px; align-content: start; }
+  .magisteria > *, .product:not(.small):has(.store-shot) > * { grid-column: 1; }
+  .magisteria > :global(.shots) { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  .product:not(.small) > :global(.shots) { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+  .product.small > :global(.shots) { margin-top: auto; align-self: center; }
+  .product:not(.small):has(.store-shot) > .facts, .product:not(.small):has(.store-shot) > .links { grid-column: 1 / -1; }
   .magisteria > .highlights, .magisteria > .links, .magisteria > .footnote { grid-column: 1 / -1; }
   .map-panel { padding: clamp(10px, 2vw, 22px); }
   @media (max-width: 640px) {
-    .magisteria, .product:has(.store-shot) { grid-template-columns: 1fr !important; }
-    .magisteria > .store-shot, .product > .store-shot { grid-column: 1; grid-row: 3; justify-self: center; width: 170px; }
-    .magisteria > .shots, .product > .shots { grid-column: 1; grid-row: 3; justify-self: stretch; }
-    /* On phones the screens become a swipeable row; the next one peeks in from the side. */
-    .shots, .shots.small { display: flex; gap: 12px; width: 100%; padding: 2px 0 6px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
-    .shots::-webkit-scrollbar { display: none; }
-    .shots .store-shot, .shots .store-shot.small { flex: 0 0 62%; width: auto; min-width: 0; transform: none !important; scroll-snap-align: start; border-radius: 18px; }
-    .shots .c { order: 1; } .shots .l { order: 2; } .shots .r { order: 3; }
+    .magisteria, .product:not(.small):has(.store-shot) { grid-template-columns: 1fr !important; }
+    .magisteria > :global(.shots), .product:not(.small) > :global(.shots) { grid-column: 1; grid-row: 3; justify-self: stretch; }
   }
   .magisteria, .wide { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; }
   .brand-stack { flex: none; }
@@ -755,7 +740,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .facts li { border: var(--line) solid var(--ink); padding: 10px 12px; font-size: 15px; line-height: 1.25; background: var(--white); }
   .facts li.sky { background: var(--sky); } .facts li.sea { background: var(--sea-pale); } .facts li.sand { background: var(--sand); } .facts li.paper { background: var(--paper); }
   .facts .num { display: block; font-size: clamp(26px, 2.6vw, 38px); margin-bottom: 4px; }
-  @media (max-width: 700px) { .facts { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .facts, .facts.three { grid-template-columns: 1fr 1fr; } }
   .links { display: flex; flex-wrap: wrap; gap: 8px 18px; font: 700 15px/1 var(--display); text-transform: uppercase; }
   .links a { display: inline-flex; align-items: center; gap: 6px; }
   /* Brand marks: monochrome ones are masks filled with the text color, so they follow the theme. */
@@ -781,8 +766,6 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .product.small h3 { font-size: 24px; }
   .inline-stat { margin-top: auto; font-size: 16px; }
-  .sticker-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto; padding-top: 6px; }
-  .sticker-shots img { width: 100%; height: auto; border: var(--line) solid var(--ink); border-radius: 14px; background: var(--bezel); }
   .product-photo { width: 100%; height: auto; aspect-ratio: 900 / 518; object-fit: cover; border: var(--line) solid var(--ink); margin-bottom: 6px; }
   .inline-stat .num { font-size: 30px; }
   @media (max-width: 900px) { .products-main, .three { grid-template-columns: 1fr; } }

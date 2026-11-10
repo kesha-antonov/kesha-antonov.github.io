@@ -1,0 +1,82 @@
+---
+// App screens: a fanned stack on desktop (the arrows or a click on a side screen bring
+// the next one forward) and a swipeable row on phones. The first item is the main screen.
+interface Props {
+  items: { src: string; alt: string }[]
+  width: number
+  height: number
+  label: string
+  ru: boolean
+  small?: boolean
+}
+const { items, width, height, label, ru, small = false } = Astro.props
+const n = items.length
+const pos = (i: number) => (i === 0 ? 'c' : i === 1 ? 'r' : i === n - 1 ? 'l' : 'off')
+---
+<div class:list={['shots', { small }]} data-shots role="group" aria-label={label}>
+  {items.map((it, i) => (
+    <img class={`store-shot ${pos(i)}`} src={it.src} alt={it.alt} width={width} height={height} loading="lazy" decoding="async" />
+  ))}
+  {n > 3 && (
+    <div class="shots-nav">
+      <button type="button" data-step="-1" aria-label={ru ? 'Предыдущий экран' : 'Previous screen'}>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+      <span class="shots-count" aria-live="polite"><span data-index>1</span> / {n}</span>
+      <button type="button" data-step="1" aria-label={ru ? 'Следующий экран' : 'Next screen'}>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+    </div>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-shots]').forEach((box) => {
+    const imgs = [...box.querySelectorAll<HTMLImageElement>('.store-shot')]
+    const n = imgs.length
+    if (n < 2) return
+    const counter = box.querySelector<HTMLElement>('[data-index]')
+    let cur = 0
+    const show = (next: number) => {
+      cur = (next + n) % n
+      imgs.forEach((img, i) => {
+        const d = (i - cur + n) % n
+        img.classList.remove('c', 'l', 'r', 'off')
+        img.classList.add(d === 0 ? 'c' : d === 1 ? 'r' : d === n - 1 ? 'l' : 'off')
+      })
+      if (counter) counter.textContent = String(cur + 1)
+    }
+    box.querySelectorAll<HTMLButtonElement>('[data-step]').forEach((b) => b.addEventListener('click', () => show(cur + Number(b.dataset.step))))
+    imgs.forEach((img) => img.addEventListener('click', () => {
+      if (img.classList.contains('r')) show(cur + 1)
+      else if (img.classList.contains('l')) show(cur - 1)
+    }))
+  })
+</script>
+
+<style is:global>
+  .shots { --w: clamp(130px, 13vw, 175px); display: grid; grid-template-areas: 'stack' 'nav'; justify-items: center; width: calc(var(--w) * 1.85); padding: 6px 0 4px; row-gap: 12px; }
+  .shots.small { --w: clamp(92px, 8.5vw, 116px); }
+  .shots .store-shot { grid-area: stack; width: var(--w); height: auto; border: var(--line) solid var(--ink); border-radius: 18px; background: var(--bezel); transition: transform 320ms cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 220ms ease; }
+  .shots.small .store-shot { border-radius: 14px; }
+  .shots .c { position: relative; z-index: 2; }
+  .shots .l, .shots .r { z-index: 1; cursor: pointer; }
+  .shots .l { transform: translateX(-44%) rotate(-7deg) scale(0.86); }
+  .shots .r { transform: translateX(44%) rotate(7deg) scale(0.86); }
+  .shots .off { opacity: 0; transform: scale(0.7); pointer-events: none; }
+  .shots:hover .l { transform: translateX(-56%) rotate(-9deg) scale(0.88); }
+  .shots:hover .r { transform: translateX(56%) rotate(9deg) scale(0.88); }
+  .shots-nav { grid-area: nav; display: flex; align-items: center; gap: 10px; font: 700 13px/1 var(--display); }
+  .shots-nav button { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--white); color: var(--ink); cursor: pointer; }
+  .shots-nav button:hover { background: var(--sand); }
+  .shots-count { min-width: 3.4em; text-align: center; font-variant-numeric: tabular-nums; }
+  @media (prefers-reduced-motion: reduce) { .shots .store-shot { transition: none; } }
+
+  /* Phones: every screen in a swipeable row; the next one peeks in from the side. */
+  @media (max-width: 640px) {
+    .shots, .shots.small { display: flex; gap: 12px; width: 100%; padding: 2px 0 6px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .shots::-webkit-scrollbar { display: none; }
+    .shots .store-shot { flex: 0 0 62%; width: auto; min-width: 0; transform: none !important; opacity: 1 !important; pointer-events: auto; scroll-snap-align: start; cursor: auto; }
+    .shots-nav { display: none; }
+  }
+</style>
