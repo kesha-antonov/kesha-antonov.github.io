@@ -164,11 +164,11 @@ const SHOTS = {
       <HeroChat client:visible title={t.chat.title} online={t.chat.online} intro={t.chat.intro} replies={replies} placeholder={t.chat.placeholder} showLabel={showLabel} />
     </div>
 
-    <div class="scores" role="list" aria-label={L.score}>
-      <div class="panel red score big" role="listitem"><span class="num">{npmTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[0]} />{L.npm}</span><small>{npmMonth} {L.month}</small></div>
-      <div class="panel sand score" role="listitem"><span class="num">{appsTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[1]} />{L.apps}</span></div>
-      <div class="panel sea score" role="listitem"><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[2]} />{L.gifted}</span></div>
-      <div class="panel harbour score" role="listitem"><span class="num">{CONTEST_WINS}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[3]} />{L.wins}</span></div>
+    <div class="scores" aria-label={L.score} role="group">
+      <a class="panel red score big" href="#oss"><span class="num">{npmTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[0]} />{L.npm}</span><small>{npmMonth} {L.month}</small></a>
+      <a class="panel sand score" href="#work"><span class="num">{appsTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[1]} />{L.apps}</span></a>
+      <a class="panel sea score" href="#gifted"><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[2]} />{L.gifted}</span></a>
+      <a class="panel harbour score" href="#contests"><span class="num">{CONTEST_WINS}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[3]} />{L.wins}</span></a>
     </div>
   </section>
 
@@ -532,7 +532,9 @@ const SHOTS = {
 
 <script>
   import { initMotion } from '../scripts/motion'
+  import { initSmoothScroll } from '../scripts/smooth-scroll'
   initMotion()
+  initSmoothScroll()
 
   // Theme switch: cycles system, light, dark. "System" follows the OS and stores nothing.
   const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle')
@@ -625,6 +627,9 @@ const SHOTS = {
   .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; }
   .phone-panel { display: flex; align-items: center; padding: 18px; background: var(--paper-deep); }
   .scores { display: grid; grid-template-rows: 1.5fr 1fr 1fr 1fr; gap: var(--gutter-panel); }
+  a.score { color: inherit; text-decoration: none; transition: transform 160ms cubic-bezier(0.2, 0, 0, 1), box-shadow 160ms cubic-bezier(0.2, 0, 0, 1); }
+  a.score:hover { transform: translate(-2px, -2px); box-shadow: 4px 4px 0 var(--ink); }
+  a.score:active { transform: none; box-shadow: none; }
   .score { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px 18px; font: 700 15px/1.2 var(--display); text-transform: uppercase; }
   .score .num { font-size: clamp(34px, 3.6vw, 52px); }
   .score .num { white-space: nowrap; }

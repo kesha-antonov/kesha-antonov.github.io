@@ -180,3 +180,7 @@ a:focus-visible, button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .rv, .rv .draw [pathLength] { opacity: 1; transform: none; stroke-dasharray: none; fill-opacity: 1; transition: none; }
 }
+
+/* In-page jumps land just below the top edge. */
+section[id], [id].chapter { scroll-margin-top: 16px; }
+[tabindex='-1']:focus { outline: none; }
