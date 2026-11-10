@@ -240,6 +240,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 - Social network for people who do sport: find trainings, trainers and partners nearby. Founded in 2015.
 - He built the whole web version on Rails (realtime chats, groups, games, trainings), then iOS and Android apps on the same backend. ${n(1668)} commits since 2015. Led a designer and an ASO specialist.
 - 2018: got into the FRII startup accelerator (Internet Initiatives Development Fund, Moscow), mentoring track without investment; applied to the Ingria accelerator. Reported by Kesha.
+- Highlights: 7 own photo filters written as GLSL shaders (gl-react), tuned from Photoshop curves; personal, group and workout chats on WebSockets (ActionCable, AnyCable); follows, likes, comments, hashtags, a feed, achievements and ratings, invites from VK and Facebook; group workouts with schedules and reminders, sport places on a clustered map, workout stats. Backend: Rails, Sidekiq, Elasticsearch, S3 and ffmpeg for video.
 - 9.8K App Store downloads. Ratings in 2018: 4.8 App Store, 4.7 Google Play.
 - 10K+ users (reported).
 
@@ -400,6 +401,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 - Соцсеть для тех, кто занимается спортом: поиск тренировок, тренеров и партнёров рядом. Основана в 2015 году.
 - Сделал всю веб-версию на Rails (чаты в реальном времени, группы, игры, тренировки), потом приложения для iOS и Android на том же бэкенде. ${n(1668)} коммитов с 2015 года. Руководил дизайнером и ASO-специалистом.
 - 2018: попал в заочный акселератор ФРИИ (Фонд развития интернет-инициатив, Москва), менторская программа без инвестиций, подавал заявку в акселератор Ингрия. Со слов автора.
+- Что внутри: 7 своих фильтров для фото на GLSL-шейдерах (gl-react), подобранных по кривым из Photoshop; личные, групповые и чаты тренировок на WebSocket (ActionCable, AnyCable); подписки, лайки, комментарии, хештеги, лента, достижения и рейтинги, приглашения из VK и Facebook; групповые тренировки с расписанием и напоминаниями, площадки на карте с кластерами, статистика тренировок. Бэкенд: Rails, Sidekiq, Elasticsearch, S3 и ffmpeg для видео.
 - 9.8 тыс. загрузок в App Store. Оценки в 2018 году: 4.8 в App Store, 4.7 в Google Play.
 - 10 тыс.+ пользователей (со слов автора).
 
