@@ -106,7 +106,7 @@ const linkParts = (text: string) => {
   return text.split(re).map((part) => ({ part, href: TEXT_LINKS[part] }))
 }
 const shotHeight: Record<string, number> = { fixes: 251, ton: 259, chart: 199 }
-const rv = (stats as any).revival as { year: number; original: number; mine: number; releases: number } | undefined
+const rv = (stats as any).revival as { original: { year: number; downloads: number }; mine: number; releases: number } | undefined
 const sp = (stats as any).sponsors as { count: number; list: { login: string; name: string; org: boolean }[]; goal: { title: string; target: number } | null } | undefined
 const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.org)) : []
 // App screens, main one first.
@@ -263,7 +263,7 @@ const SHOTS = {
       </article>
     </div>
     {rv && (
-      <h2 class="sub-chapter">{t.oss.revival.title(Math.round(rv.mine / rv.original))}</h2>
+      <h2 class="sub-chapter">{t.oss.revival.title(Math.round(rv.mine / rv.original.downloads))}</h2>
     )}
     {rv && (
       <div class="tier">
@@ -277,12 +277,12 @@ const SHOTS = {
             </p>
           </div>
           <div class="revival-data">
-            <p class="caption">{t.oss.revival.compare(rv.year)}</p>
+            <p class="caption">{t.oss.revival.compare}</p>
             <div class="bars">
               <div class="bar-row">
-                <span class="bar-label">{t.oss.revival.original}</span>
-                <span class="bar"><span class="fill old" style={`width: ${Math.max(1.5, (rv.original / rv.mine) * 100).toFixed(1)}%`} /></span>
-                <span class="num">{fmt(rv.original)}</span>
+                <span class="bar-label">{t.oss.revival.original(rv.original.year)}</span>
+                <span class="bar"><span class="fill old" style={`width: ${Math.max(1.5, (rv.original.downloads / rv.mine) * 100).toFixed(1)}%`} /></span>
+                <span class="num">{fmt(rv.original.downloads)}</span>
               </div>
               <div class="bar-row">
                 <span class="bar-label">{t.oss.revival.mine}</span>
@@ -290,6 +290,7 @@ const SHOTS = {
                 <span class="num">{fmt(rv.mine)}</span>
               </div>
             </div>
+            <p class="revival-note">{t.oss.revival.note(rv.original.year)}</p>
             <ul class="facts three">
               <li class="red"><span class="num">{fmt(P['background-downloader'].allTime)}</span>{t.oss.revival.facts.total}</li>
               <li class="sand"><span class="num">{rv.releases}</span>{t.oss.revival.facts.releases}</li>
@@ -880,9 +881,10 @@ const SHOTS = {
   .revival h3 { font: 700 clamp(20px, 2vw, 26px)/1.15 var(--display); text-transform: uppercase; overflow-wrap: anywhere; }
   .revival-text { display: flex; flex-direction: column; gap: 12px; }
   .revival-added { font-size: 16px; opacity: 0.85; }
+  .revival-note { font-size: 14px; opacity: 0.8; margin-top: -4px; }
   .revival-data { display: flex; flex-direction: column; gap: 14px; }
   .bars { display: flex; flex-direction: column; gap: 10px; }
-  .bar-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 5.2em; align-items: center; gap: 12px; font: 700 14px/1.2 var(--display); text-transform: uppercase; }
+  .bar-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 6.4em; align-items: center; gap: 12px; font: 700 14px/1.2 var(--display); text-transform: uppercase; }
   .bar { height: 26px; border: var(--line) solid var(--ink); background: var(--paper); display: block; }
   .bar .fill { display: block; height: 100%; }
   .bar .fill.old { background: var(--ink-soft, #888); }

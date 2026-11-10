@@ -123,12 +123,11 @@ try {
   result.sponsors = previous.sponsors
 }
 
-// Background downloader: the archived original next to Kesha's continuation, same window.
-async function yearToDate(pkg) {
-  const now = new Date()
-  const from = `${now.getUTCFullYear()}-01-01`
-  const to = iso(new Date(now.getTime() - 86400000))
-  const res = await fetch(`https://api.npmjs.org/downloads/point/${from}:${to}/${encodeURIComponent(pkg).replace('%40', '@')}`)
+// Background downloader: the original in its last year of active maintenance (2019, the
+// year of its last release, 2.3.4) next to Kesha's version over the last 12 full months.
+const ORIGINAL_LAST_MAINTAINED = { year: 2019, downloads: 17379 }
+async function downloadsBetween(pkg, from, to) {
+  const res = await fetch(`https://api.npmjs.org/downloads/point/${from}:${to}/${pkg}`)
   if (!res.ok) throw new Error(`npm ${res.status}`)
   return (await res.json()).downloads
 }
@@ -138,15 +137,14 @@ async function releases(pkg) {
   return Object.keys((await res.json()).versions ?? {}).length
 }
 try {
+  const now = new Date()
+  const end = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 0)) // last day of the previous month
+  const start = new Date(Date.UTC(end.getUTCFullYear(), end.getUTCMonth() - 11, 1))
+  const pkg = '@kesha-antonov/react-native-background-downloader'
   result.revival = {
-    year: new Date().getUTCFullYear(),
-    original: await yearToDate('react-native-background-downloader'),
-    mine: await yearToDate('@kesha-antonov/react-native-background-downloader'),
-    releases: await releases('@kesha-antonov/react-native-background-downloader'),
-  }
-  if (previous.revival && result.revival.year === previous.revival.year) {
-    result.revival.original = keep(result.revival.original, previous.revival.original)
-    result.revival.mine = keep(result.revival.mine, previous.revival.mine)
+    original: ORIGINAL_LAST_MAINTAINED,
+    mine: keep(await downloadsBetween(pkg, iso(start), iso(end)), previous.revival?.mine),
+    releases: await releases(pkg),
   }
   console.log('revival', result.revival)
 } catch (e) {

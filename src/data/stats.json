@@ -275,9 +275,11 @@
     }
   },
   "revival": {
-    "year": 2026,
-    "original": 12034,
-    "mine": 517417,
+    "original": {
+      "year": 2019,
+      "downloads": 17379
+    },
+    "mine": 512160,
     "releases": 66
   },
   "totals": {
