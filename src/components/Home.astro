@@ -107,8 +107,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
 const shot = (prefix: string, name: string, list: [string, string][]) => list.map(([n, label]) => ({ src: `/products/${prefix}-${n}.webp`, alt: `${name}: ${label}` }))
 const SHOTS = {
   magisteria: shot('magisteria', ru ? 'Магистерия' : 'Magisteria', ru
-    ? [['1', 'каталог курсов и лекций'], ['4', 'страница курса'], ['5', 'план курса'], ['3', 'плеер лекции'], ['2', 'библиотека'], ['6', 'проверка знаний']]
-    : [['1', 'course catalog'], ['4', 'course page'], ['5', 'course plan'], ['3', 'lecture player'], ['2', 'library'], ['6', 'knowledge check']]),
+    ? [['1', 'каталог курсов и лекций'], ['4', 'страница курса'], ['5', 'план курса'], ['3', 'плеер лекции'], ['7', 'текст лекции'], ['8', 'галерея иллюстраций'], ['9', 'об авторе'], ['2', 'библиотека'], ['6', 'проверка знаний']]
+    : [['1', 'course catalog'], ['4', 'course page'], ['5', 'course plan'], ['3', 'lecture player'], ['7', 'lecture transcript'], ['8', 'image gallery'], ['9', 'about the author'], ['2', 'library'], ['6', 'knowledge check']]),
   cryptoc: shot(`cryptoc-${ru ? 'ru' : 'en'}`, 'CryptoC', ru
     ? [['1', 'портфель'], ['2', 'виджеты'], ['3', 'уведомления о цене'], ['4', 'тёмная тема'], ['6', 'конвертер'], ['5', 'курсы валют']]
     : [['1', 'portfolio'], ['2', 'widgets'], ['3', 'price alerts'], ['4', 'dark theme'], ['6', 'converter'], ['5', 'exchange rates']]),
@@ -257,10 +257,12 @@ const SHOTS = {
       </article>
     </div>
     {rv && (
+      <h2 class="sub-chapter">{t.oss.revival.title(Math.round(rv.mine / rv.original))}</h2>
+    )}
+    {rv && (
       <div class="tier">
         <article class="panel white revival">
           <div class="revival-text">
-            <h3>{t.oss.revival.title(Math.round(rv.mine / rv.original))}</h3>
             <p>{t.oss.revival.lead}</p>
             <p class="revival-added">{t.oss.revival.added}</p>
             <p class="links">
@@ -867,6 +869,7 @@ const SHOTS = {
   .m-label { display: none; }
   .npm-link:hover, .npm-link:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
   /* Revival story: archived original next to my continuation */
+  .chapter > h2.sub-chapter { margin-top: clamp(40px, 6vw, 72px); max-width: 30ch; }
   .revival { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(18px, 3vw, 40px); align-items: start; }
   .revival h3 { font: 700 clamp(20px, 2vw, 26px)/1.15 var(--display); text-transform: uppercase; overflow-wrap: anywhere; }
   .revival-text { display: flex; flex-direction: column; gap: 12px; }
