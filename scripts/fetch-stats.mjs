@@ -123,6 +123,37 @@ try {
   result.sponsors = previous.sponsors
 }
 
+// Background downloader: the archived original next to Kesha's continuation, same window.
+async function yearToDate(pkg) {
+  const now = new Date()
+  const from = `${now.getUTCFullYear()}-01-01`
+  const to = iso(new Date(now.getTime() - 86400000))
+  const res = await fetch(`https://api.npmjs.org/downloads/point/${from}:${to}/${encodeURIComponent(pkg).replace('%40', '@')}`)
+  if (!res.ok) throw new Error(`npm ${res.status}`)
+  return (await res.json()).downloads
+}
+async function releases(pkg) {
+  const res = await fetch(`https://registry.npmjs.org/${pkg.replace('/', '%2F')}`)
+  if (!res.ok) throw new Error(`registry ${res.status}`)
+  return Object.keys((await res.json()).versions ?? {}).length
+}
+try {
+  result.revival = {
+    year: new Date().getUTCFullYear(),
+    original: await yearToDate('react-native-background-downloader'),
+    mine: await yearToDate('@kesha-antonov/react-native-background-downloader'),
+    releases: await releases('@kesha-antonov/react-native-background-downloader'),
+  }
+  if (previous.revival && result.revival.year === previous.revival.year) {
+    result.revival.original = keep(result.revival.original, previous.revival.original)
+    result.revival.mine = keep(result.revival.mine, previous.revival.mine)
+  }
+  console.log('revival', result.revival)
+} catch (e) {
+  console.warn(`revival: ${e.message}, keeping previous`)
+  result.revival = previous.revival
+}
+
 const all = Object.values(result.packages)
 result.totals = {
   allTime: all.reduce((a, p) => a + (p.allTime ?? 0), 0),

@@ -274,6 +274,12 @@
       "target": 10
     }
   },
+  "revival": {
+    "year": 2026,
+    "original": 12034,
+    "mine": 517417,
+    "releases": 66
+  },
   "totals": {
     "allTime": 19952623,
     "lastMonth": 692414

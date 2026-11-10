@@ -94,6 +94,7 @@ const linkParts = (text: string) => {
   return text.split(re).map((part) => ({ part, href: TEXT_LINKS[part] }))
 }
 const shotHeight: Record<string, number> = { fixes: 251, ton: 259, chart: 199 }
+const rv = (stats as any).revival as { year: number; original: number; mine: number; releases: number } | undefined
 const sp = (stats as any).sponsors as { count: number; list: { login: string; name: string; org: boolean }[]; goal: { title: string; target: number } | null } | undefined
 const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.org)) : []
 // App screens, main one first.
@@ -423,7 +424,7 @@ const SHOTS = {
                   <th scope="row"><div class="lib-row"><svg class="lib-icon" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" set:html={LIB_ICONS[k]} /><div><a target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{p.npm}</a><span>{t.oss.desc[k]}</span></div></div></th>
                   <td data-label={t.oss.cols.month}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[0]} />{t.oss.cols.month}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.lastMonth)}</a></td>
                   <td data-label={t.oss.cols.total}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[1]} />{t.oss.cols.total}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.allTime)}</a></td>
-                  <td data-label={t.oss.cols.stars}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[2]} />{t.oss.cols.stars}</span>{fmt(p.stars)}</td>
+                  <td data-label={t.oss.cols.stars}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[2]} />{t.oss.cols.stars}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{fmt(p.stars)}</a></td>
                 </tr>
               )
             })}
@@ -434,6 +435,41 @@ const SHOTS = {
         </div>
       </div>
     </div>
+    {rv && (
+      <div class="tier">
+        <article class="panel white revival">
+          <div class="revival-text">
+            <h3>{t.oss.revival.title}</h3>
+            <p>{t.oss.revival.lead}</p>
+            <p class="revival-added">{t.oss.revival.added}</p>
+            <p class="links">
+              <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-background-downloader">{t.oss.revival.repo}</a>
+              <a target="_blank" rel="noopener" href="https://kesha-antonov.github.io/react-native-background-downloader/">{t.oss.revival.docs}</a>
+            </p>
+          </div>
+          <div class="revival-data">
+            <p class="caption">{t.oss.revival.compare(rv.year)}</p>
+            <div class="bars">
+              <div class="bar-row">
+                <span class="bar-label">{t.oss.revival.original}</span>
+                <span class="bar"><span class="fill old" style={`width: ${Math.max(1.5, (rv.original / rv.mine) * 100).toFixed(1)}%`} /></span>
+                <span class="num">{fmt(rv.original)}</span>
+              </div>
+              <div class="bar-row">
+                <span class="bar-label">{t.oss.revival.mine}</span>
+                <span class="bar"><span class="fill mine" style="width: 100%" /></span>
+                <span class="num">{fmt(rv.mine)}</span>
+              </div>
+            </div>
+            <ul class="facts three">
+              <li class="red"><span class="num">{fmt(P['background-downloader'].allTime)}</span>{t.oss.revival.facts.total}</li>
+              <li class="sand"><span class="num">{rv.releases}</span>{t.oss.revival.facts.releases}</li>
+              <li class="sky"><span class="num">430+</span>{t.oss.revival.facts.commits}</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    )}
     {sp && sp.count > 0 && (
       <div class="tier">
         <div class="panel sand sponsors">
@@ -809,6 +845,20 @@ const SHOTS = {
   .npm-link { color: inherit; text-decoration: none; }
   .m-label { display: none; }
   .npm-link:hover, .npm-link:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+  /* Revival story: archived original next to my continuation */
+  .revival { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(18px, 3vw, 40px); align-items: start; }
+  .revival h3 { font: 700 clamp(20px, 2vw, 26px)/1.15 var(--display); text-transform: uppercase; overflow-wrap: anywhere; }
+  .revival-text { display: flex; flex-direction: column; gap: 12px; }
+  .revival-added { font-size: 16px; opacity: 0.85; }
+  .revival-data { display: flex; flex-direction: column; gap: 14px; }
+  .bars { display: flex; flex-direction: column; gap: 10px; }
+  .bar-row { display: grid; grid-template-columns: 9.5em minmax(0, 1fr) 5.2em; align-items: center; gap: 12px; font: 700 14px/1.2 var(--display); text-transform: uppercase; }
+  .bar { height: 26px; border: var(--line) solid var(--ink); background: var(--paper); display: block; }
+  .bar .fill { display: block; height: 100%; }
+  .bar .fill.old { background: var(--ink-soft, #888); }
+  .bar .fill.mine { background: var(--sea); }
+  .bar-row .num { font-size: 22px; text-transform: none; white-space: nowrap; text-align: right; }
+  @media (max-width: 800px) { .revival { grid-template-columns: 1fr; } .bar-row { grid-template-columns: 1fr auto; } .bar-row .bar { grid-column: 1 / -1; grid-row: 2; } }
   .ledger-foot { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; padding: 14px 20px; background: var(--paper); font-size: 15px; }
   @media (max-width: 700px) {
     .ledger thead { display: none; }
