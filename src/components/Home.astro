@@ -227,7 +227,11 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <h2>{t.work.title}</h2>
     <div class="tier work">
       <article class="panel magisteria">
-        <img class="store-shot" src="/products/magisteria-store.webp" alt={ru ? 'Магистерия: экран из App Store' : 'Magisteria: App Store screenshot'} width="400" height="711" loading="lazy" decoding="async" />
+        <div class="shots" role="group" aria-label={ru ? 'Экраны приложения Магистерия' : 'Magisteria app screens'}>
+          {[[2, ru ? 'Библиотека' : 'Library'], [1, ru ? 'Каталог курсов и лекций' : 'Course catalog'], [3, ru ? 'Плеер лекции' : 'Lecture player']].map(([n, label], i) => (
+            <img class={`store-shot ${['l', 'c', 'r'][i]}`} src={`/products/magisteria-${n}.webp`} alt={`${ru ? 'Магистерия' : 'Magisteria'}: ${label}`} width="400" height="870" loading="lazy" decoding="async" />
+          ))}
+        </div>
         <div class="app-head">
           <img src="/icons/magisteria.png" alt="" width="88" height="88" class="icon" />
           <div>
@@ -319,7 +323,15 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         const p = t.products.items[k]
         return (
           <article class={`panel ${i ? 'sea' : 'white'} product`}>
-            <img class="store-shot small" src={k === 'cryptoc' ? `/products/cryptoc-${ru ? 'ru' : 'en'}.webp` : '/products/sportsoul.webp'} alt={`${p.name}: ${ru ? 'экран приложения' : 'app screenshot'}`} width="400" height={k === 'cryptoc' ? 870 : 712} loading="lazy" decoding="async" />
+            {k === 'cryptoc' ? (
+              <div class="shots small" role="group" aria-label={ru ? 'Экраны приложения CryptoC' : 'CryptoC app screens'}>
+                {[[2, ru ? 'виджеты' : 'widgets'], [1, ru ? 'портфель' : 'portfolio'], [3, ru ? 'уведомления о цене' : 'price alerts']].map(([n, label], i) => (
+                  <img class={`store-shot small ${['l', 'c', 'r'][i]}`} src={`/products/cryptoc-${ru ? 'ru' : 'en'}-${n}.webp`} alt={`CryptoC: ${label}`} width="400" height="870" loading="lazy" decoding="async" />
+                ))}
+              </div>
+            ) : (
+              <img class="store-shot small" src="/products/sportsoul.webp" alt={`${p.name}: ${ru ? 'экран приложения' : 'app screenshot'}`} width="400" height="712" loading="lazy" decoding="async" />
+            )}
             <div class="app-head">
               <img src={`/icons/${k}.png`} alt="" width="72" height="72" class="icon" loading="lazy" />
               <div><h3>{p.name}</h3><p class="tag">{p.tag}</p></div>
@@ -681,7 +693,17 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .store-shot.small { width: clamp(100px, 10vw, 130px); border-radius: 14px; }
   .magisteria, .product:has(.store-shot) { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: clamp(16px, 2.4vw, 32px); row-gap: 14px; align-content: start; }
   .magisteria > *, .product:has(.store-shot) > * { grid-column: 1; }
-  .magisteria > .store-shot { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  .magisteria > .shots { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  .product > .shots { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+  /* Three screens fanned out: the main one in front, the others tilted behind it. */
+  .shots { --w: clamp(130px, 13vw, 175px); display: grid; grid-template-areas: 'stack'; place-items: center; width: calc(var(--w) * 1.85); padding: 6px 0 10px; }
+  .shots.small { --w: clamp(92px, 8.5vw, 116px); }
+  .shots .store-shot { grid-area: stack; width: var(--w); transition: transform 260ms cubic-bezier(0.2, 0.9, 0.3, 1.1); }
+  .shots .c { position: relative; z-index: 2; }
+  .shots .l { transform: translateX(-44%) rotate(-7deg) scale(0.86); }
+  .shots .r { transform: translateX(44%) rotate(7deg) scale(0.86); }
+  .shots:hover .l { transform: translateX(-56%) rotate(-9deg) scale(0.88); }
+  .shots:hover .r { transform: translateX(56%) rotate(9deg) scale(0.88); }
   .product > .store-shot { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
   .product:has(.store-shot) > .facts, .product:has(.store-shot) > .links { grid-column: 1 / -1; }
   .magisteria > .highlights, .magisteria > .links, .magisteria > .footnote { grid-column: 1 / -1; }
@@ -689,6 +711,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   @media (max-width: 640px) {
     .magisteria, .product:has(.store-shot) { grid-template-columns: 1fr !important; }
     .magisteria > .store-shot, .product > .store-shot { grid-column: 1; grid-row: 3; justify-self: center; width: 170px; }
+    .magisteria > .shots, .product > .shots { grid-column: 1; grid-row: 3; justify-self: center; }
+    .shots, .shots.small { --w: 140px; }
   }
   .magisteria, .wide { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; }
   .brand-stack { flex: none; }
