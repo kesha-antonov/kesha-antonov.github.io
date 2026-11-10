@@ -1,5 +1,6 @@
 ---
 import HeroChat from './HeroChat.tsx'
+import WorldMap from './WorldMap.astro'
 import stats from '../data/stats.json'
 import { dict, links, apps, contests, upstream, compact, groupInt, CONTEST_WINS, type Lang } from '../data/content'
 
@@ -43,6 +44,42 @@ const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
 const LIB_ICONS: Record<string, string> = {'gifted-chat': `<path d="M8 12h40a4 4 0 0 1 4 4v20a4 4 0 0 1-4 4H26l-10 9v-9H8a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M14 22h28M14 30h18" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,'react-native-chat': `<path d="M6 10h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-8 7v-7H6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M28 28h30a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-4v7l-8-7H28a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><circle cx="34" cy="38" r="2" fill="var(--ink)" /><circle cx="43" cy="38" r="2" fill="var(--ink)" /><circle cx="52" cy="38" r="2" fill="var(--ink)" />`,'zoom-reanimated': `<circle cx="27" cy="27" r="17" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M39.5 39.5L56 56" fill="none" stroke="var(--ink)" stroke-width="6" stroke-linecap="round" /><path d="M27 19v16M19 27h16" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,'background-downloader': `<path d="M8 38v12a4 4 0 0 0 4 4h40a4 4 0 0 0 4-4V38" fill="var(--sea)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M8 38h48" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M32 8v28" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M22 26l10 10 10-10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,'action-cable': `<path d="M20 8v12M34 8v12" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M12 20h30v10a15 15 0 0 1-15 15 15 15 0 0 1-15-15z" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M27 45v6a5 5 0 0 0 5 5h22" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,'cloud-sync': `<path d="M18 48a11 11 0 0 1-1-22 15 15 0 0 1 29-3 12 12 0 0 1 2 25z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M24 36a8 8 0 0 1 14-4M40 36a8 8 0 0 1-14 4" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`}
 // Clear-line object icons for the interests in Off the clock, same order as about.likes.
 const ABOUT_ICONS = [`<circle cx="32" cy="32" r="23" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><ellipse cx="32" cy="32" rx="10" ry="23" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M9 32h46M13 21h38M13 43h38" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<rect x="7" y="14" width="50" height="38" rx="5" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M7 30V19a5 5 0 0 1 5-5h40a5 5 0 0 1 5 5v11z" fill="var(--red)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><text x="32" y="27.5" text-anchor="middle" class="icon-text">HI!</text><path d="M17 42h30" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<circle cx="32" cy="32" r="22" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M32 10c9 7 12 20 6 34M11 27c10-3 24 1 32 11M17 49c4-10 14-17 31-19" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />`,`<circle cx="47" cy="17" r="6" fill="var(--sand)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M5 51L25 19l11 17 6-8 17 23z" fill="var(--sea)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M25 19l-6 10 4-1 3 3 4-5z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M24 51c3-5 9-6 10-11" fill="none" stroke="var(--ink)" stroke-width="2.5" stroke-dasharray="3 4" stroke-linecap="round" />`,`<path d="M24 8c-3 4 3 6 0 10M33 8c-3 4 3 6 0 10" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M11 24h32v12a12 12 0 0 1-12 12h-8a12 12 0 0 1-12-12z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M43 28h4a6 6 0 0 1 0 12h-5" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M8 54h40" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M13 27h28" fill="none" stroke="var(--sand)" stroke-width="4" stroke-linecap="round" />`,`<path d="M6 12h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-8 7v-7H6a4 4 0 0 1-4-4V16a4 4 0 0 1 4-4z" fill="var(--sky)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><path d="M28 28h30a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-4v7l-8-7H28a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4z" fill="var(--white)" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><circle cx="34" cy="38" r="2" fill="var(--ink)" /><circle cx="43" cy="38" r="2" fill="var(--ink)" /><circle cx="52" cy="38" r="2" fill="var(--ink)" />`]
+// Drawn objects for steps, highlights, years and scores: one ink line, flat palette fills.
+const K = 'stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"'
+const ICON_FLAG = `<path d="M10 58h20" fill="none" ${K} /><path d="M18 58V6" fill="none" ${K} /><path d="M18 10h36l-8 11 8 11H18z" fill="var(--red)" ${K} />`
+const ICON_TAG = `<path d="M30 8H12a4 4 0 0 0-4 4v18l26 26a4 4 0 0 0 5.7 0l16.6-16.6a4 4 0 0 0 0-5.7z" fill="var(--sand)" ${K} /><circle cx="20" cy="20" r="4" fill="var(--white)" ${K} /><path d="M27 37l10-10M33 43l10-10" fill="none" ${K} />`
+const ICON_CHECKLIST = `<rect x="11" y="6" width="42" height="52" rx="4" fill="var(--white)" ${K} /><path d="M18 19l4 4 7-8M18 33l4 4 7-8M18 47l4 4 7-8M35 20h11M35 34h11M35 48h11" fill="none" ${K} />`
+const ICON_GROWTH = `<rect x="6" y="8" width="52" height="48" rx="4" fill="var(--white)" ${K} /><path d="M13 46l11-12 8 6 17-19v27z" fill="var(--sky)" /><path d="M13 46l11-12 8 6 17-19" fill="none" ${K} /><path d="M40 20h9v9" fill="none" ${K} /><path d="M6 47h52" fill="none" ${K} />`
+const ICON_BALLOON = `<path d="M10 10h44a4 4 0 0 1 4 4v26a4 4 0 0 1-4 4H28l-12 10V44h-6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="var(--sky)" ${K} /><path d="M16 22h32M16 31h20" fill="none" ${K} />`
+const ICON_TWO_BALLOONS = `<path d="M6 10h30a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-8 7v-7H6a4 4 0 0 1-4-4V14a4 4 0 0 1 4-4z" fill="var(--sand)" ${K} /><path d="M28 28h30a4 4 0 0 1 4 4v12a4 4 0 0 1-4 4h-4v7l-8-7H28a4 4 0 0 1-4-4V32a4 4 0 0 1 4-4z" fill="var(--white)" ${K} /><path d="M32 38h22" fill="none" ${K} />`
+const ICON_PHONE = `<rect x="18" y="5" width="28" height="54" rx="6" fill="var(--white)" ${K} /><rect x="23" y="12" width="18" height="32" rx="1" fill="var(--sky)" ${K} /><circle cx="32" cy="51" r="2.5" fill="var(--ink)" />`
+const ICON_MEDAL = `<path d="M14 5h11l9 20H23zM50 5H39l-9 20h11z" fill="var(--red)" ${K} /><circle cx="32" cy="41" r="17" fill="var(--sand)" ${K} /><path d="M32 31l3 6.5 7 .8-5.2 4.7 1.4 7L32 46.5 25.8 50l1.4-7-5.2-4.7 7-.8z" fill="var(--white)" ${K} />`
+const ICON_BOX = `<path d="M8 21l24 11v25L8 46z" fill="var(--sand)" ${K} /><path d="M56 21L32 32v25l24-11z" fill="var(--sand)" ${K} /><path d="M8 21l24-11 24 11-24 11z" fill="var(--paper)" ${K} /><path d="M20 15.5l24 11v8" fill="none" ${K} />`
+const STEP_ICONS = [ICON_FLAG, ICON_TAG, ICON_CHECKLIST, ICON_GROWTH]
+const MAGISTERIA_ICONS = [
+  `<rect x="6" y="44" width="50" height="12" rx="2" fill="var(--sky)" ${K} /><rect x="10" y="32" width="44" height="12" rx="2" fill="var(--sand)" ${K} /><rect x="8" y="20" width="40" height="12" rx="2" fill="var(--red)" ${K} /><path d="M14 44v12M18 32v12M14 20v12" fill="none" ${K} />`,
+  `<path d="M40 6c2 10 6 14 16 16-10 2-14 6-16 16-2-10-6-14-16-16 10-2 14-6 16-16z" fill="var(--sand)" ${K} /><path d="M16 40c1 5 3 7 8 8-5 1-7 3-8 8-1-5-3-7-8-8 5-1 7-3 8-8z" fill="var(--white)" ${K} /><path d="M6 28h10M30 50h20M36 58h12" fill="none" ${K} />`,
+  `<rect x="6" y="6" width="38" height="38" rx="10" fill="var(--sky)" ${K} /><path d="M16 16h18M16 25h12" fill="none" ${K} /><path d="M50 49l8 8-4 4-8-8z" fill="var(--red)" ${K} /><circle cx="40" cy="40" r="12" fill="var(--white)" ${K} /><path d="M35 36a6 6 0 0 1 6-2" fill="none" ${K} />`,
+  `<rect x="5" y="44" width="54" height="14" rx="2" fill="var(--sand)" ${K} /><path d="M13 44v6M21 44v4M29 44v6M37 44v4M45 44v6M53 44v4" fill="none" ${K} /><path d="M12 30L37 5l6 6-25 25z" fill="var(--red)" ${K} /><path d="M7 41l5-11 6 6z" fill="var(--white)" ${K} /><path d="M32 10l6 6" fill="none" ${K} />`,
+]
+const MEDICAL_ICONS = [
+  `<rect x="5" y="17" width="38" height="30" rx="5" fill="var(--sky)" ${K} /><path d="M43 28l15-9v26l-15-9z" fill="var(--sand)" ${K} /><circle cx="15" cy="27" r="3.5" fill="var(--red)" ${K} />`,
+  `<path d="M10 8h44a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H28l-12 11V44h-6a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z" fill="var(--white)" ${K} /><path d="M28 15h8v6h6v8h-6v6h-8v-6h-6v-8h6z" fill="var(--red)" ${K} />`,
+  `<path d="M4 22h56M10 22v10M21 22v10M32 22v10M43 22v10M54 22v10" fill="none" ${K} /><path d="M4 32h56v8h-6v14h-6a16 16 0 0 0-32 0h-6V40H4z" fill="var(--sand)" ${K} /><path d="M4 58c4-3 8-3 12 0M48 58c4-3 8-3 12 0" fill="none" ${K} />`,
+  `<rect x="10" y="10" width="44" height="49" rx="4" fill="var(--sand)" ${K} /><rect x="16" y="17" width="32" height="36" rx="1" fill="var(--white)" ${K} /><rect x="23" y="5" width="18" height="10" rx="3" fill="var(--sky)" ${K} /><path d="M21 28l3 3 6-6M21 42l3 3 6-6M34 29h9M34 43h9" fill="none" ${K} />`,
+]
+const YEAR_ICONS = [
+  `<rect x="12" y="12" width="40" height="30" rx="3" fill="var(--sky)" ${K} /><path d="M4 48h56l-5 8H9z" fill="var(--white)" ${K} /><path d="M12 42h40" fill="none" ${K} />`,
+  `<rect x="14" y="18" width="36" height="26" fill="var(--white)" ${K} /><rect x="6" y="14" width="10" height="34" rx="5" fill="var(--sand)" ${K} /><rect x="48" y="14" width="10" height="34" rx="5" fill="var(--sand)" ${K} /><path d="M22 26h16M22 33h10" fill="none" ${K} /><path d="M37 44l-3 14 5-4 5 4-3-14" fill="var(--red)" ${K} /><circle cx="40" cy="40" r="6" fill="var(--red)" ${K} />`,
+  ICON_PHONE,
+  `<circle cx="32" cy="32" r="24" fill="var(--sand)" ${K} /><circle cx="32" cy="32" r="16" fill="none" ${K} /><path d="M32 22v20M27 27h10M27 37h10" fill="none" ${K} />`,
+  `<path d="M26 46l6 13 6-13z" fill="var(--sand)" ${K} /><path d="M22 32l-10 12v6l12-6zM42 32l10 12v6l-12-6z" fill="var(--red)" ${K} /><path d="M32 5c10 8 14 21 11 41H21C18 26 22 13 32 5z" fill="var(--white)" ${K} /><circle cx="32" cy="24" r="5" fill="var(--sky)" ${K} />`,
+  ICON_MEDAL,
+  ICON_BALLOON,
+  ICON_TWO_BALLOONS,
+]
+const SCORE_ICONS = [ICON_BOX, ICON_PHONE, ICON_BALLOON, ICON_MEDAL]
+
 // Names in body text that link to their organizations.
 const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/' }
 const linkParts = (text: string) => {
@@ -103,10 +140,10 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     </div>
 
     <div class="scores" role="list" aria-label={L.score}>
-      <div class="panel red score big" role="listitem"><span class="num">{npmTotal}</span><span>{L.npm}</span><small>{npmMonth} {L.month}</small></div>
-      <div class="panel sand score" role="listitem"><span class="num">{appsTotal}</span><span>{L.apps}</span></div>
-      <div class="panel sea score" role="listitem"><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span><span>{L.gifted}</span></div>
-      <div class="panel harbour score" role="listitem"><span class="num">{CONTEST_WINS}</span><span>{L.wins}</span></div>
+      <div class="panel red score big" role="listitem"><span class="num">{npmTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[0]} />{L.npm}</span><small>{npmMonth} {L.month}</small></div>
+      <div class="panel sand score" role="listitem"><span class="num">{appsTotal}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[1]} />{L.apps}</span></div>
+      <div class="panel sea score" role="listitem"><span class="num">{fmt(P['gifted-chat'].sinceMaintenance)}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[2]} />{L.gifted}</span></div>
+      <div class="panel harbour score" role="listitem"><span class="num">{CONTEST_WINS}</span><span class="score-label"><svg class="score-icon" viewBox="0 0 64 64" width="30" height="30" aria-hidden="true" set:html={SCORE_ICONS[3]} />{L.wins}</span></div>
     </div>
   </section>
 
@@ -127,7 +164,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
       {t.gifted.steps.map((s, i) => (
         <li class={`panel ${['white', 'sky', 'white', 'sea'][i]}`}>
           <span class="caption">{s.h}</span>
-          <span class="num step-mark">{stepMarks[i]}</span>
+          <div class="step-head"><svg class="step-icon" viewBox="0 0 64 64" width="48" height="48" aria-hidden="true" set:html={STEP_ICONS[i]} /><span class="num step-mark">{stepMarks[i]}</span></div>
           <p>{s.p.split('react-native-chat').map((part, j) => (
             <>{j > 0 && <a target="_blank" rel="noopener" class="inline-link" href="https://github.com/kesha-antonov/react-native-chat">react-native-chat</a>}{part}</>
           ))}</p>
@@ -139,7 +176,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         <span class="caption">{t.gifted.chartTitle}</span>
         <svg viewBox={`0 0 ${W} ${H + 36}`} role="img" aria-label={t.gifted.chartTitle}>
           <path d={area} fill="var(--sky)" />
-          <path d={line} fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
+          <path class="chart-line" d={line} pathLength="1" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" />
           <line x1="0" x2={W} y1={H} y2={H} stroke="var(--ink)" stroke-width="3" />
           {startIdx >= 0 && (
             <g>
@@ -188,6 +225,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <h2>{t.work.title}</h2>
     <div class="tier work">
       <article class="panel magisteria">
+        <img class="store-shot" src="/products/magisteria-store.webp" alt={ru ? 'Магистерия: экран из App Store' : 'Magisteria: App Store screenshot'} width="400" height="711" loading="lazy" decoding="async" />
         <div class="app-head">
           <img src="/icons/magisteria.png" alt="" width="88" height="88" class="icon" />
           <div>
@@ -200,8 +238,8 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
           {t.work.magisteria.stats.map(([n, l], i) => <li class={['sky', 'sea', 'sand', 'paper'][i]}><span class="num">{n}</span>{l}</li>)}
         </ul>
         <ul class="highlights">
-          {t.work.magisteria.highlights.map((x) => (
-            <li><span class="caption">{x.h}</span><p>{x.p}</p></li>
+          {t.work.magisteria.highlights.map((x, i) => (
+            <li><div class="hl-head"><svg class="hl-icon" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true" set:html={MAGISTERIA_ICONS[i]} /><span class="caption">{x.h}</span></div><p>{x.p}</p></li>
           ))}
         </ul>
         <p class="links">
@@ -229,9 +267,9 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
           {t.work.medical.stats.map(([n, l], i) => <li class={['paper', 'sand', 'sky', 'paper'][i]}><span class="num">{n}</span>{l}</li>)}
         </ul>
         <ul class="highlights">
-          {t.work.medical.highlights.map((x) => (
+          {t.work.medical.highlights.map((x, i) => (
             <li>
-              <span class="caption">{x.h}</span>
+              <div class="hl-head"><svg class="hl-icon" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true" set:html={MEDICAL_ICONS[i]} /><span class="caption">{x.h}</span></div>
               <p>{x.p}{'link' in x && x.link && <> <a target="_blank" rel="noopener" class="inline-link" href={x.link.href}>{x.link.text}</a></>}</p>
             </li>
           ))}
@@ -277,6 +315,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         const p = t.products.items[k]
         return (
           <article class={`panel ${i ? 'sea' : 'white'} product`}>
+            <img class="store-shot small" src={k === 'cryptoc' ? `/products/cryptoc-${ru ? 'ru' : 'en'}.webp` : '/products/sportsoul.webp'} alt={`${p.name}: ${ru ? 'экран приложения' : 'app screenshot'}`} width="400" height={k === 'cryptoc' ? 870 : 712} loading="lazy" decoding="async" />
             <div class="app-head">
               <img src={`/icons/${k}.png`} alt="" width="72" height="72" class="icon" loading="lazy" />
               <div><h3>{p.name}</h3><p class="tag">{p.tag}</p></div>
@@ -417,7 +456,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <ol class="tier years">
       {t.path.items.map(([year, text], i) => (
         <li class={`panel ${['white', 'sky', 'white', 'sand', 'white', 'sea', 'white', 'sky'][i]}`}>
-          <span class="num year">{year}</span>
+          <span class="num year">{year}</span><svg class="year-icon" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true" set:html={YEAR_ICONS[i]} />
           <p>{linkParts(text).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
         </li>
       ))}
@@ -431,13 +470,16 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     <h2>{t.about.title}</h2>
     <div class="tier about">
       <div class="panel sea about-count">
-        <span class="num">21</span>
+        <span class="num">22</span>
         <span>{t.about.countries}</span>
       </div>
       <div class="panel about-text">
         <p>{t.about.body}</p>
         <ul class="likes">{t.about.likes.map((l, i) => <li><svg viewBox="0 0 64 64" width="56" height="56" aria-hidden="true" set:html={ABOUT_ICONS[i]} /><span>{l}</span></li>)}</ul>
       </div>
+    </div>
+    <div class="tier">
+      <div class="panel sky map-panel"><WorldMap lang={lang} /></div>
     </div>
   </section>
 
@@ -475,6 +517,21 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
         else { root.dataset.theme = next; localStorage.setItem('theme', next) }
       } catch (e) { root.dataset.theme = next }
     })
+  }
+
+  // Gifted Chat chart: draw the line once when it scrolls into view.
+  const chartLine = document.querySelector('.chart-line')
+  if (chartLine && 'IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const box = chartLine.closest('svg')?.getBoundingClientRect()
+    if (box && box.top > window.innerHeight) {
+      chartLine.classList.add('will-draw')
+      const io = new IntersectionObserver((entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        io.disconnect()
+        requestAnimationFrame(() => chartLine.classList.add('drawn'))
+      }, { threshold: 0.4 })
+      io.observe(chartLine.closest('svg') || chartLine)
+    }
   }
 
   // Close the language menu on outside click or Escape.
@@ -536,6 +593,10 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .score .num { white-space: nowrap; }
   .score.big .num { font-size: clamp(44px, 4.8vw, 84px); }
   :global(html[lang='ru']) .score.big .num { font-size: clamp(40px, 4vw, 70px); }
+  .score-label { display: flex; align-items: center; gap: 8px; }
+  .score-icon { flex: none; width: 30px; height: 30px; }
+  /* On the dark accent panels the line is drawn in the panel's text color. */
+  .score.red .score-icon, .score.harbour .score-icon { --ink: var(--on-accent); }
   .score small { font: 400 15px/1.2 var(--hand); text-transform: none; opacity: 0.92; }
   @media (max-width: 1080px) {
     .hero { grid-template-columns: 1fr 1fr; }
@@ -545,6 +606,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
     .hero { grid-template-columns: 1fr; }
     .scores { grid-template-rows: none; grid-template-columns: 1fr 1fr; }
     .score.big, .score:last-child { grid-column: 1 / -1; }
+    .score-label { flex-direction: column; align-items: flex-start; gap: 6px; }
     .phone-panel { order: 3; }
     .phone-panel :global(.phone) { aspect-ratio: auto; height: 540px; }
   }
@@ -567,12 +629,19 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .four .panel { display: flex; flex-direction: column; gap: 10px; }
   .step-mark { font-size: clamp(40px, 4.4vw, 64px); }
+  /* The step icon hangs at the top right, just under the caption band, so long numbers keep the full width. */
+  .step-head { display: flex; flex-direction: column; gap: 4px; }
+  .step-icon { flex: none; align-self: flex-end; width: 48px; height: 48px; margin-top: -30px; }
   .inline-link { font-weight: 700; text-decoration-thickness: 2px; }
   .inline-link:hover { background: var(--white); }
   @media (max-width: 900px) { .four { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .four { grid-template-columns: 1fr; } }
 
   .chart-panel { margin: 0; }
+  /* The line draws itself once on scroll; without JS or with reduced motion it is simply there. */
+  .chart-line.will-draw { stroke-dasharray: 1 1.1; stroke-dashoffset: 1.05; }
+  .chart-line.will-draw.drawn { stroke-dashoffset: 0; transition: stroke-dashoffset 1.8s cubic-bezier(0.33, 0, 0.2, 1); }
+  @media (prefers-reduced-motion: reduce) { .chart-line.will-draw { stroke-dasharray: none; stroke-dashoffset: 0; transition: none; } }
   .successor { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(20px, 3vw, 40px); align-items: center; }
   .successor-text { display: flex; flex-direction: column; gap: 16px; }
   .successor h3 { font-size: clamp(24px, 2.6vw, 36px); }
@@ -589,12 +658,27 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   .chart-foot .num { font-size: 34px; margin-right: 6px; }
 
   .work { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .store-shot { width: clamp(140px, 15vw, 190px); height: auto; border: var(--line) solid var(--ink); border-radius: 18px; background: var(--bezel); }
+  .store-shot.small { width: clamp(100px, 10vw, 130px); border-radius: 14px; }
+  .magisteria, .product:has(.store-shot) { display: grid !important; grid-template-columns: minmax(0, 1fr) auto; column-gap: clamp(16px, 2.4vw, 32px); row-gap: 14px; align-content: start; }
+  .magisteria > *, .product:has(.store-shot) > * { grid-column: 1; }
+  .magisteria > .store-shot { grid-column: 2; grid-row: 1 / span 3; align-self: start; }
+  .product > .store-shot { grid-column: 2; grid-row: 1 / span 2; align-self: start; }
+  .product:has(.store-shot) > .facts, .product:has(.store-shot) > .links { grid-column: 1 / -1; }
+  .magisteria > .highlights, .magisteria > .links, .magisteria > .footnote { grid-column: 1 / -1; }
+  .map-panel { padding: clamp(10px, 2vw, 22px); }
+  @media (max-width: 640px) {
+    .magisteria, .product:has(.store-shot) { grid-template-columns: 1fr !important; }
+    .magisteria > .store-shot, .product > .store-shot { grid-column: 1; grid-row: 3; justify-self: center; width: 170px; }
+  }
   .magisteria, .wide { grid-column: 1 / -1; display: flex; flex-direction: column; gap: 18px; }
   .brand-stack { flex: none; }
   .medical .facts .num { overflow-wrap: anywhere; }
   /* Ink shows through the gaps, so every divider is exactly one line. */
   .highlights { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--line); border: var(--line) solid var(--ink); background: var(--ink); }
   .highlights li { padding: 14px 18px 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; background: var(--white); }
+  .hl-head { display: flex; align-items: center; gap: 10px; }
+  .hl-icon { flex: none; width: 36px; height: 36px; }
   .highlights li:first-child, .highlights li:last-child { grid-column: 1 / -1; }
   .highlights li:first-child p { font-size: 19px; max-width: 80ch; }
   .highlights p { font-size: 16px; }
@@ -705,6 +789,7 @@ const sponsorList = sp ? [...sp.list].sort((a, b) => Number(b.org) - Number(a.or
   /* Year strip */
   .years { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .years .panel { display: flex; flex-direction: column; gap: 8px; padding: 16px; }
+  .year-icon { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; }
   .year { font-size: 40px; }
   .years p { font-size: 16px; line-height: 1.35; }
   @media (max-width: 900px) { .years { grid-template-columns: 1fr 1fr; } }

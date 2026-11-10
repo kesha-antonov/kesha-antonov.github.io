@@ -1,0 +1,49 @@
+---
+// Countries Kesha has visited, drawn at build time from Natural Earth (world-atlas, 110m).
+// No map library is shipped to the browser: the output is a plain inline SVG.
+import { feature } from 'topojson-client'
+import { geoEqualEarth, geoPath } from 'd3-geo'
+import world from 'world-atlas/countries-110m.json'
+
+interface Props { lang: 'en' | 'ru' }
+const { lang } = Astro.props
+const ru = lang === 'ru'
+
+// ISO 3166 numeric codes of the 22 visited countries.
+const VISITED = [643, 840, 112, 360, 702, 458, 704, 818, 376, 352, 792, 616, 276, 380, 250, 724, 499, 8, 756, 300, 246, 51]
+
+const W = 960, H = 470
+const countries = (feature(world as any, (world as any).objects.countries) as any).features.filter((f: any) => f.id !== '010') // no Antarctica
+const projection = geoEqualEarth().fitExtent([[6, 6], [W - 6, H - 6]], { type: 'FeatureCollection', features: countries } as any)
+const path = geoPath(projection).digits(1)
+
+// France in this dataset includes French Guiana; only European France was visited.
+const mainlandOnly = (f: any) =>
+  f.geometry?.type === 'MultiPolygon'
+    ? { ...f, geometry: { ...f.geometry, coordinates: f.geometry.coordinates.filter((poly: any) => poly[0][0][0] > -30) } }
+    : f
+const shapes = countries.flatMap((f: any) => {
+  const id = +f.id
+  if (id !== 250) return [{ d: path(f) ?? '', kind: VISITED.includes(id) ? 'visited' : 'other' }]
+  const mainland = mainlandOnly(f)
+  const overseas = { ...f, geometry: { ...f.geometry, coordinates: f.geometry.coordinates.filter((poly: any) => poly[0][0][0] <= -30) } }
+  return [{ d: path(mainland) ?? '', kind: 'visited' }, { d: path(overseas) ?? '', kind: 'other' }]
+})
+// Singapore is too small for the 110m map: mark it with a dot.
+const [sx, sy] = projection([103.82, 1.35]) ?? [0, 0]
+---
+<figure class="world">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ru ? 'Карта стран, где я был' : 'Map of countries I have visited'}>
+    {shapes.map((s: any) => <path d={s.d} class={s.kind} />)}
+    <circle cx={sx.toFixed(1)} cy={sy.toFixed(1)} r="6" class="visited dot" />
+  </svg>
+</figure>
+
+<style>
+  .world { margin: 0; display: flex; flex-direction: column; gap: 10px; }
+  .world svg { width: 100%; height: auto; display: block; }
+  .world path { stroke: var(--ink); stroke-width: 0.9; stroke-linejoin: round; }
+  .world .other { fill: var(--paper-deep); }
+  .world .visited { fill: var(--sea); }
+  .world .dot { stroke: var(--ink); stroke-width: 2; }
+</style>
