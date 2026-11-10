@@ -64,6 +64,11 @@ const MAGISTERIA_ICONS = [
   `<rect x="6" y="6" width="38" height="38" rx="10" fill="var(--sky)" ${K} /><path d="M16 16h18M16 25h12" fill="none" ${K} /><path d="M50 49l8 8-4 4-8-8z" fill="var(--red)" ${K} /><circle cx="40" cy="40" r="12" fill="var(--white)" ${K} /><path d="M35 36a6 6 0 0 1 6-2" fill="none" ${K} />`,
   `<rect x="5" y="44" width="54" height="14" rx="2" fill="var(--sand)" ${K} /><path d="M13 44v6M21 44v4M29 44v6M37 44v4M45 44v6M53 44v4" fill="none" ${K} /><path d="M12 30L37 5l6 6-25 25z" fill="var(--red)" ${K} /><path d="M7 41l5-11 6 6z" fill="var(--white)" ${K} /><path d="M32 10l6 6" fill="none" ${K} />`,
 ]
+const FARM_ICONS = [
+  `<circle cx="32" cy="19" r="8" fill="var(--sand)" ${K} /><path d="M18 46a14 14 0 0 1 28 0z" fill="var(--sky)" ${K} /><circle cx="12" cy="27" r="6" fill="var(--white)" ${K} /><path d="M2 50a10 10 0 0 1 18-6" fill="var(--white)" ${K} /><circle cx="52" cy="27" r="6" fill="var(--white)" ${K} /><path d="M62 50a10 10 0 0 0-18-6" fill="var(--white)" ${K} /><path d="M6 56h52" fill="none" ${K} />`,
+  `<rect x="12" y="10" width="40" height="48" rx="4" fill="var(--white)" ${K} /><rect x="23" y="5" width="18" height="10" rx="3" fill="var(--sand)" ${K} /><path d="M20 27l4 4 7-8M20 43l4 4 7-8" fill="none" ${K} /><path d="M37 28h8M37 44h8" fill="none" ${K} />`,
+  `<rect x="22" y="5" width="20" height="14" rx="3" fill="var(--sand)" ${K} /><rect x="5" y="43" width="20" height="14" rx="3" fill="var(--sky)" ${K} /><rect x="39" y="43" width="20" height="14" rx="3" fill="var(--sea)" ${K} /><path d="M32 19v12M15 43V31h34v12" fill="none" ${K} />`,
+]
 const MEDICAL_ICONS = [
   `<rect x="5" y="17" width="38" height="30" rx="5" fill="var(--sky)" ${K} /><path d="M43 28l15-9v26l-15-9z" fill="var(--sand)" ${K} /><circle cx="15" cy="27" r="3.5" fill="var(--red)" ${K} />`,
   `<path d="M10 8h44a4 4 0 0 1 4 4v28a4 4 0 0 1-4 4H28l-12 11V44h-6a4 4 0 0 1-4-4V12a4 4 0 0 1 4-4z" fill="var(--white)" ${K} /><path d="M28 15h8v6h6v8h-6v6h-8v-6h-6v-8h6z" fill="var(--red)" ${K} />`,
@@ -374,6 +379,14 @@ const SHOTS = {
         <p class="body">{t.products.items.tmafarm.body}</p>
         <ul class="facts three">
           {t.products.items.tmafarm.stats.map(([n, l], i) => <li class={['red', 'sand', 'sky'][i]}><span class="num">{n}</span>{l}</li>)}
+        </ul>
+        <ul class="highlights three-up">
+          {t.products.items.tmafarm.highlights.map((x, i) => (
+            <li>
+              <div class="hl-head"><svg class="hl-icon" viewBox="0 0 64 64" width="36" height="36" aria-hidden="true" set:html={FARM_ICONS[i]} /><span class="caption">{x.h}</span></div>
+              <p>{x.p}</p>
+            </li>
+          ))}
         </ul>
       </article>
     </div>
@@ -726,6 +739,7 @@ const SHOTS = {
   .highlights.three-up { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .highlights.three-up li { grid-column: auto; }
   .highlights.three-up li:first-child p { font-size: 16px; }
+  .tmafarm .highlights li { color: var(--ink); }
   @media (max-width: 900px) { .highlights.three-up { grid-template-columns: 1fr; } }
   @media (max-width: 700px) {
     .highlights { grid-template-columns: 1fr; }

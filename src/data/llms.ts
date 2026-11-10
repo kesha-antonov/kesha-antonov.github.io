@@ -248,6 +248,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 - Telegram Mini App on TON, 2024: boosts, tasks, friends and referrals, a rating, a TON Connect wallet.
 - 400K users at peak (reported).
 - His commits: backend 280 of 299, Telegram bot 19 of 19, frontend 120 of 259.
+- He assembled the team himself (developers and a marketer, found through his network and hackathons), managed development and owned the architecture.
 
 ### Smaller products
 
@@ -407,6 +408,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 - Telegram Mini App на TON, 2024 год: бусты, задания, друзья и рефералы, рейтинг, кошелёк через TON Connect.
 - 400 тыс. пользователей на пике (со слов автора).
 - Его коммиты: бэкенд 280 из 299, Telegram-бот 19 из 19, фронтенд 120 из 259.
+- Команду собрал сам (разработчиков и маркетолога нашёл через знакомства и хакатоны), руководил разработкой и отвечал за архитектуру.
 
 ### Небольшие продукты
 
