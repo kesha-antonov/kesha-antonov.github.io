@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-10",
+  "updatedAt": "2026-11-11",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15696416,
+      "allTime": 15715973,
       "lastMonth": 362217,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8046924,
+      "sinceMaintenance": 8066481,
       "series": [
         [
           "2023-01",
@@ -197,45 +197,45 @@
           362217
         ]
       ],
-      "stars": 14448
+      "stars": 14447
     },
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 64612,
+      "allTime": 66722,
       "lastMonth": 20925,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 83
+      "stars": 85
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2100302,
+      "allTime": 2111997,
       "lastMonth": 205227,
       "peakMonth": {
         "month": "2026-06",
         "value": 245412
       },
-      "stars": 320
+      "stars": 321
     },
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1429547,
+      "allTime": 1434198,
       "lastMonth": 85151,
       "peakMonth": {
         "month": "2024-10",
         "value": 116668
       },
-      "stars": 224
+      "stars": 225
     },
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 660372,
+      "allTime": 661544,
       "lastMonth": 18727,
       "peakMonth": {
         "month": "2024-11",
@@ -246,13 +246,13 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1374,
+      "allTime": 1397,
       "lastMonth": 167,
       "peakMonth": {
         "month": "2026-08",
         "value": 568
       },
-      "stars": 6
+      "stars": 7
     }
   },
   "sponsors": {
@@ -283,7 +283,7 @@
     "releases": 66
   },
   "totals": {
-    "allTime": 19952623,
+    "allTime": 19991831,
     "lastMonth": 692414
   }
 }
