@@ -4,13 +4,13 @@
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15734929,
+      "allTime": 15752541,
       "lastMonth": 362217,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8085437,
+      "sinceMaintenance": 8103049,
       "series": [
         [
           "2023-01",
@@ -202,7 +202,7 @@
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 69144,
+      "allTime": 69998,
       "lastMonth": 20925,
       "peakMonth": {
         "month": "2026-10",
@@ -213,7 +213,7 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2123763,
+      "allTime": 2132881,
       "lastMonth": 205227,
       "peakMonth": {
         "month": "2026-06",
@@ -224,7 +224,7 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1439335,
+      "allTime": 1442512,
       "lastMonth": 85151,
       "peakMonth": {
         "month": "2024-10",
@@ -235,7 +235,7 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 662886,
+      "allTime": 663510,
       "lastMonth": 18727,
       "peakMonth": {
         "month": "2024-11",
@@ -246,7 +246,7 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1409,
+      "allTime": 1431,
       "lastMonth": 167,
       "peakMonth": {
         "month": "2026-08",
@@ -283,7 +283,7 @@
     "releases": 66
   },
   "totals": {
-    "allTime": 20031466,
+    "allTime": 20062873,
     "lastMonth": 692414
   }
 }
