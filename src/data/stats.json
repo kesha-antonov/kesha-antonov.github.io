@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-11",
+  "updatedAt": "2026-11-12",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15715973,
+      "allTime": 15734929,
       "lastMonth": 362217,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8066481,
+      "sinceMaintenance": 8085437,
       "series": [
         [
           "2023-01",
@@ -197,12 +197,12 @@
           362217
         ]
       ],
-      "stars": 14447
+      "stars": 14448
     },
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 66722,
+      "allTime": 69144,
       "lastMonth": 20925,
       "peakMonth": {
         "month": "2026-10",
@@ -213,7 +213,7 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2111997,
+      "allTime": 2123763,
       "lastMonth": 205227,
       "peakMonth": {
         "month": "2026-06",
@@ -224,7 +224,7 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1434198,
+      "allTime": 1439335,
       "lastMonth": 85151,
       "peakMonth": {
         "month": "2024-10",
@@ -235,7 +235,7 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 661544,
+      "allTime": 662886,
       "lastMonth": 18727,
       "peakMonth": {
         "month": "2024-11",
@@ -246,7 +246,7 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1397,
+      "allTime": 1409,
       "lastMonth": 167,
       "peakMonth": {
         "month": "2026-08",
@@ -283,7 +283,7 @@
     "releases": 66
   },
   "totals": {
-    "allTime": 19991831,
+    "allTime": 20031466,
     "lastMonth": 692414
   }
 }
