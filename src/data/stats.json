@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-14",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15752541,
+      "allTime": 15770224,
       "lastMonth": 362217,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8103049,
+      "sinceMaintenance": 8120732,
       "series": [
         [
           "2023-01",
@@ -202,18 +202,18 @@
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 69998,
+      "allTime": 71969,
       "lastMonth": 20925,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 85
+      "stars": 86
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2132881,
+      "allTime": 2144642,
       "lastMonth": 205227,
       "peakMonth": {
         "month": "2026-06",
@@ -224,7 +224,7 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1442512,
+      "allTime": 1446940,
       "lastMonth": 85151,
       "peakMonth": {
         "month": "2024-10",
@@ -235,7 +235,7 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 663510,
+      "allTime": 664041,
       "lastMonth": 18727,
       "peakMonth": {
         "month": "2024-11",
@@ -246,7 +246,7 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1431,
+      "allTime": 1446,
       "lastMonth": 167,
       "peakMonth": {
         "month": "2026-08",
@@ -283,7 +283,7 @@
     "releases": 66
   },
   "totals": {
-    "allTime": 20062873,
+    "allTime": 20099262,
     "lastMonth": 692414
   }
 }
