@@ -69,9 +69,10 @@ for (const p of PACKAGES) {
     const months = await monthlyDownloads(p.npm)
     const sorted = Object.keys(months).sort()
     const complete = sorted.filter((m) => m < new Date().toISOString().slice(0, 7))
-    const lastMonth = complete.at(-1)
     entry.allTime = keep(Object.values(months).reduce((a, b) => a + b, 0), prev.allTime)
-    entry.lastMonth = keep(lastMonth ? months[lastMonth] : 0, prev.lastMonth)
+    // Rolling last 30 days, the same window npm and the shields.io badges show.
+    const last30 = await getJson(`https://api.npmjs.org/downloads/point/last-month/${p.npm}`)
+    entry.lastMonth = keep(last30.downloads ?? 0, prev.lastMonth)
     entry.peakMonth = complete.reduce((best, m) => (months[m] > (best?.value ?? 0) ? { month: m, value: months[m] } : best), null) ?? prev.peakMonth
     if (p.key === 'gifted-chat') {
       entry.sinceMaintenance = keep(sorted.filter((m) => m >= MAINTENANCE_START).reduce((a, m) => a + months[m], 0), prev.sinceMaintenance)

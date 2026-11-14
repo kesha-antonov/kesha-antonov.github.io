@@ -195,7 +195,7 @@ const en = {
     },
     title: 'Libraries 32K+ projects on GitHub depend on',
     lead: 'Live npm and GitHub numbers, updated daily.',
-    cols: { lib: 'Library', month: 'Last month', total: 'All time', stars: 'Stars' },
+    cols: { lib: 'Library', month: 'Last 30 days', total: 'All time', stars: 'Stars' },
     desc: {
       'gifted-chat': 'The default chat UI of React Native. Maintainer.',
       'react-native-chat': 'Drop-in Gifted Chat successor: chat list, streaming AI messages, reactions, Web.',
@@ -395,7 +395,7 @@ const ru: Dict = {
     },
     title: 'Библиотеки, от которых зависят 32 тыс.+ проектов на GitHub',
     lead: 'Живые цифры из npm и GitHub, обновляются ежедневно.',
-    cols: { lib: 'Библиотека', month: 'За месяц', total: 'Всего', stars: 'Звёзды' },
+    cols: { lib: 'Библиотека', month: 'За 30 дней', total: 'Всего', stars: 'Звёзды' },
     desc: {
       'gifted-chat': 'Главная чат-библиотека React Native. Мейнтейнер.',
       'react-native-chat': 'Преемник Gifted Chat с тем же API: список чатов, стриминг AI-сообщений, реакции, Web.',

@@ -51,12 +51,6 @@ function base(site?: URL): string {
 }
 
 // "2026-10" for a stats date of "2026-11-09": the last complete month npm reports.
-function previousMonth(isoDate: string): string {
-  const [y, m] = isoDate.split('-').map(Number)
-  const d = new Date(Date.UTC(y, m - 2, 1))
-  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`
-}
-
 const gh = (repo: string) => `https://github.com/${repo}`
 const npmUrl = (name: string) => `https://www.npmjs.com/package/${name}`
 
@@ -116,8 +110,8 @@ export function llmsFull(lang: Lang, site?: URL): string {
 function libTable(lang: Lang): string {
   const n = (x: number) => groupInt(x, lang)
   const head = lang === 'ru'
-    ? '| Пакет npm | Репозиторий | Загрузок всего | За последний месяц | Звёзд на GitHub |\n|---|---|---|---|---|'
-    : '| npm package | Repository | All-time downloads | Last month | GitHub stars |\n|---|---|---|---|---|'
+    ? '| Пакет npm | Репозиторий | Загрузок всего | За последние 30 дней | Звёзд на GitHub |\n|---|---|---|---|---|'
+    : '| npm package | Repository | All-time downloads | Last 30 days | GitHub stars |\n|---|---|---|---|---|'
   const rows = ORDER.map((k) => {
     const p = P[k]
     return `| ${p.npm} | ${gh(p.repo)} | ${n(p.allTime)} | ${n(p.lastMonth)} | ${n(p.stars)} |`
@@ -129,7 +123,6 @@ function fullEn(b: string): string {
   const n = (x: number) => groupInt(x, 'en')
   const g = P['gifted-chat']
   const asOf = stats.updatedAt
-  const lastMonth = previousMonth(asOf)
   const peak = g.peakMonth!
   const start = g.series?.find(([m]) => m === '2024-08')?.[1] ?? 0
   const libs = ORDER.map((k) => `- ${P[k].npm}: ${DESC.en[k]} ${gh(P[k].repo)}`).join('\n')
@@ -160,7 +153,7 @@ How to read this file:
 ## Key numbers
 
 - ${n(stats.totals.allTime)} all-time npm downloads across the 6 libraries he maintains. This includes Gifted Chat downloads from before his maintenance. Source: npm, as of ${asOf}.
-- ${n(stats.totals.lastMonth)} npm downloads of those libraries in ${lastMonth}. Source: npm.
+- ${n(stats.totals.lastMonth)} npm downloads of those libraries in the last 30 days. Source: npm.
 - ${n(g.sinceMaintenance ?? 0)} npm downloads of react-native-gifted-chat since he became its maintainer in 2024-08, to date. Source: npm.
 - ${n(g.stars)} GitHub stars on react-native-gifted-chat. Source: GitHub, as of ${asOf}.
 - About ${n(APPS_INSTALLS)} installs of apps he built, across Magisteria, CryptoC, SportSoul and sticker packs. Source: App Store Connect, Google Play, RuStore, checked ${STORES_CHECKED}.
@@ -182,7 +175,7 @@ How to read this file:
 
 ${libs}
 
-npm downloads and stars, as of ${asOf} (last month = ${lastMonth}):
+npm downloads and stars, as of ${asOf}:
 
 ${libTable('en')}
 
@@ -292,7 +285,6 @@ function fullRu(b: string): string {
   const n = (x: number) => groupInt(x, 'ru')
   const g = P['gifted-chat']
   const asOf = stats.updatedAt
-  const lastMonth = previousMonth(asOf)
   const peak = g.peakMonth!
   const start = g.series?.find(([m]) => m === '2024-08')?.[1] ?? 0
   const libs = ORDER.map((k) => `- ${P[k].npm}: ${DESC.ru[k]} ${gh(P[k].repo)}`).join('\n')
@@ -322,7 +314,7 @@ function fullRu(b: string): string {
 ## Главные цифры
 
 - ${n(stats.totals.allTime)} загрузок из npm за всё время у 6 библиотек, которые он поддерживает. Сюда входят загрузки Gifted Chat до начала его поддержки. Источник: npm, на ${asOf}.
-- ${n(stats.totals.lastMonth)} загрузок этих библиотек из npm за ${lastMonth}. Источник: npm.
+- ${n(stats.totals.lastMonth)} загрузок этих библиотек из npm за последние 30 дней. Источник: npm.
 - ${n(g.sinceMaintenance ?? 0)} загрузок react-native-gifted-chat из npm с тех пор, как он стал мейнтейнером в 2024-08, по сей день. Источник: npm.
 - ${n(g.stars)} звёзд у react-native-gifted-chat на GitHub. Источник: GitHub, на ${asOf}.
 - Около ${n(APPS_INSTALLS)} установок приложений, которые он сделал: Магистерия, CryptoC, SportSoul и стикерпаки. Источник: App Store Connect, Google Play, RuStore, проверено ${STORES_CHECKED}.
@@ -344,7 +336,7 @@ function fullRu(b: string): string {
 
 ${libs}
 
-Загрузки из npm и звёзды на GitHub на ${asOf} (последний месяц = ${lastMonth}):
+Загрузки из npm и звёзды на GitHub на ${asOf}:
 
 ${libTable('ru')}
 
