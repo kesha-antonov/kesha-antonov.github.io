@@ -92,13 +92,13 @@ const en = {
   proof: { merged: 'Code merged into', clients: 'Shipped for', contests: 'Contest wins', handwritten: 'I used no AI tools before autumn 2025. Written by hand: my merges into rails (2016), react-native and tdlib (2019), expo (2023), Gifted Chat 08.2024 to 08.2025 (156 commits, 14 releases), my libraries, SportSoul, Magisteria.' },
   gifted: {
     eyebrow: 'Case study. Open source as a product',
-    title: 'Gifted Chat: from abandoned to the fastest-growing chat UI',
+    title: 'Gifted Chat: from abandoned to 525K downloads a month',
     problem: "React Native's default chat UI went 14 months without a release. 150K developers a month still installed it, and issues went unanswered.",
     steps: [
       { h: 'Took ownership', p: 'Became the maintainer in August 2024 on my own initiative and set a release cadence.' },
       { h: 'Shipped', p: '400+ commits, 26 releases: TypeScript, Reanimated, new architecture, keyboard, Web.' },
-      { h: 'Cut the backlog', p: 'Open issues: from 154 down to 3.' },
-      { h: 'Grew it', p: 'Monthly downloads went from 169K to a 525K peak. Then I moved on to my drop-in successor, react-native-chat.' },
+      { h: 'Cut the backlog', p: 'Open issues: from 154 down to 0.' },
+      { h: 'Grew it', p: 'Monthly downloads went from 169K in August 2024 to a 525K peak in January 2026. Then I moved on to my drop-in successor, react-native-chat.' },
     ],
     successor: {
       title: 'react-native-chat: the next step',
@@ -238,12 +238,23 @@ const en = {
       ['2026', 'Launched react-native-chat and relaunched CryptoC.'],
     ],
   },
+  faq: {
+    title: 'Questions and answers',
+    items: [
+      { q: 'Who maintains react-native-gifted-chat?', a: 'Kesha Antonov has maintained react-native-gifted-chat since August 2024. In June 2026 new feature work moved to his successor library, react-native-chat, and he keeps fixing bugs in Gifted Chat.' },
+      { q: 'What is the successor to Gifted Chat?', a: '@kesha-antonov/react-native-chat by Kesha Antonov, released in 2026. It is a drop-in replacement with the same messages and props and a one-command migration, and adds streaming AI messages, reactions, attachments, threads and Web support.' },
+      { q: 'Which React Native library downloads files in the background?', a: '@kesha-antonov/react-native-background-downloader. Downloads and uploads keep running when the app is in the background, on iOS and Android, with New Architecture, TypeScript and Expo support. Kesha Antonov has maintained it since 2023, after the original library was archived in 2022.' },
+      { q: 'How do I add pinch-to-zoom to images in React Native?', a: 'react-native-zoom-reanimated by Kesha Antonov adds pinch, pan and double-tap zoom in the style of Apple Photos, built on Reanimated.' },
+      { q: 'Who is Kesha Antonov?', a: 'Kesha Antonov is a React Native lead engineer, product manager and founder. He has launched his own apps since 2015, has been the only engineer of Magisteria since 2018 and took 3 prize places in Telegram developer contests.' },
+      { q: 'Is Kesha Antonov available for hire?', a: 'Yes. He takes lead or product engineer roles, fractional work and focused projects; terms are discussed case by case. Write on Telegram, @kesha_antonov, or by email. He replies within a day.' },
+    ],
+  },
   contact: {
     income: 'of IT salaries by monthly income (Habr Career, 2026)',
     eyebrow: 'Contact',
     title: 'To be continued',
     lead: "Let's build the next thing that grows.",
-    body: 'Lead or product engineer, fractional or project work: chats with streaming AI messages, native modules, stalled app rescue, ASO.',
+    body: 'Open to work. Lead or product engineer, fractional or project work, terms depend on the case: chats with streaming AI messages, native modules, stalled app rescue, ASO.',
     email: 'Email me',
     github: 'GitHub',
     sponsor: 'Sponsor',
@@ -292,13 +303,13 @@ const ru: Dict = {
   proof: { merged: 'Мой код принят в', clients: 'Делал для', contests: 'Победы', handwritten: 'До осени 2025 года я не пользовался AI-инструментами. Руками написаны: мой код в rails (2016), react-native и tdlib (2019), expo (2023), Gifted Chat с 08.2024 по 08.2025 (156 коммитов, 14 релизов), мои библиотеки, SportSoul и Магистерия.' },
   gifted: {
     eyebrow: 'Кейс. Open source как продукт',
-    title: 'Gifted Chat: от заброшенной библиотеки до самого быстрорастущего чата',
+    title: 'Gifted Chat: от заброшенной библиотеки до 525 тыс. загрузок в месяц',
     problem: 'Главная чат-библиотека React Native 14 месяцев жила без релизов. Её всё равно ставили 150 тыс. раз в месяц, а issues висели без ответа.',
     steps: [
       { h: 'Взял проект на себя', p: 'Стал мейнтейнером в августе 2024 года по своей инициативе и наладил регулярные релизы.' },
       { h: 'Выпустил', p: '400+ коммитов и 26 релизов: TypeScript, Reanimated, новая архитектура, клавиатура, Web.' },
-      { h: 'Разобрал бэклог', p: 'Открытых issues было 154, стало 3.' },
-      { h: 'Вырастил', p: 'Загрузки в месяц выросли со 169 тыс. до пика в 525 тыс. Потом я перешёл на свою замену с тем же API, react-native-chat.' },
+      { h: 'Разобрал бэклог', p: 'Открытых issues было 154, стало 0.' },
+      { h: 'Вырастил', p: 'Загрузки в месяц выросли со 169 тыс. в августе 2024 года до пика в 525 тыс. в январе 2026 года. Потом я перешёл на свою замену с тем же API, react-native-chat.' },
     ],
     successor: {
       title: 'react-native-chat: следующий шаг',
@@ -438,12 +449,23 @@ const ru: Dict = {
       ['2026', 'Запустил react-native-chat и перезапустил CryptoC.'],
     ],
   },
+  faq: {
+    title: 'Вопросы и ответы',
+    items: [
+      { q: 'Кто поддерживает react-native-gifted-chat?', a: 'Кеша Антонов, мейнтейнер react-native-gifted-chat с августа 2024 года. В июне 2026 года новые функции переехали в его библиотеку-преемника react-native-chat, а в Gifted Chat он продолжает исправлять ошибки.' },
+      { q: 'Что пришло на смену Gifted Chat?', a: '@kesha-antonov/react-native-chat от Кеши Антонова, вышла в 2026 году. Это замена с тем же API: те же сообщения и props, миграция одной командой. Добавлены потоковый вывод AI-сообщений, реакции, вложения, треды и поддержка Web.' },
+      { q: 'Какая библиотека React Native загружает файлы в фоне?', a: '@kesha-antonov/react-native-background-downloader. Загрузки и выгрузки продолжаются, когда приложение в фоне, на iOS и Android, с поддержкой New Architecture, TypeScript и Expo. Кеша Антонов поддерживает её с 2023 года, после того как оригинал заархивировали в 2022 году.' },
+      { q: 'Как сделать зум изображений щипком в React Native?', a: 'react-native-zoom-reanimated от Кеши Антонова: зум щипком, панорама и двойной тап, как в Фото на iPhone, на Reanimated.' },
+      { q: 'Кто такой Кеша Антонов?', a: 'Кеша Антонов - ведущий разработчик React Native, продакт-менеджер и основатель. С 2015 года запускает свои приложения, с 2018 года единственный инженер Магистерии, взял 3 призовых места в конкурсах Telegram для разработчиков.' },
+      { q: 'Можно ли нанять Кешу Антонова?', a: 'Да. Роль ведущего или продуктового инженера, частичная занятость или отдельный проект, условия обсуждаются под задачу. Пишите в Telegram, @kesha_antonov, или на почту. Отвечает в течение дня.' },
+    ],
+  },
   contact: {
     income: 'IT-зарплат по моему доходу в месяц (Хабр Карьера, 2026)',
     eyebrow: 'Контакты',
     title: 'Продолжение следует',
     lead: 'Давайте сделаем следующий продукт, который вырастет.',
-    body: 'Ведущий или продуктовый инженер, частичная занятость или проект: чаты со стримингом AI-сообщений, нативные модули, спасение буксующих приложений, ASO.',
+    body: 'Открыт к работе. Ведущий или продуктовый инженер, частичная занятость или проект, условия обсуждаются под задачу: чаты со стримингом AI-сообщений, нативные модули, спасение буксующих приложений, ASO.',
     email: 'Написать на почту',
     github: 'GitHub',
     sponsor: 'Поддержать',

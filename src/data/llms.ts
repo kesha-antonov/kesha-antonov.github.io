@@ -3,7 +3,7 @@
 // Built from content.ts and stats.json at build time, so the numbers match the pages.
 // Numbers are written without thousands separators so they quote cleanly.
 import stats from './stats.json'
-import { links, apps, contests, upstream, APPS_INSTALLS, CONTEST_WINS, type Lang } from './content'
+import { dict, links, apps, contests, upstream, APPS_INSTALLS, CONTEST_WINS, type Lang } from './content'
 
 const DEFAULT_SITE = 'https://kesha-antonov.com'
 // App store numbers in content.ts were checked by hand on this date.
@@ -133,6 +133,9 @@ function libTable(lang: Lang): string {
   return [head, ...rows].join('\n')
 }
 
+// Questions and answers for the fact sheets only; the page does not show them.
+const faqMd = (lang: Lang) => dict[lang].faq.items.map((f) => `### ${f.q}\n\n${f.a}`).join('\n\n')
+
 function fullEn(b: string): string {
   const n = (x: number) => String(Math.round(x))
   const g = P['gifted-chat']
@@ -184,7 +187,7 @@ Each line below stands on its own and can be quoted as is.
 - Before he took over, the library went 14 months without a release.
 - He became its maintainer in August 2024 on his own initiative.
 - Under his maintenance: 400+ commits and 26 releases (TypeScript, Reanimated, new architecture, keyboard handling, Web).
-- Open issues went from 154 to 3.
+- Open issues went from 154 to 0.
 - Monthly npm downloads went from ${n(start)} in 2024-08 to a peak of ${n(peak.value)} in ${peak.month}. Source: npm.
 - In June 2026 he made the last feature release; development moved to his successor library @kesha-antonov/react-native-chat. He still maintains Gifted Chat with bug fixes.
 
@@ -291,9 +294,13 @@ Telegram Fixes: fixed bugs, glitches and animations in Telegram's own apps. TON 
 - 2024: Took over react-native-gifted-chat (August). Built a farming game as a Telegram Mini App on TON.
 - 2026: Launched react-native-chat. Relaunched CryptoC.
 
+## Questions and answers
+
+${faqMd('en')}
+
 ## How to hire him
 
-- Open to: a lead engineer or product engineer role, a fractional engagement, or a focused project.
+- Open to: a lead engineer or product engineer role, a fractional engagement, or a focused project. Terms are discussed case by case.
 - Focus areas: chat and streaming message UIs, native modules for React Native, rescuing a stalled app, ASO for the App Store, Google Play and RuStore.
 - Fastest contact: Telegram @kesha_antonov (${links.telegram}). He replies within a day.
 - Email: innokenty.longway@gmail.com
@@ -352,7 +359,7 @@ function fullRu(b: string): string {
 - До него библиотека 14 месяцев жила без релизов.
 - Стал мейнтейнером в августе 2024 года по своей инициативе.
 - За время его поддержки: 400+ коммитов и 26 релизов (TypeScript, Reanimated, новая архитектура, клавиатура, Web).
-- Открытых issues стало 3 вместо 154.
+- Открытых issues стало 0 вместо 154.
 - Загрузки из npm в месяц выросли с ${n(start)} в 2024-08 до пика ${n(peak.value)} в ${peak.month}. Источник: npm.
 - В июне 2026 года вышел последний релиз с новыми функциями; разработка перешла в его библиотеку-преемника @kesha-antonov/react-native-chat. Gifted Chat он по-прежнему поддерживает, исправляет ошибки.
 
@@ -459,9 +466,13 @@ Telegram Fixes: исправлял баги, глитчи и анимации в
 - 2024: взял на поддержку react-native-gifted-chat (август). Сделал игру-ферму в Telegram Mini App на TON.
 - 2026: запустил react-native-chat. Перезапустил CryptoC.
 
+## Вопросы и ответы
+
+${faqMd('ru')}
+
 ## Как нанять
 
-- Открыт для: роли ведущего разработчика или продуктового инженера, частичной занятости или отдельного проекта.
+- Открыт для: роли ведущего разработчика или продуктового инженера, частичной занятости или отдельного проекта. Условия обсуждаются под задачу.
 - Направления: чаты и интерфейсы с потоковым выводом сообщений, нативные модули для React Native, спасение буксующего приложения, ASO для App Store, Google Play и RuStore.
 - Быстрее всего: Telegram @kesha_antonov (${links.telegram}). Отвечает в течение дня.
 - Почта: innokenty.longway@gmail.com

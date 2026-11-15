@@ -33,7 +33,7 @@ const forkIdx = series.findIndex(([m]) => m === '2026-06')
 const peak = series.reduce((b, s, i) => (s[1] > series[b][1] ? i : b), 0)
 const years = series.map(([m], i) => [m, i] as const).filter(([m]) => m.endsWith('-01'))
 
-const stepMarks = ['08.2024', '26', '3', fmt(series[peak]?.[1])]
+const stepMarks = ['08.2024', '26', '0', fmt(series[peak]?.[1])]
 const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync'] as const
 const updated = stats.updatedAt.split('-').reverse().join('.')
 const L = ru
