@@ -10,7 +10,7 @@ interface Props { lang: Lang }
 const { lang } = Astro.props
 const t = dict[lang]
 const ru = lang === 'ru'
-const site = Astro.site ?? new URL('https://kesha-antonov.github.io')
+const site = Astro.site ?? new URL('https://kesha-antonov.com')
 const abs = (p: string) => new URL(p, site).href
 
 const path = ru ? '/ru/' : '/'
@@ -23,7 +23,8 @@ const npmTotal = compact(stats.totals.allTime, lang)
 const seo = ru
   ? {
       title: 'Кеша Антонов - ведущий разработчик React Native и продакт-менеджер',
-      description: `Иннокентий (Кеша) Антонов, ведущий разработчик React Native и основатель. Мейнтейнер react-native-gifted-chat; библиотеки с ${npmTotal} установок в npm, приложения с 250 тыс.+ установок.`,
+      // Kept near 155 chars so the snippet is not cut; "Иннокентий" stays in the JSON-LD alternateName.
+      description: `Кеша Антонов, ведущий разработчик React Native и основатель. Мейнтейнер react-native-gifted-chat. У библиотек ${npmTotal} установок в npm, у приложений 250 тыс.+.`,
       locale: 'ru_RU',
       altLocale: 'en_US',
       ogAlt: `Кеша Антонов: ${npmTotal} установок библиотек в npm, 250 тыс.+ установок приложений`,
@@ -53,13 +54,13 @@ const person = {
   name: 'Kesha Antonov',
   givenName: 'Innokenty',
   familyName: 'Antonov',
-  alternateName: ['Innokenty Antonov', 'Кеша Антонов', 'Иннокентий Антонов'],
+  alternateName: ['Innokenty Antonov', 'Кеша Антонов', 'Иннокентий Антонов', 'kesha-antonov'],
   description: seo.description,
   jobTitle: ru ? 'Ведущий разработчик, продакт-менеджер, основатель' : 'Lead Software Engineer, Product Manager, Founder',
   url: homeEn,
   image: avatar,
   email: links.email.replace('mailto:', ''),
-  sameAs: [links.github, links.linkedin, links.telegram, links.instagram, links.npm, links.youtube],
+  sameAs: [links.github, links.linkedin, links.telegram, links.instagram, links.npm, links.youtube, links.sponsor],
   knowsAbout: ['React Native', 'React', 'TypeScript', 'iOS', 'Android', 'Ruby on Rails', 'Product management', 'App Store Optimization', 'Telegram Mini Apps', 'TON'],
   alumniOf: {
     '@type': 'CollegeOrUniversity',
@@ -80,6 +81,8 @@ const libraries = libOrder.map((k) => {
     codeRepository: `https://github.com/${p.repo}`,
     runtimePlatform: 'React Native',
     maintainer: { '@id': personId },
+    // Gifted Chat and background-downloader were started by others; the rest he wrote.
+    ...(!['gifted-chat', 'background-downloader'].includes(k) && { author: { '@id': personId } }),
     ...(typeof p.allTime === 'number' && {
       interactionStatistic: {
         '@type': 'InteractionCounter',
@@ -138,6 +141,8 @@ const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
     <link rel="alternate" hreflang="x-default" href={homeEn} />
     <link rel="sitemap" type="application/xml" href={abs('/sitemap.xml')} />
     <link rel="alternate" type="text/plain" title="llms.txt" href={abs('/llms.txt')} />
+    <link rel="alternate" type="text/markdown" title="Markdown" href={abs(ru ? '/ru/index.md' : '/index.md')} />
+    <link rel="author" type="text/plain" href={abs('/humans.txt')} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -147,7 +152,9 @@ const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
       // Apply the saved theme before first paint; without a saved choice the OS theme wins.
       try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
     </script>
-    <meta name="color-scheme" content="light" />
+    <!-- Both schemes: global.css sets the actual one on :root (OS preference or the saved theme). -->
+    <meta name="color-scheme" content="light dark" />
+    {person.sameAs.map((href) => <link rel="me" href={href} />)}
 
     <meta property="og:type" content="profile" />
     <meta property="og:site_name" content={ru ? 'Кеша Антонов' : 'Kesha Antonov'} />

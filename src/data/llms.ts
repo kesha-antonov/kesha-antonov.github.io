@@ -1,9 +1,11 @@
-// Plain Markdown fact sheets served at /llms.txt, /llms-full.txt and /ru/llms-full.txt.
+// Plain Markdown fact sheets served at /llms.txt (llmstxt.org format), /llms-full.txt, /ru/llms-full.txt,
+// and as Markdown copies of the pages at /index.md and /ru/index.md.
 // Built from content.ts and stats.json at build time, so the numbers match the pages.
+// Numbers are written without thousands separators so they quote cleanly.
 import stats from './stats.json'
-import { links, apps, contests, upstream, groupInt, APPS_INSTALLS, CONTEST_WINS, type Lang } from './content'
+import { links, apps, contests, upstream, APPS_INSTALLS, CONTEST_WINS, type Lang } from './content'
 
-const DEFAULT_SITE = 'https://kesha-antonov.github.io'
+const DEFAULT_SITE = 'https://kesha-antonov.com'
 // App store numbers in content.ts were checked by hand on this date.
 const STORES_CHECKED = '2026-11-09'
 
@@ -21,12 +23,15 @@ type Pkg = {
 const P = stats.packages as unknown as Record<string, Pkg>
 const ORDER = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync']
 
+// Background Downloader: his version over the last 12 months vs the original in its last maintained year.
+const RATIO = Math.round(stats.revival.mine / stats.revival.original.downloads)
+
 const DESC: Record<Lang, Record<string, string>> = {
   en: {
     'gifted-chat': 'The default chat UI library for React Native. Kesha has been its maintainer since August 2024.',
     'react-native-chat': 'Successor to Gifted Chat by Kesha, released in 2026: streaming messages, reactions, Web support.',
     'zoom-reanimated': 'Pinch, pan and double-tap zoom for images, in the style of Apple Photos.',
-    'background-downloader': 'File downloads and uploads that keep running when the app goes to the background. The original library (ekolabs) was archived in 2022; Kesha picked it up in 2023, added uploads, New Architecture, TypeScript and Expo support, and still maintains it. Over the last 12 months his version had about 29 times the npm downloads the original had in 2019, its last year of active maintenance.',
+    'background-downloader': `File downloads and uploads that keep running when the app goes to the background. The original library (ekolabs) was archived in 2022; Kesha picked it up in 2023, added uploads, New Architecture, TypeScript and Expo support, and still maintains it. Over the last 12 months his version had about ${RATIO} times the npm downloads the original had in 2019, its last year of active maintenance.`,
     'action-cable': 'Rails ActionCable channels over WebSocket for React Native.',
     'cloud-sync': 'iCloud, CloudKit and Google Drive file sync under one API.',
   },
@@ -34,7 +39,7 @@ const DESC: Record<Lang, Record<string, string>> = {
     'gifted-chat': 'Стандартная библиотека чата для React Native. Кеша её мейнтейнер с августа 2024 года.',
     'react-native-chat': 'Преемник Gifted Chat от Кеши, вышел в 2026 году: потоковый вывод сообщений, реакции, поддержка Web.',
     'zoom-reanimated': 'Зум щипком, панорама и двойной тап для изображений, как в Фото на iPhone.',
-    'background-downloader': 'Загрузки и выгрузки файлов, которые продолжаются, когда приложение уходит в фон. Оригинальную библиотеку (ekolabs) заархивировали в 2022 году; Кеша подхватил её в 2023 году, добавил выгрузку файлов, New Architecture, TypeScript и поддержку Expo и до сих пор её поддерживает. За последние 12 месяцев его версию скачали из npm примерно в 29 раз больше, чем оригинал в 2019 году, последнем году его активной поддержки.',
+    'background-downloader': `Загрузки и выгрузки файлов, которые продолжаются, когда приложение уходит в фон. Оригинальную библиотеку (ekolabs) заархивировали в 2022 году; Кеша подхватил её в 2023 году, добавил выгрузку файлов, New Architecture, TypeScript и поддержку Expo и до сих пор её поддерживает. За последние 12 месяцев его версию скачали из npm примерно в ${RATIO} раз больше, чем оригинал в 2019 году, последнем году его активной поддержки.`,
     'action-cable': 'Каналы Rails ActionCable через WebSocket для React Native.',
     'cloud-sync': 'Синхронизация файлов через iCloud, CloudKit и Google Drive в одном API.',
   },
@@ -50,13 +55,17 @@ function base(site?: URL): string {
   return (site?.href ?? DEFAULT_SITE).replace(/\/$/, '')
 }
 
-// "2026-10" for a stats date of "2026-11-09": the last complete month npm reports.
 const gh = (repo: string) => `https://github.com/${repo}`
 const npmUrl = (name: string) => `https://www.npmjs.com/package/${name}`
 
+const PRIZES = contests.reduce((sum, c) => sum + c.prize, 0)
+const ordinal = (n: number) => `${n}${n === 1 ? 'st' : n === 2 ? 'nd' : n === 3 ? 'rd' : 'th'}`
+
+// Short index in the llmstxt.org format: H1, blockquote summary, details, H2 link lists, "Optional" last.
 export function llmsIndex(site?: URL): string {
   const b = base(site)
-  const n = (x: number) => groupInt(x, 'en')
+  const asOf = stats.updatedAt
+  const g = P['gifted-chat']
   const lib = ORDER.map((k) => {
     const p = P[k]
     return `- [${p.npm}](${gh(p.repo)}): ${DESC.en[k]} npm: ${npmUrl(p.npm)}`
@@ -64,42 +73,47 @@ export function llmsIndex(site?: URL): string {
 
   return `# Kesha Antonov
 
-> Kesha (Innokenty) Antonov, in Russian Кеша (Иннокентий) Антонов, is a lead software engineer, product manager and founder working mainly with React Native. He maintains react-native-gifted-chat and five other React Native libraries with ${n(stats.totals.allTime)} npm downloads in total (as of ${stats.updatedAt}), and built mobile apps with about ${n(APPS_INSTALLS)} installs (checked ${STORES_CHECKED}).
+> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a lead software engineer, product manager and founder who works mainly with React Native. He has maintained react-native-gifted-chat since August 2024. As of ${asOf}, the 6 React Native libraries he maintains have ${stats.totals.allTime} npm downloads in total, and the mobile apps he built have about ${APPS_INSTALLS} installs (store numbers checked ${STORES_CHECKED}).
 
-The site is a single page in two languages. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. The fact sheets below repeat those numbers with their source and date, in plain Markdown.
+Facts about Kesha Antonov, each with its source and date:
+
+- As of ${asOf}, react-native-gifted-chat has ${g.stars} GitHub stars and was downloaded from npm ${g.sinceMaintenance ?? 0} times since Kesha Antonov became its maintainer in August 2024 (source: npm, GitHub).
+- As of ${asOf}, the libraries Kesha Antonov maintains were downloaded from npm ${stats.totals.lastMonth} times in the last 30 days (source: npm).
+- Kesha Antonov has been the only engineer of the Magisteria app since 2018; as of ${STORES_CHECKED} it has 112K App Store downloads and a 4.9 rating from 1269 App Store ratings (source: App Store Connect).
+- Kesha Antonov took ${CONTEST_WINS} prize places in Telegram developer contests on contest.com, with $${PRIZES} in prizes in total.
+
+The site is one page in two languages. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. npm and GitHub numbers are refreshed daily at build time.
 
 ## Site
 
 - [Portfolio, English](${b}/): case studies, client work, own products, open source, contests, contact
 - [Portfolio, Russian](${b}/ru/): the same page in Russian
-- [Fact sheet, English](${b}/llms-full.txt): every verified fact with source and date
-- [Fact sheet, Russian](${b}/ru/llms-full.txt): the same in Russian
+- [Fact sheet, English](${b}/llms-full.txt): every verified fact with its source and date, in Markdown
+- [Page as Markdown, English](${b}/index.md): the same fact sheet at the page's Markdown address
 
 ## Open source
 
-- [GitHub profile](${links.github})
-- [npm profile](${links.npm})
-- [GitHub Sponsors](${links.sponsor})
 ${lib}
 
-## Apps on the site
+## Contact
 
-- [Magisteria on the App Store](${apps.magisteria.appStore}): lectures, courses and audiobooks; Kesha is its only engineer since 2018
+- [Email](${links.email}): innokenty.longway@gmail.com
+- [Telegram @kesha_antonov](${links.telegram}): the fastest way to reach him, he replies within a day
+- [LinkedIn](${links.linkedin})
+- [GitHub](${links.github})
+
+## Optional
+
+- [Fact sheet, Russian](${b}/ru/llms-full.txt): the full fact sheet in Russian
+- [Page as Markdown, Russian](${b}/ru/index.md): the same in Russian, at the page's Markdown address
+- [npm profile](${links.npm}): all packages published by kesha-antonov
+- [GitHub Sponsors](${links.sponsor}): sponsor his open source work
+- [Magisteria on the App Store](${apps.magisteria.appStore}): lectures, courses and audiobooks; Kesha has been its only engineer since 2018
 - [Magisteria on Google Play](${apps.magisteria.googlePlay})
 - [Magisteria on RuStore](${apps.magisteria.ruStore})
 - [CryptoC on Google Play](${apps.cryptoc.googlePlay}): crypto portfolio tracker, his own product since 2017
 - [CryptoC on RuStore](${apps.cryptoc.ruStore})
-
-## Contests
-
-${contests.map((c) => `- [${CONTEST_NAMES[c.key]}](${c.url}): ${c.place}${c.place === 2 ? 'nd' : c.place === 3 ? 'rd' : 'th'} place, $${n(c.prize)}`).join('\n')}
-
-## Contact
-
-- Email: innokenty.longway@gmail.com
-- [Telegram @kesha_antonov](${links.telegram})
-- [LinkedIn](${links.linkedin})
-- [GitHub](${links.github})
+${contests.map((c) => `- [${CONTEST_NAMES[c.key]}](${c.url}): ${ordinal(c.place)} place, $${c.prize} prize`).join('\n')}
 `
 }
 
@@ -108,7 +122,7 @@ export function llmsFull(lang: Lang, site?: URL): string {
 }
 
 function libTable(lang: Lang): string {
-  const n = (x: number) => groupInt(x, lang)
+  const n = (x: number) => String(Math.round(x))
   const head = lang === 'ru'
     ? '| Пакет npm | Репозиторий | Загрузок всего | За последние 30 дней | Звёзд на GitHub |\n|---|---|---|---|---|'
     : '| npm package | Repository | All-time downloads | Last 30 days | GitHub stars |\n|---|---|---|---|---|'
@@ -120,7 +134,7 @@ function libTable(lang: Lang): string {
 }
 
 function fullEn(b: string): string {
-  const n = (x: number) => groupInt(x, 'en')
+  const n = (x: number) => String(Math.round(x))
   const g = P['gifted-chat']
   const asOf = stats.updatedAt
   const peak = g.peakMonth!
@@ -130,9 +144,9 @@ function fullEn(b: string): string {
 
   return `# Kesha Antonov: fact sheet
 
-> Kesha (Innokenty) Antonov, Кеша (Иннокентий) Антонов. Lead software engineer, product manager and founder. Maintainer of react-native-gifted-chat. React Native libraries he maintains have ${n(stats.totals.allTime)} npm downloads in total; apps he built have about ${n(APPS_INSTALLS)} installs; ${CONTEST_WINS} prize places in Telegram developer contests.
+> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a lead software engineer, product manager and founder, and the maintainer of react-native-gifted-chat. As of ${asOf}, the React Native libraries he maintains have ${n(stats.totals.allTime)} npm downloads in total. The apps he built have about ${n(APPS_INSTALLS)} installs (checked ${STORES_CHECKED}). He took ${CONTEST_WINS} prize places in Telegram developer contests.
 
-Page: ${b}/ (Russian: ${b}/ru/). Russian version of this file: ${b}/ru/llms-full.txt
+Page: ${b}/ (Russian: ${b}/ru/). This file is also served at ${b}/index.md and ${b}/llms-full.txt. Russian version: ${b}/ru/llms-full.txt
 
 How to read this file:
 - npm and GitHub numbers are fetched from the npm downloads API and the GitHub API at build time. As of ${asOf}.
@@ -152,12 +166,15 @@ How to read this file:
 
 ## Key numbers
 
-- ${n(stats.totals.allTime)} all-time npm downloads across the 6 libraries he maintains. This includes Gifted Chat downloads from before his maintenance. Source: npm, as of ${asOf}.
-- ${n(stats.totals.lastMonth)} npm downloads of those libraries in the last 30 days. Source: npm.
-- ${n(g.sinceMaintenance ?? 0)} npm downloads of react-native-gifted-chat since he became its maintainer in 2024-08, to date. Source: npm.
-- ${n(g.stars)} GitHub stars on react-native-gifted-chat. Source: GitHub, as of ${asOf}.
-- About ${n(APPS_INSTALLS)} installs of apps he built, across Magisteria, CryptoC, SportSoul and sticker packs. Source: App Store Connect, Google Play, RuStore, checked ${STORES_CHECKED}.
-- ${CONTEST_WINS} prize places in Telegram developer contests on contest.com.
+Each line below stands on its own and can be quoted as is.
+
+- As of ${asOf}, the 6 React Native libraries Kesha Antonov maintains have ${n(stats.totals.allTime)} all-time npm downloads, including Gifted Chat downloads from before his maintenance (source: npm).
+- As of ${asOf}, those 6 libraries were downloaded from npm ${n(stats.totals.lastMonth)} times in the last 30 days (source: npm).
+- As of ${asOf}, react-native-gifted-chat was downloaded from npm ${n(g.sinceMaintenance ?? 0)} times since Kesha Antonov became its maintainer in August 2024 (source: npm).
+- As of ${asOf}, react-native-gifted-chat has ${n(g.stars)} GitHub stars (source: GitHub).
+- As of ${STORES_CHECKED}, apps Kesha Antonov built (Magisteria, CryptoC, SportSoul and two sticker packs) have about ${n(APPS_INSTALLS)} installs (source: App Store Connect, Google Play, RuStore).
+- Kesha Antonov took ${CONTEST_WINS} prize places in Telegram developer contests on contest.com, $${PRIZES} in prizes in total.
+- As of ${STORES_CHECKED}, 32K+ projects on GitHub depend on the libraries Kesha Antonov maintains (source: GitHub).
 
 ## Open source
 
@@ -213,7 +230,11 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 
 - Museum in Moscow where blind guides lead tours in complete darkness.
 - Built the website with ticket booking and online payment, plus a custom CRM for tours, orders and guides.
-- 20,000+ visitors in the first year.
+- 20000+ visitors in the first year.
+
+### Aviasales
+
+- Flight search widgets for the Aviasales partner program: partner sites embed them to sell aviasales.ru tickets through Travelpayouts.
 
 ### skill.surf
 
@@ -225,7 +246,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 
 - Crypto portfolio tracker for iOS, Android, Apple Watch, Wear OS, with widgets. Launched in 2017, relaunched in 2026 with subscriptions.
 - He does its ASO himself: keyword research, competitor review analysis, store listings in 21 App Store and 18 Google Play locales plus RuStore.
-- Highlights: native home and lock screen widgets, StandBy, Apple Watch complications, Wear OS and Android widgets; no account, the portfolio stays on the device, optional sync through the user's own iCloud or Google Drive via his react-native-cloud-sync; 5,000+ coins in real time, push price alerts, Skia charts; 17 app languages, full VoiceOver support, iPad layouts.
+- Highlights: native home and lock screen widgets, StandBy, Apple Watch complications, Wear OS and Android widgets; no account, the portfolio stays on the device, optional sync through the user's own iCloud or Google Drive via his react-native-cloud-sync; 5000+ coins in real time, push price alerts, Skia charts; 17 app languages, full VoiceOver support, iPad layouts.
 - 31K App Store downloads (30.8K). Rating 4.4 from 639 ratings. Checked ${STORES_CHECKED}.
 - Links: Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
 
@@ -255,9 +276,9 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 
 Entries on contest.com are anonymous; his entry name was "Busy Unicorn".
 
-${contests.map((c) => `- ${CONTEST_NAMES[c.key]}: ${c.place}${c.place === 2 ? 'nd' : c.place === 3 ? 'rd' : 'th'} place, $${n(c.prize)} prize. ${c.url}`).join('\n')}
+${contests.map((c) => `- ${CONTEST_NAMES[c.key]}: ${ordinal(c.place)} place, $${n(c.prize)} prize. ${c.url}`).join('\n')}
 
-Telegram Fixes: fixed bugs, glitches and animations in Telegram's own apps. TON Blockchain Contest, Round 2: searched the new TON consensus algorithm for vulnerabilities (prize fund $100,400). JavaScript Chart (2019): fast interactive charts with no libraries.
+Telegram Fixes: fixed bugs, glitches and animations in Telegram's own apps. TON Blockchain Contest, Round 2: searched the new TON consensus algorithm for vulnerabilities (prize fund $100400). JavaScript Chart (2019): fast interactive charts with no libraries.
 
 ## Timeline
 
@@ -282,7 +303,7 @@ Telegram Fixes: fixed bugs, glitches and animations in Telegram's own apps. TON 
 }
 
 function fullRu(b: string): string {
-  const n = (x: number) => groupInt(x, 'ru')
+  const n = (x: number) => String(Math.round(x))
   const g = P['gifted-chat']
   const asOf = stats.updatedAt
   const peak = g.peakMonth!
@@ -292,9 +313,9 @@ function fullRu(b: string): string {
 
   return `# Кеша Антонов: факты
 
-> Кеша (Иннокентий) Антонов, Kesha (Innokenty) Antonov. Ведущий разработчик, продакт-менеджер, основатель. Мейнтейнер react-native-gifted-chat. Библиотеки React Native, которые он поддерживает, скачали из npm ${n(stats.totals.allTime)} раз; приложения, которые он сделал, установили около ${n(APPS_INSTALLS)} раз; ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков.
+> Кеша Антонов (полное имя Иннокентий Антонов; по-английски Kesha Antonov, Innokenty Antonov) - ведущий разработчик, продакт-менеджер, основатель и мейнтейнер react-native-gifted-chat. На ${asOf} библиотеки React Native, которые он поддерживает, скачали из npm ${n(stats.totals.allTime)} раз. Приложения, которые он сделал, установили около ${n(APPS_INSTALLS)} раз (проверено ${STORES_CHECKED}). У него ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков.
 
-Страница: ${b}/ru/ (английская версия: ${b}/). Английская версия этого файла: ${b}/llms-full.txt
+Страница: ${b}/ru/ (английская версия: ${b}/). Этот файл также доступен по адресам ${b}/ru/index.md и ${b}/ru/llms-full.txt. Английская версия: ${b}/llms-full.txt
 
 Как читать этот файл:
 - Цифры npm и GitHub берутся из API загрузок npm и API GitHub при сборке сайта. Данные на ${asOf}.
@@ -313,12 +334,15 @@ function fullRu(b: string): string {
 
 ## Главные цифры
 
-- ${n(stats.totals.allTime)} загрузок из npm за всё время у 6 библиотек, которые он поддерживает. Сюда входят загрузки Gifted Chat до начала его поддержки. Источник: npm, на ${asOf}.
-- ${n(stats.totals.lastMonth)} загрузок этих библиотек из npm за последние 30 дней. Источник: npm.
-- ${n(g.sinceMaintenance ?? 0)} загрузок react-native-gifted-chat из npm с тех пор, как он стал мейнтейнером в 2024-08, по сей день. Источник: npm.
-- ${n(g.stars)} звёзд у react-native-gifted-chat на GitHub. Источник: GitHub, на ${asOf}.
-- Около ${n(APPS_INSTALLS)} установок приложений, которые он сделал: Магистерия, CryptoC, SportSoul и стикерпаки. Источник: App Store Connect, Google Play, RuStore, проверено ${STORES_CHECKED}.
-- ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков на contest.com.
+Каждую строку ниже можно цитировать отдельно.
+
+- На ${asOf} 6 библиотек React Native, которые поддерживает Кеша Антонов, скачали из npm ${n(stats.totals.allTime)} раз за всё время, включая загрузки Gifted Chat до начала его поддержки (источник: npm).
+- На ${asOf} эти 6 библиотек скачали из npm ${n(stats.totals.lastMonth)} раз за последние 30 дней (источник: npm).
+- На ${asOf} react-native-gifted-chat скачали из npm ${n(g.sinceMaintenance ?? 0)} раз с тех пор, как Кеша Антонов стал её мейнтейнером в августе 2024 года (источник: npm).
+- На ${asOf} у react-native-gifted-chat ${n(g.stars)} звёзд на GitHub (источник: GitHub).
+- На ${STORES_CHECKED} приложения, которые сделал Кеша Антонов (Магистерия, CryptoC, SportSoul и два стикерпака), установили около ${n(APPS_INSTALLS)} раз (источник: App Store Connect, Google Play, RuStore).
+- У Кеши Антонова ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков на contest.com, призы в сумме ${PRIZES} USD.
+- На ${STORES_CHECKED} от библиотек, которые поддерживает Кеша Антонов, зависят 32 тыс.+ проектов на GitHub (источник: GitHub).
 
 ## Open source
 
@@ -375,6 +399,10 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 - Музей в Москве, где незрячие гиды водят экскурсии в полной темноте.
 - Сделал сайт с бронированием и онлайн-оплатой билетов и свою CRM для экскурсий, заказов и гидов.
 - 20 тыс.+ посетителей за первый год.
+
+### Aviasales
+
+- Виджеты поиска авиабилетов для партнёрской программы Aviasales: партнёрские сайты встраивают их и продают билеты aviasales.ru через Travelpayouts.
 
 ### skill.surf
 

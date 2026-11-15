@@ -8,7 +8,7 @@ const pages = [
 ]
 
 export const GET: APIRoute = ({ site }) => {
-  const base = site ?? new URL('https://kesha-antonov.github.io')
+  const base = site ?? new URL('https://kesha-antonov.com')
   const abs = (p: string) => new URL(p, base).href
   const alternates = [
     ...pages.map((p) => `    <xhtml:link rel="alternate" hreflang="${p.lang}" href="${abs(p.path)}"/>`),
