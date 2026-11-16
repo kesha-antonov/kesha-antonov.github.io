@@ -208,7 +208,7 @@
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 87
+      "stars": 88
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
@@ -280,7 +280,7 @@
       "downloads": 17379
     },
     "mine": 512160,
-    "releases": 66
+    "releases": 67
   },
   "totals": {
     "allTime": 20166377,
