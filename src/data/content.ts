@@ -21,6 +21,7 @@ export const apps = {
     ruStore: 'https://www.rustore.ru/catalog/app/ru.magisteria.magisteria_app',
   },
   cryptoc: {
+    site: 'https://getcryptoc.app',
     appStore: '', // id1333169178 returns 404 in ru/us/de stores on 09.11.2026
     googlePlay: 'https://play.google.com/store/apps/details?id=co.ssoul.CryptoC',
     ruStore: 'https://www.rustore.ru/catalog/app/co.ssoul.CryptoC',

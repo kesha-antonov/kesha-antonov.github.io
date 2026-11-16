@@ -111,7 +111,8 @@ ${lib}
 - [Magisteria on the App Store](${apps.magisteria.appStore}): lectures, courses and audiobooks; Kesha has been its only engineer since 2018
 - [Magisteria on Google Play](${apps.magisteria.googlePlay})
 - [Magisteria on RuStore](${apps.magisteria.ruStore})
-- [CryptoC on Google Play](${apps.cryptoc.googlePlay}): crypto portfolio tracker, his own product since 2017
+- [CryptoC website](${apps.cryptoc.site}): crypto portfolio tracker, his own product since 2017
+- [CryptoC on Google Play](${apps.cryptoc.googlePlay})
 - [CryptoC on RuStore](${apps.cryptoc.ruStore})
 ${contests.map((c) => `- [${CONTEST_NAMES[c.key]}](${c.url}): ${ordinal(c.place)} place, $${c.prize} prize`).join('\n')}
 `
@@ -251,7 +252,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 - He does its ASO himself: keyword research, competitor review analysis, store listings in 21 App Store and 18 Google Play locales plus RuStore.
 - Highlights: native home and lock screen widgets, StandBy, Apple Watch complications, Wear OS and Android widgets; no account, the portfolio stays on the device, optional sync through the user's own iCloud or Google Drive via his react-native-cloud-sync; 5000+ coins in real time, push price alerts, Skia charts; 17 app languages, full VoiceOver support, iPad layouts.
 - 31K App Store downloads (30.8K). Rating 4.4 from 639 ratings. Checked ${STORES_CHECKED}.
-- Links: Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
+- Links: website ${apps.cryptoc.site}, Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
 
 ### SportSoul
 
@@ -423,7 +424,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 - ASO делает сам: подбор ключевых слов, разбор отзывов конкурентов, страницы в сторах на 21 языке в App Store, 18 в Google Play и в RuStore.
 - Что внутри: нативные виджеты на домашнем экране и экране блокировки, StandBy, усложнения для Apple Watch, Wear OS и виджеты Android; без аккаунта, портфель хранится на устройстве, синхронизация по желанию через собственный iCloud или Google Drive пользователя на его react-native-cloud-sync; 5000+ монет в реальном времени, уведомления о цене через пуши, графики на Skia; 17 языков в приложении, полная поддержка VoiceOver, раскладка для iPad.
 - 31 тыс. загрузок в App Store (30.8 тыс.). Оценка 4.4 из 639 оценок. Проверено ${STORES_CHECKED}.
-- Ссылки: Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
+- Ссылки: сайт ${apps.cryptoc.site}, Google Play ${apps.cryptoc.googlePlay}, RuStore ${apps.cryptoc.ruStore}
 
 ### SportSoul
 
