@@ -107,10 +107,21 @@ async function sponsors() {
   const data = await res.json()
   const u = data?.data?.user
   if (!u) throw new Error(JSON.stringify(data?.errors ?? data).slice(0, 200))
+  // Sponsor names are set by strangers and end up in HTML, Markdown and the llms files,
+  // so keep only valid logins and plain, short names.
+  const LOGIN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/
+  const cleanName = (s, fallback) => {
+    const t = String(s ?? '').replace(/[\p{C}<>\[\]()`*_#|\\]/gu, '').replace(/\s+/g, ' ').trim().slice(0, 40)
+    return t || fallback
+  }
+  const goal = u.sponsorsListing?.activeGoal
+  const target = Number(goal?.targetValue)
   return {
-    count: u.sponsors.totalCount,
-    list: u.sponsors.nodes.map((n) => ({ login: n.login, name: n.name || n.login, org: n.__typename === 'Organization' })),
-    goal: u.sponsorsListing?.activeGoal ? { title: u.sponsorsListing.activeGoal.title, target: u.sponsorsListing.activeGoal.targetValue } : null,
+    count: Number(u.sponsors.totalCount) || 0,
+    list: u.sponsors.nodes
+      .filter((n) => typeof n?.login === 'string' && LOGIN.test(n.login))
+      .map((n) => ({ login: n.login, name: cleanName(n.name, n.login), org: n.__typename === 'Organization' })),
+    goal: goal && Number.isInteger(target) && target > 0 && target <= 1000 ? { title: cleanName(goal.title, ''), target } : null,
   }
 }
 try {

@@ -5,6 +5,7 @@ import '@fontsource/pangolin'
 import '../styles/global.css'
 import stats from '../data/stats.json'
 import { dict, links, contests, compact, type Lang } from '../data/content'
+import { THEME_INIT } from '../scripts/theme-init.mjs'
 
 interface Props { lang: Lang }
 const { lang } = Astro.props
@@ -148,10 +149,8 @@ const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#f6f3e6" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#14161b" media="(prefers-color-scheme: dark)" />
-    <script is:inline>
-      // Apply the saved theme before first paint; without a saved choice the OS theme wins.
-      try { const t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t } catch (e) {}
-    </script>
+    <!-- Apply the saved theme before first paint; its hash is in the CSP (astro.config.mjs). -->
+    <script is:inline set:html={THEME_INIT} />
     <!-- Both schemes: global.css sets the actual one on :root (OS preference or the saved theme). -->
     <meta name="color-scheme" content="light dark" />
     {person.sameAs.map((href) => <link rel="me" href={href} />)}
