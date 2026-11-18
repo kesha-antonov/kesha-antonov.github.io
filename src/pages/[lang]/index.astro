@@ -1,0 +1,10 @@
+---
+// The home page in every language besides English (which lives at the root).
+import Base from '../../layouts/Base.astro'
+import Home from '../../components/Home.astro'
+import { prefixedLangs } from '../../data/langs'
+
+export const getStaticPaths = prefixedLangs
+const { lang } = Astro.props
+---
+<Base lang={lang}><Home lang={lang} /></Base>

@@ -1,0 +1,11 @@
+---
+// The hire page in every language besides English.
+import Base from '../../../layouts/Base.astro'
+import Hire from '../../../components/Hire.astro'
+import { hireMeta } from '../../../data/hireMeta'
+import { prefixedLangs } from '../../../data/langs'
+
+export const getStaticPaths = prefixedLangs
+const { lang } = Astro.props
+---
+<Base lang={lang} page={hireMeta(lang)}><Hire lang={lang} /></Base>

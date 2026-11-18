@@ -5,9 +5,8 @@ import { feature } from 'topojson-client'
 import { geoEqualEarth, geoPath } from 'd3-geo'
 import world from 'world-atlas/countries-110m.json'
 
-interface Props { lang: 'en' | 'ru' }
-const { lang } = Astro.props
-const ru = lang === 'ru'
+interface Props { label: string }
+const { label } = Astro.props
 
 // ISO 3166 numeric codes of the 22 visited countries.
 const VISITED = [643, 840, 112, 360, 702, 458, 704, 818, 376, 352, 792, 616, 276, 380, 250, 724, 499, 8, 756, 300, 246, 51]
@@ -33,7 +32,7 @@ const shapes = countries.flatMap((f: any) => {
 const [sx, sy] = projection([103.82, 1.35]) ?? [0, 0]
 ---
 <figure class="world">
-  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={ru ? 'Карта стран, где я был' : 'Map of countries I have visited'}>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label}>
     {shapes.map((s: any) => <path d={s.d} class={s.kind} />)}
     <circle cx={sx.toFixed(1)} cy={sy.toFixed(1)} r="6" class="visited dot" />
   </svg>

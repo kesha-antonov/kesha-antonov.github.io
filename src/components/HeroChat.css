@@ -53,6 +53,9 @@
 }
 .balloon::before { bottom: -14px; border-width: 14px 12px 0 0; border-color: var(--ink) transparent transparent transparent; }
 .balloon::after { bottom: -8px; left: 21px; border-width: 9px 7px 0 0; border-color: var(--white) transparent transparent transparent; }
+/* Right-to-left: the tail hangs from the other corner, mirrored. */
+[dir='rtl'] .balloon::before { left: auto; right: 18px; border-width: 14px 0 0 12px; }
+[dir='rtl'] .balloon::after { left: auto; right: 21px; border-width: 9px 0 0 7px; }
 
 /* The visitor's lines read as yellow narration captions, not balloons. */
 .balloon.you {

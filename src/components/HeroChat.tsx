@@ -6,6 +6,7 @@ type Reply = { label: string; target: string; answer: string }
 type Msg = { id: number; from: 'me' | 'you'; text: string; done: boolean; target?: string }
 
 interface Props {
+  name: string
   title: string
   online: string
   intro: string[]
@@ -16,7 +17,7 @@ interface Props {
 
 const TOKEN_MS = 28
 
-export default function HeroChat({ title, online, intro, replies, placeholder, showLabel }: Props) {
+export default function HeroChat({ name, title, online, intro, replies, placeholder, showLabel }: Props) {
   const [messages, setMessages] = useState<Msg[]>([])
   const [typing, setTyping] = useState(false)
   const [used, setUsed] = useState<string[]>([])
@@ -73,7 +74,7 @@ export default function HeroChat({ title, online, intro, replies, placeholder, s
     <div className="phone" aria-label={title}>
       <div className="phone-screen">
         <div className="phone-bar">
-          <img className="phone-avatar" src="/avatar.webp" alt="" width="36" height="36" />
+          <img className="phone-avatar" src="/avatar.webp" alt={name} width="36" height="36" />
           <div>
             <div className="phone-name">Kesha</div>
             <div className="phone-status">{online}</div>

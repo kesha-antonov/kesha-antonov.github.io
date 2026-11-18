@@ -1,0 +1,109 @@
+---
+// The album title strip: name, section links, theme switch, language menu, hire button.
+// On the home page the section links are in-page anchors; elsewhere they lead back to it.
+import { dict, type Lang } from '../data/content'
+import { LANGS, LANG_INFO, langPath, langLabel } from '../data/langs'
+
+// path: the page's address without the language, for the language menu.
+interface Props { lang: Lang; home?: boolean; path?: string }
+const { lang, home = false, path = '/' } = Astro.props
+const t = dict[lang]
+const top = home ? '' : langPath(lang)
+---
+<header class="page">
+  <div class="masthead panel">
+    <a class="mark" href={langPath(lang)} aria-label="Kesha Antonov">
+      <img class="avatar" src="/avatar.webp" alt={t.hero.name} width="44" height="44" />
+      <span>Kesha Antonov</span>
+    </a>
+    <nav aria-label={t.ui.mainNav}>
+      <a href={`${top}#work`}>{t.nav.work}</a>
+      <a href={`${top}#products`}>{t.nav.products}</a>
+      <a href={`${top}#oss`}>{t.nav.oss}</a>
+      <button type="button" class="theme-toggle" aria-label={t.ui.theme.system} title={t.ui.theme.system} data-l-system={t.ui.theme.system} data-l-light={t.ui.theme.light} data-l-dark={t.ui.theme.dark}>
+        <svg class="icon-auto" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="2.5" y="4" width="19" height="13" rx="2" fill="var(--white)" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round" /><path d="M12 5.2a5 5 0 0 1 0 10z" fill="var(--sand)" /><path d="M8 21h8M12 17v4" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" /></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="4.5" fill="var(--sand)" stroke="var(--ink)" stroke-width="2.2" /><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" /></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="var(--sand)" stroke="var(--ink)" stroke-width="2.2" stroke-linejoin="round" /></svg>
+      </button>
+      <details class="lang-menu">
+        <summary aria-label={t.ui.language}>
+          <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" class="globe">
+            <circle cx="12" cy="12" r="9.5" fill="var(--white)" stroke="var(--ink)" stroke-width="2.2" />
+            <path d="M2.5 12h19M12 2.5c-3 3-4.2 6-4.2 9.5s1.2 6.5 4.2 9.5M12 2.5c3 3 4.2 6 4.2 9.5s-1.2 6.5-4.2 9.5" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" />
+          </svg>
+          <span>{langLabel(lang)}</span>
+          <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true" class="caret"><path d="M1.5 1.5L6 6l4.5-4.5" fill="none" stroke="var(--ink)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </summary>
+        <ul>
+          {LANGS.map((l) => <li><a href={langPath(l, path)} hreflang={l} lang={l} dir={LANG_INFO[l].dir} aria-current={l === lang ? 'true' : undefined}>{LANG_INFO[l].name}</a></li>)}
+        </ul>
+      </details>
+      <a class="btn red" href="#contact">{t.hero.ctaHire}</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Theme switch: cycles system, light, dark. "System" follows the OS and stores nothing.
+  const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle')
+  if (toggle) {
+    const root = document.documentElement
+    const order = ['system', 'light', 'dark']
+    const label = () => {
+      const mode = root.dataset.theme || 'system'
+      const text = toggle.dataset['l' + mode[0].toUpperCase() + mode.slice(1)] || ''
+      toggle.setAttribute('aria-label', text)
+      toggle.title = text
+    }
+    label()
+    toggle.addEventListener('click', () => {
+      const next = order[(order.indexOf(root.dataset.theme || 'system') + 1) % order.length]
+      if (next === 'system') delete root.dataset.theme
+      else root.dataset.theme = next
+      try {
+        if (next === 'system') localStorage.removeItem('theme')
+        else localStorage.setItem('theme', next)
+      } catch (e) {}
+      label()
+    })
+  }
+
+  // Close the language menu on outside click or Escape.
+  const menu = document.querySelector('.lang-menu')
+  if (menu) {
+    document.addEventListener('click', (e) => { if (menu.open && !menu.contains(e.target)) menu.open = false })
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.open) { menu.open = false; menu.querySelector('summary')?.focus() } })
+  }
+</script>
+
+<style>
+  /* Masthead: the album title strip */
+  .masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: var(--gutter-panel) 0; padding-block: 10px; padding-inline: 16px 14px; }
+  .mark { display: flex; align-items: center; gap: 12px; text-decoration: none; font: 700 clamp(18px, 2vw, 24px)/1 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  nav { display: flex; align-items: center; gap: clamp(10px, 2vw, 26px); font: 700 15px/1 var(--display); text-transform: uppercase; }
+  nav a:not(.btn) { text-decoration: none; }
+  nav a:not(.btn):hover { text-decoration: underline; }
+  .theme-toggle { display: grid; place-items: center; width: 42px; height: 42px; padding: 0; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--sky); cursor: pointer; }
+  .theme-toggle:hover { background: var(--sand-pale); }
+  .theme-toggle svg { display: none; }
+  .theme-toggle .icon-auto { display: block; }
+  :global(:root[data-theme='light']) .theme-toggle .icon-auto, :global(:root[data-theme='dark']) .theme-toggle .icon-auto { display: none; }
+  :global(:root[data-theme='light']) .theme-toggle .icon-sun { display: block; }
+  :global(:root[data-theme='dark']) .theme-toggle .icon-moon { display: block; }
+  .avatar { width: 44px; height: 44px; border-radius: 50%; border: var(--line) solid var(--ink); flex: none; }
+  .lang-menu { position: relative; }
+  .lang-menu summary { list-style: none; display: flex; align-items: center; gap: 6px; min-height: 42px; padding: 0 10px; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--sky); cursor: pointer; user-select: none; }
+  .lang-menu summary::-webkit-details-marker { display: none; }
+  .lang-menu summary:hover { background: var(--sand); }
+  .lang-menu .caret { transition: transform 120ms ease; }
+  .lang-menu[open] .caret { transform: rotate(180deg); }
+  .lang-menu ul { position: absolute; inset-inline-end: 0; top: calc(100% + 8px); z-index: 10; list-style: none; margin: 0; padding: 0; width: max-content; max-width: calc(100vw - 2 * var(--pad)); columns: 2; column-gap: 0; column-rule: var(--line) solid var(--ink); background: var(--white); border: var(--line) solid var(--ink); border-radius: var(--radius-panel); }
+  .lang-menu li { break-inside: avoid; border-bottom: var(--line) solid var(--ink); margin-bottom: calc(var(--line) * -1); }
+  .lang-menu ul a { display: block; padding: 10px 14px; text-transform: none; font: 700 17px/1 var(--display); }
+  .lang-menu ul a:hover { background: var(--sky-pale); text-decoration: none; }
+  .lang-menu ul a[aria-current] { background: var(--sand); }
+  .lang-menu ul a[aria-current]::after { content: ''; display: inline-block; width: 8px; height: 8px; margin-inline-start: 8px; border-radius: 50%; background: var(--ink); vertical-align: middle; }
+  @media (prefers-reduced-motion: reduce) { .lang-menu .caret { transition: none; } }
+  nav .btn { min-height: 42px; }
+  @media (max-width: 760px) { nav > a:not(.btn) { display: none; } .mark span { display: none; } }
+</style>

@@ -1,7 +1,10 @@
 // All site copy and verified facts, in English and Russian.
 // Numbers that change daily come from stats.json; the ones here were checked by hand on 09.11.2026.
 
-export type Lang = 'en' | 'ru'
+import { compact, LANGS, type Lang } from './langs'
+import { locales } from './locales'
+
+export { compact, type Lang }
 
 export const links = {
   github: 'https://github.com/kesha-antonov',
@@ -51,14 +54,19 @@ export const upstream: { label: string; repo: string; logo?: string }[] = [
 ]
 
 const en = {
+  // Search snippet: name first, then the proof numbers. {npm} is the live npm total.
+  // The description stays near 155 characters so the snippet is not cut.
   meta: {
-    title: 'Kesha Antonov - lead engineer, product manager, founder',
-    description:
-      'I take stalled products and make them grow. Maintainer of react-native-gifted-chat. My React Native libraries have 19M+ installs, my apps 250K+.',
+    title: 'Kesha Antonov - React Native lead engineer and product manager',
+    description: 'Kesha Antonov, React Native lead engineer. Freelance and fractional React Native app development. Maintainer of react-native-gifted-chat, {npm} npm installs.',
+    ogAlt: 'Kesha Antonov: {npm} npm installs of his libraries, 250K+ installs of apps he built',
+    author: 'Kesha Antonov',
+    jobTitle: 'React Native Lead Engineer, Product Manager, Founder',
+    service: 'React Native app development',
   },
   nav: { work: 'Work', products: 'Products', oss: 'Open source', contact: 'Contact' },
   hero: {
-    kicker: 'Lead software engineer, product manager, founder',
+    kicker: 'React Native lead engineer, product manager, founder',
     name: 'Kesha Antonov',
     title: 'I take stalled products and make them grow.',
     sub: 'I revived react-native-gifted-chat after 14 months without a release. I took a learning app to 200K+ installs as its only engineer. I have launched my own products since 2015.',
@@ -247,7 +255,7 @@ const en = {
       { q: 'Which React Native library downloads files in the background?', a: '@kesha-antonov/react-native-background-downloader. Downloads and uploads keep running when the app is in the background, on iOS and Android, with New Architecture, TypeScript and Expo support. Kesha Antonov has maintained it since 2023, after the original library was archived in 2022.' },
       { q: 'How do I add pinch-to-zoom to images in React Native?', a: 'react-native-zoom-reanimated by Kesha Antonov adds pinch, pan and double-tap zoom in the style of Apple Photos, built on Reanimated.' },
       { q: 'Who is Kesha Antonov?', a: 'Kesha Antonov is a React Native lead engineer, product manager and founder. He has launched his own apps since 2015, has been the only engineer of Magisteria since 2018 and took 3 prize places in Telegram developer contests.' },
-      { q: 'Is Kesha Antonov available for hire?', a: 'Yes. He takes lead or product engineer roles, fractional work and focused projects; terms are discussed case by case. Write on Telegram, @kesha_antonov, or by email. He replies within a day.' },
+      { q: 'Is Kesha Antonov available for hire?', a: 'Yes. He takes React Native lead or product engineer roles, fractional work and freelance projects: React Native app development for iOS and Android, chat features, native modules, rescue of stalled apps. Terms are discussed case by case. Write on Telegram, @kesha_antonov, or by email. He replies within a day.' },
     ],
   },
   contact: {
@@ -255,25 +263,69 @@ const en = {
     eyebrow: 'Contact',
     title: 'To be continued',
     lead: "Let's build the next thing that grows.",
-    body: 'Open to work. Lead or product engineer, fractional or project work, terms depend on the case: chats with streaming AI messages, native modules, stalled app rescue, ASO.',
+    body: 'Open to work: React Native lead or product engineer, fractional, or as a freelancer on a project. Terms depend on the case. React Native app development for iOS and Android, chats with streaming AI messages, native modules, stalled app rescue, ASO.',
     email: 'Email me',
     github: 'GitHub',
     sponsor: 'Sponsor',
   },
+  // Short interface texts: labels, alt texts, aria labels.
+  ui: {
+    showMe: 'Show me',
+    mainNav: 'Main',
+    language: 'Language',
+    theme: { system: 'Theme: system', light: 'Theme: light', dark: 'Theme: dark' },
+    appsTotal: '250K+',
+    score: 'The score so far',
+    npm: 'npm installs of my libraries',
+    month: 'last month',
+    apps: 'installs of apps I built',
+    gifted: 'Gifted Chat downloads on my watch',
+    wins: 'Telegram contest wins',
+    sponsors: 'Paid sponsors on GitHub',
+    company: 'company',
+    goal: (n: number, g: number) => `${n} of ${g} monthly sponsors`,
+    top10: 'Top 10%',
+    partnerProgram: 'Partner program',
+    rncDemo: 'react-native-chat demo',
+    prevScreen: 'Previous screen',
+    nextScreen: 'Next screen',
+    // Used as "CryptoC: app screens", "Magisteria: app icon".
+    appScreens: 'app screens',
+    appIcon: 'app icon',
+    studioLogo: 'studio logo',
+    websiteHome: 'website home page',
+    githubAvatar: 'GitHub avatar',
+    logo: (name: string) => `${name} logo`,
+    diaryPhoto: 'the printed planners in six cover colors',
+    stickersLabel: 'The stickers in iMessage',
+    mapAlt: 'Map of countries I have visited',
+    // Contest screenshots: the UI on them is English, so "your entry" stays as it is.
+    proofAlt: (name: string) => `contest.com screenshot, ${name}: my entry Busy Unicorn, marked "your entry"`,
+    // Alt texts of the app screens, in the order of the pictures.
+    shots: {
+      magisteria: ['course catalog', 'course page', 'course plan', 'lecture player', 'lecture transcript', 'image gallery', 'about the author', 'library', 'knowledge check'],
+      cryptoc: ['portfolio', 'widgets', 'price alerts', 'dark theme', 'converter', 'exchange rates'],
+      sportsoul: ['workout schedule', 'finding a partner or coach', 'workout stats', 'workout photos and videos'],
+      stickers: ['Falling in Fall: the sticker set', 'Sports Sticker Pack in a chat', 'Falling in Fall: good morning', 'Falling in Fall: get well soon', 'Falling in Fall: sticker picker', 'Sports Sticker Pack: the sticker set'],
+    },
+  },
   footer: 'Numbers checked against npm, GitHub, App Store Connect, Google Play and RuStore.',
 }
 
-type Dict = typeof en
+export type Dict = typeof en
 
 const ru: Dict = {
   meta: {
-    title: 'Кеша Антонов - ведущий разработчик, продакт-менеджер, основатель',
-    description:
-      'Беру буксующие продукты и делаю так, чтобы они росли. Мейнтейнер react-native-gifted-chat. У моих библиотек React Native 19 млн+ установок, у приложений 250 тыс.+.',
+    title: 'Кеша Антонов - ведущий разработчик React Native и продакт-менеджер',
+    description: 'Кеша Антонов, ведущий разработчик React Native: разработка приложений, фриланс и частичная занятость. Мейнтейнер react-native-gifted-chat, {npm} установок в npm.',
+    ogAlt: 'Кеша Антонов: {npm} установок библиотек в npm, 250 тыс.+ установок приложений',
+    author: 'Кеша Антонов',
+    jobTitle: 'Ведущий разработчик React Native, продакт-менеджер, основатель',
+    service: 'Разработка приложений на React Native',
   },
   nav: { work: 'Проекты', products: 'Продукты', oss: 'Open source', contact: 'Контакты' },
   hero: {
-    kicker: 'Ведущий разработчик, продакт-менеджер, основатель',
+    kicker: 'Ведущий разработчик React Native, продакт-менеджер, основатель',
     name: 'Кеша Антонов',
     title: 'Беру буксующие продукты и делаю так, чтобы они росли.',
     sub: 'Вернул к жизни react-native-gifted-chat после 14 месяцев без релизов. В одиночку довёл образовательное приложение до 200 тыс.+ установок. Свои продукты запускаю с 2015 года.',
@@ -458,7 +510,7 @@ const ru: Dict = {
       { q: 'Какая библиотека React Native загружает файлы в фоне?', a: '@kesha-antonov/react-native-background-downloader. Загрузки и выгрузки продолжаются, когда приложение в фоне, на iOS и Android, с поддержкой New Architecture, TypeScript и Expo. Кеша Антонов поддерживает её с 2023 года, после того как оригинал заархивировали в 2022 году.' },
       { q: 'Как сделать зум изображений щипком в React Native?', a: 'react-native-zoom-reanimated от Кеши Антонова: зум щипком, панорама и двойной тап, как в Фото на iPhone, на Reanimated.' },
       { q: 'Кто такой Кеша Антонов?', a: 'Кеша Антонов - ведущий разработчик React Native, продакт-менеджер и основатель. С 2015 года запускает свои приложения, с 2018 года единственный инженер Магистерии, взял 3 призовых места в конкурсах Telegram для разработчиков.' },
-      { q: 'Можно ли нанять Кешу Антонова?', a: 'Да. Роль ведущего или продуктового инженера, частичная занятость или отдельный проект, условия обсуждаются под задачу. Пишите в Telegram, @kesha_antonov, или на почту. Отвечает в течение дня.' },
+      { q: 'Можно ли нанять Кешу Антонова?', a: 'Да. Роль ведущего или продуктового инженера React Native, частичная занятость или проект на фрилансе: разработка приложений на React Native для iOS и Android, чаты, нативные модули, спасение буксующих приложений. Условия обсуждаются под задачу. Пишите в Telegram, @kesha_antonov, или на почту. Отвечает в течение дня.' },
     ],
   },
   contact: {
@@ -466,18 +518,55 @@ const ru: Dict = {
     eyebrow: 'Контакты',
     title: 'Продолжение следует',
     lead: 'Давайте сделаем следующий продукт, который вырастет.',
-    body: 'Открыт к работе. Ведущий или продуктовый инженер, частичная занятость или проект, условия обсуждаются под задачу: чаты со стримингом AI-сообщений, нативные модули, спасение буксующих приложений, ASO.',
+    body: 'Открыт к работе: ведущий или продуктовый инженер React Native, частичная занятость или проект на фрилансе. Условия обсуждаются под задачу. Разработка приложений на React Native для iOS и Android, чаты со стримингом AI-сообщений, нативные модули, спасение буксующих приложений, ASO.',
     email: 'Написать на почту',
     github: 'GitHub',
     sponsor: 'Поддержать',
   },
+  ui: {
+    showMe: 'Показать',
+    mainNav: 'Основное меню',
+    language: 'Язык',
+    theme: { system: 'Тема: как в системе', light: 'Тема: светлая', dark: 'Тема: тёмная' },
+    appsTotal: '250 тыс.+',
+    score: 'Счёт на сегодня',
+    npm: 'установок библиотек в npm',
+    month: 'за прошлый месяц',
+    apps: 'установок моих приложений',
+    gifted: 'загрузок Gifted Chat за время моей поддержки',
+    wins: 'победы в конкурсах Telegram',
+    sponsors: 'Платные спонсоры на GitHub',
+    company: 'компания',
+    goal: (n: number, g: number) => `Ежемесячных спонсоров: ${n} из ${g}`,
+    top10: 'Топ-10%',
+    partnerProgram: 'Партнёрская программа',
+    rncDemo: 'Демо react-native-chat',
+    prevScreen: 'Предыдущий экран',
+    nextScreen: 'Следующий экран',
+    appScreens: 'экраны приложения',
+    appIcon: 'иконка приложения',
+    studioLogo: 'логотип студии',
+    websiteHome: 'главная страница сайта',
+    githubAvatar: 'аватар на GitHub',
+    logo: (name: string) => `Логотип ${name}`,
+    diaryPhoto: 'напечатанные планеры с обложками шести цветов',
+    stickersLabel: 'Стикеры в iMessage',
+    mapAlt: 'Карта стран, где я был',
+    proofAlt: (name: string) => `Скриншот contest.com, ${name}: моя работа Busy Unicorn с пометкой "your entry"`,
+    shots: {
+      magisteria: ['каталог курсов и лекций', 'страница курса', 'план курса', 'плеер лекции', 'текст лекции', 'галерея иллюстраций', 'об авторе', 'библиотека', 'проверка знаний'],
+      cryptoc: ['портфель', 'виджеты', 'уведомления о цене', 'тёмная тема', 'конвертер', 'курсы валют'],
+      sportsoul: ['расписание тренировок', 'поиск партнёра или тренера', 'статистика тренировок', 'фото и видео тренировок'],
+      stickers: ['Falling in Fall: все стикеры', 'Sports Sticker Pack: стикеры в чате', 'Falling in Fall: доброе утро', 'Falling in Fall: выздоравливай', 'Falling in Fall: выбор стикера', 'Sports Sticker Pack: все стикеры'],
+    },
+  },
   footer: 'Цифры сверены с npm, GitHub, App Store Connect, Google Play и RuStore.',
 }
 
-// Thousands grouping for readability: 100,400 in English, 100 400 in Russian.
+// Thousands grouping for readability: 100,400 in English, 100 400 in Russian, none in the other languages.
 // Years (1900-2099), dates like 09.11.2026 and decimals like 4.9 are left alone.
 export function groupInt(n: number, lang: Lang): string {
-  const sep = lang === 'ru' ? ' ' : ','
+  const sep = lang === 'en' ? ',' : lang === 'ru' ? ' ' : ''
   return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, sep)
 }
 
@@ -499,19 +588,11 @@ function deepGroup<T>(value: T, lang: Lang): T {
   return value
 }
 
-export const dict: Record<Lang, Dict> = { en: deepGroup(en, 'en'), ru: deepGroup(ru, 'ru') }
+// English and Russian are written here; the other languages live in locales/<code>.ts.
+// A language without a file shows the English texts.
+const written: Partial<Record<Lang, Dict>> = { en, ru, ...locales.content }
+export const dict = Object.fromEntries(LANGS.map((l) => [l, deepGroup(written[l] ?? en, l)])) as Record<Lang, Dict>
 
 // Verified by hand on 09.11.2026: App Store, Google Play and RuStore across Magisteria, CryptoC, SportSoul and sticker packs.
 export const APPS_INSTALLS = 250000
 export const CONTEST_WINS = 3
-
-export function compact(n: number, lang: Lang): string {
-  if (lang === 'ru') {
-    if (n >= 1e6) return `${(n / 1e6).toFixed(n >= 1e7 ? 1 : 2).replace(/\.0+$/, '')} млн`
-    if (n >= 1e3) return `${Math.round(n / 1e3)} тыс.`
-    return String(n)
-  }
-  if (n >= 1e6) return `${(n / 1e6).toFixed(n >= 1e7 ? 1 : 2).replace(/\.0+$/, '')}M`
-  if (n >= 1e3) return `${Math.round(n / 1e3)}K`
-  return String(n)
-}

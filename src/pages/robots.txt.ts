@@ -4,6 +4,9 @@ import type { APIRoute } from 'astro'
 // Everything is open to everyone. The named groups below repeat that for crawlers that only
 // read their own group, and document which answer engines are welcome on purpose.
 // Googlebot, Bingbot, YandexBot and other search crawlers are covered by `*`.
+// The docs sites of the libraries are served under this domain from their own repos; each has its own sitemap.
+const DOCS = ['react-native-chat', 'react-native-zoom-reanimated', 'react-native-background-downloader', 'react-native-action-cable', 'react-native-cloud-sync']
+
 export const GET: APIRoute = ({ site }) => {
   const base = site ?? new URL('https://kesha-antonov.com')
   const body = `User-agent: *
@@ -31,6 +34,7 @@ User-agent: YandexAdditionalBot
 Allow: /
 
 Sitemap: ${new URL('/sitemap.xml', base).href}
+${DOCS.map((d) => `Sitemap: ${new URL(`/${d}/sitemap.xml`, base).href}`).join('\n')}
 `
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } })
 }

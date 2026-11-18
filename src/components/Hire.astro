@@ -1,0 +1,169 @@
+---
+// The hire page: what I take on, how we can work, questions, contact.
+import Masthead from './Masthead.astro'
+import stats from '../data/stats.json'
+import { dict, links, compact, CONTEST_WINS, type Lang } from '../data/content'
+import { langPath } from '../data/langs'
+import { hire, HIRE_PATH } from '../data/hire'
+
+interface Props { lang: Lang }
+const { lang } = Astro.props
+const t = dict[lang]
+const h = hire[lang]
+const top = langPath(lang)
+const npmTotal = compact(stats.totals.allTime, lang)
+const fill = (s: string) => s.replace('{npm}', npmTotal)
+
+const scores = [
+  { n: npmTotal, l: t.numbers.npm, cls: 'red big' },
+  { n: t.ui.appsTotal, l: t.numbers.apps, cls: 'sand' },
+  { n: t.work.magisteria.stats[3][0], l: h.sole, cls: 'sea' },
+  { n: String(CONTEST_WINS), l: t.numbers.contests, cls: 'harbour' },
+]
+const tones = ['white', 'sky', 'white', 'sand', 'white', 'sea']
+---
+<Masthead lang={lang} path={HIRE_PATH} />
+
+<main class="page">
+  <section class="tier hero" aria-label={h.hero.title}>
+    <div class="panel sky establishing">
+      <span class="caption">{h.hero.kicker}</span>
+      <h1><span class="visually-hidden">{t.hero.name}: </span>{h.hero.title}</h1>
+      <p class="hero-sub">{h.hero.sub}</p>
+      <div class="actions">
+        <a class="btn red" target="_blank" rel="noopener" href={links.telegram}>{h.hero.cta}</a>
+        <a class="btn" href={`${top}#work`}>{h.hero.work}</a>
+      </div>
+    </div>
+    <ul class="scores">
+      {scores.map((s) => (
+        <li class={`panel score ${s.cls}`}><span class="num">{s.n}</span><span>{s.l}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="services" class="chapter">
+    <h2>{h.services.title}</h2>
+    <div class="tier three">
+      {h.services.items.map((x, i) => (
+        <article class={`panel ${tones[i]}`}>
+          <h3 class="caption">{x.h}</h3>
+          <p>{x.p}</p>
+        </article>
+      ))}
+    </div>
+    <div class="tier">
+      <p class="panel paper cases">
+        <span>{h.services.more}</span>
+        {h.services.cases.map((c) => <a href={`${top}#${c.hash}`}>{c.text}</a>)}
+      </p>
+    </div>
+  </section>
+
+  <section id="formats" class="chapter">
+    <h2>{h.ways.title}</h2>
+    <ol class="tier three ways">
+      {h.ways.items.map((x, i) => (
+        <li class={`panel ${['sand', 'white', 'sky'][i]}`}>
+          <span class="num way-mark">{i + 1}</span>
+          <h3>{x.h}</h3>
+          <p>{x.p}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="aside">{h.ways.note}</p>
+  </section>
+
+  <section id="faq" class="chapter">
+    <h2>{h.faq.title}</h2>
+    <div class="tier two">
+      {h.faq.items.map((f) => (
+        <article class="panel qa">
+          <h3>{f.q}</h3>
+          <p>{fill(f.a)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="contact" class="tier end">
+    <div class="panel red finale">
+      <h2>{h.contact.title}</h2>
+      <p class="lead">{h.contact.lead}</p>
+      <p>{h.contact.body}</p>
+      <div class="actions">
+        <a target="_blank" rel="noopener" class="btn" href={links.telegram}><span class="logo-mono" style="--logo: url(/logos/telegram.svg)" aria-hidden="true"></span>Telegram</a>
+        <a class="btn" href={links.email}>{t.contact.email}</a>
+      </div>
+      <ul class="socials">
+        <li><a href={top}>{h.contact.back}</a></li>
+        <li><a target="_blank" rel="noopener" href={links.linkedin}>LinkedIn</a></li>
+        <li><a target="_blank" rel="noopener" href={links.github}>{t.contact.github}</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="page foot">
+  <p>{t.footer}</p>
+</footer>
+
+<script>
+  import { initMotion } from '../scripts/motion'
+  import { initSmoothScroll } from '../scripts/smooth-scroll'
+  initMotion()
+  initSmoothScroll()
+</script>
+
+<style>
+  /* First tier: the offer on the left, the proof numbers on the right. */
+  .hero { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); align-items: stretch; }
+  .establishing { display: flex; flex-direction: column; gap: 22px; padding-top: 64px; }
+  .establishing h1 { font-size: clamp(38px, 5vw, 72px); letter-spacing: -0.01em; text-wrap: balance; overflow-wrap: anywhere; }
+  :global(html:not([lang='en'])) .establishing h1 { font-size: clamp(32px, 4vw, 58px); }
+  .hero-sub { font-size: clamp(18px, 1.5vw, 21px); max-width: 52ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+  .scores { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: 1.4fr 1fr 1fr 1fr; gap: var(--gutter-panel); }
+  .score { display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 14px 18px; font: 700 15px/1.2 var(--display); text-transform: uppercase; }
+  .score .num { font-size: clamp(32px, 3.4vw, 48px); white-space: nowrap; }
+  .score.big .num { font-size: clamp(42px, 4.6vw, 76px); }
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .scores { grid-template-rows: none; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  /* Chapters */
+  .chapter { padding-top: clamp(40px, 6vw, 72px); }
+  .chapter > h2 { font-size: clamp(30px, 4vw, 54px); margin-bottom: 18px; max-width: 24ch; text-wrap: balance; }
+  .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .three .panel p, .qa p { max-width: 60ch; }
+  .cases { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin: 0; padding: 14px 18px; }
+  .cases a { font: 700 15px/1.2 var(--display); text-transform: uppercase; }
+  .cases a:hover { background: var(--sand); }
+
+  .ways { list-style: none; margin-top: 0; padding: 0; }
+  .ways .panel { display: flex; flex-direction: column; gap: 10px; }
+  .way-mark { font-size: clamp(40px, 4.4vw, 64px); }
+  .ways h3, .qa h3 { font-size: clamp(20px, 2vw, 26px); line-height: 1.1; }
+  .qa { display: flex; flex-direction: column; gap: 10px; }
+  .qa h3 { text-wrap: balance; }
+  .aside { margin-top: 4px; font-size: 16px; opacity: 0.85; max-width: 70ch; }
+  @media (max-width: 900px) {
+    .three, .two { grid-template-columns: 1fr; }
+  }
+
+  /* Last panel */
+  .end { margin-top: clamp(40px, 6vw, 72px); }
+  .finale { display: flex; flex-direction: column; gap: 16px; padding: clamp(28px, 5vw, 64px); }
+  .finale h2 { font-size: clamp(36px, 5.4vw, 80px); text-wrap: balance; }
+  .finale .lead { font: 700 clamp(20px, 2.2vw, 30px)/1.2 var(--display); text-transform: uppercase; }
+  .finale p { max-width: 62ch; font-size: 19px; }
+  .finale .actions { margin-top: 0; }
+  .finale .btn { background: var(--white); color: var(--ink); gap: 8px; }
+  .finale .btn:hover { background: var(--sand); }
+  .logo-mono { display: inline-block; flex: none; width: 20px; height: 20px; background-color: currentColor; -webkit-mask: var(--logo) center / contain no-repeat; mask: var(--logo) center / contain no-repeat; }
+  .socials { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font: 700 17px/1.2 var(--display); text-transform: uppercase; letter-spacing: 0.02em; }
+  .socials a { color: var(--on-accent); text-decoration-thickness: 2px; }
+  .foot { padding-top: 6px; padding-bottom: 40px; font-size: 15px; opacity: 0.85; }
+</style>

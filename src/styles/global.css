@@ -133,7 +133,7 @@ a:focus-visible, button:focus-visible {
   letter-spacing: 0.02em;
   color: var(--ink);
 }
-.panel > .caption:first-child { position: absolute; top: calc(var(--line) * -1); left: calc(var(--line) * -1); max-width: calc(100% - 24px); }
+.panel > .caption:first-child { position: absolute; top: calc(var(--line) * -1); inset-inline-start: calc(var(--line) * -1); max-width: calc(100% - 24px); }
 .panel > .caption:first-child + * { margin-top: 40px; }
 
 .btn {
@@ -184,3 +184,9 @@ a:focus-visible, button:focus-visible {
 /* In-page jumps land just below the top edge. */
 section[id], [id].chapter { scroll-margin-top: 16px; }
 [tabindex='-1']:focus { outline: none; }
+
+/* Arabic letters join: spacing them out breaks the words. */
+html[lang='ar'] * { letter-spacing: 0 !important; }
+/* Hebrew figures like 250K+ are Latin and keep their own order; "8 שנים" starts with a Hebrew word and
+   keeps the Hebrew order. Each figure takes its direction from its first letter. */
+html[lang='he'] .num { unicode-bidi: plaintext; text-align: right; }

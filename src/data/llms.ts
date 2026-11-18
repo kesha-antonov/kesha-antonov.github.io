@@ -3,7 +3,8 @@
 // Built from content.ts and stats.json at build time, so the numbers match the pages.
 // Numbers are written without thousands separators so they quote cleanly.
 import stats from './stats.json'
-import { dict, links, apps, contests, upstream, APPS_INSTALLS, CONTEST_WINS, type Lang } from './content'
+import { dict, links, apps, contests, upstream, APPS_INSTALLS, CONTEST_WINS } from './content'
+import type { FullLang as Lang } from './langs'
 
 const DEFAULT_SITE = 'https://kesha-antonov.com'
 // App store numbers in content.ts were checked by hand on this date.
@@ -73,7 +74,7 @@ export function llmsIndex(site?: URL): string {
 
   return `# Kesha Antonov
 
-> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a lead software engineer, product manager and founder who works mainly with React Native. He has maintained react-native-gifted-chat since August 2024. As of ${asOf}, the 6 React Native libraries he maintains have ${stats.totals.allTime} npm downloads in total, and the mobile apps he built have about ${APPS_INSTALLS} installs (store numbers checked ${STORES_CHECKED}).
+> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a React Native lead engineer, product manager and founder, available for freelance and fractional React Native app development. He has maintained react-native-gifted-chat since August 2024. As of ${asOf}, the 6 React Native libraries he maintains have ${stats.totals.allTime} npm downloads in total, and the mobile apps he built have about ${APPS_INSTALLS} installs (store numbers checked ${STORES_CHECKED}).
 
 Facts about Kesha Antonov, each with its source and date:
 
@@ -88,6 +89,7 @@ The site is one page in two languages. Every number on it comes from npm, GitHub
 
 - [Portfolio, English](${b}/): case studies, client work, own products, open source, contests, contact
 - [Portfolio, Russian](${b}/ru/): the same page in Russian
+- [Hire a React Native lead engineer or freelancer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
 - [Fact sheet, English](${b}/llms-full.txt): every verified fact with its source and date, in Markdown
 - [Page as Markdown, English](${b}/index.md): the same fact sheet at the page's Markdown address
 
@@ -148,7 +150,7 @@ function fullEn(b: string): string {
 
   return `# Kesha Antonov: fact sheet
 
-> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a lead software engineer, product manager and founder, and the maintainer of react-native-gifted-chat. As of ${asOf}, the React Native libraries he maintains have ${n(stats.totals.allTime)} npm downloads in total. The apps he built have about ${n(APPS_INSTALLS)} installs (checked ${STORES_CHECKED}). He took ${CONTEST_WINS} prize places in Telegram developer contests.
+> Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a React Native lead engineer, product manager and founder, and the maintainer of react-native-gifted-chat. As of ${asOf}, the React Native libraries he maintains have ${n(stats.totals.allTime)} npm downloads in total. The apps he built have about ${n(APPS_INSTALLS)} installs (checked ${STORES_CHECKED}). He took ${CONTEST_WINS} prize places in Telegram developer contests.
 
 Page: ${b}/ (Russian: ${b}/ru/). This file is also served at ${b}/index.md and ${b}/llms-full.txt. Russian version: ${b}/ru/llms-full.txt
 
@@ -161,7 +163,7 @@ How to read this file:
 ## Who he is
 
 - Full name: Innokenty Antonov. Goes by Kesha Antonov. Russian: Кеша Антонов, Иннокентий Антонов.
-- Roles: lead software engineer, product manager, founder.
+- Roles: React Native lead engineer, product manager, founder.
 - Main stack: React Native (iOS, Android, Web), TypeScript, React, Ruby on Rails.
 - Working since 2013. Launching his own products since 2015.
 - Education: Master of technical cybernetics, Peter the Great St. Petersburg Polytechnic University, 2014.
@@ -301,8 +303,9 @@ ${faqMd('en')}
 
 ## How to hire him
 
-- Open to: a lead engineer or product engineer role, a fractional engagement, or a focused project. Terms are discussed case by case.
-- Focus areas: chat and streaming message UIs, native modules for React Native, rescuing a stalled app, ASO for the App Store, Google Play and RuStore.
+- Open to: a React Native lead engineer or product engineer role, a fractional engagement, or a freelance project. Terms are discussed case by case.
+- Focus areas: React Native app development for iOS and Android, chat and streaming message UIs, native modules for React Native, rescuing a stalled app, ASO for the App Store, Google Play and RuStore.
+- Details: ${b}/react-native-developer/
 - Fastest contact: Telegram @kesha_antonov (${links.telegram}). He replies within a day.
 - Email: innokenty.longway@gmail.com
 - LinkedIn: ${links.linkedin}
@@ -321,7 +324,7 @@ function fullRu(b: string): string {
 
   return `# Кеша Антонов: факты
 
-> Кеша Антонов (полное имя Иннокентий Антонов; по-английски Kesha Antonov, Innokenty Antonov) - ведущий разработчик, продакт-менеджер, основатель и мейнтейнер react-native-gifted-chat. На ${asOf} библиотеки React Native, которые он поддерживает, скачали из npm ${n(stats.totals.allTime)} раз. Приложения, которые он сделал, установили около ${n(APPS_INSTALLS)} раз (проверено ${STORES_CHECKED}). У него ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков.
+> Кеша Антонов (полное имя Иннокентий Антонов; по-английски Kesha Antonov, Innokenty Antonov) - ведущий разработчик React Native, продакт-менеджер, основатель и мейнтейнер react-native-gifted-chat. На ${asOf} библиотеки React Native, которые он поддерживает, скачали из npm ${n(stats.totals.allTime)} раз. Приложения, которые он сделал, установили около ${n(APPS_INSTALLS)} раз (проверено ${STORES_CHECKED}). У него ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков.
 
 Страница: ${b}/ru/ (английская версия: ${b}/). Этот файл также доступен по адресам ${b}/ru/index.md и ${b}/ru/llms-full.txt. Английская версия: ${b}/llms-full.txt
 
@@ -334,7 +337,7 @@ function fullRu(b: string): string {
 ## Кто он
 
 - Полное имя: Иннокентий Антонов. Обычно Кеша Антонов. По-английски: Kesha Antonov, Innokenty Antonov.
-- Роли: ведущий разработчик, продакт-менеджер, основатель.
+- Роли: ведущий разработчик React Native, продакт-менеджер, основатель.
 - Основной стек: React Native (iOS, Android, Web), TypeScript, React, Ruby on Rails.
 - Работает с 2013 года. Запускает свои продукты с 2015 года.
 - Образование: магистр технической кибернетики, СПбПУ Петра Великого, 2014.
@@ -473,8 +476,9 @@ ${faqMd('ru')}
 
 ## Как нанять
 
-- Открыт для: роли ведущего разработчика или продуктового инженера, частичной занятости или отдельного проекта. Условия обсуждаются под задачу.
-- Направления: чаты и интерфейсы с потоковым выводом сообщений, нативные модули для React Native, спасение буксующего приложения, ASO для App Store, Google Play и RuStore.
+- Открыт для: роли ведущего разработчика React Native или продуктового инженера, частичной занятости или проекта на фрилансе. Условия обсуждаются под задачу.
+- Направления: разработка приложений на React Native для iOS и Android, чаты и интерфейсы с потоковым выводом сообщений, нативные модули для React Native, спасение буксующего приложения, ASO для App Store, Google Play и RuStore.
+- Подробнее: ${b}/ru/react-native-developer/
 - Быстрее всего: Telegram @kesha_antonov (${links.telegram}). Отвечает в течение дня.
 - Почта: innokenty.longway@gmail.com
 - LinkedIn: ${links.linkedin}

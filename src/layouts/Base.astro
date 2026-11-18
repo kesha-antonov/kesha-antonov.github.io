@@ -5,39 +5,39 @@ import '@fontsource/pangolin'
 import '../styles/global.css'
 import stats from '../data/stats.json'
 import { dict, links, contests, compact, type Lang } from '../data/content'
+import { hirePath } from '../data/hire'
+import { LANGS, LANG_INFO, DEFAULT_LANG, langPath, fullLang } from '../data/langs'
 import { THEME_INIT } from '../scripts/theme-init.mjs'
 
-interface Props { lang: Lang }
-const { lang } = Astro.props
+// `page` turns the layout into a secondary page: its own address, snippet and structured data.
+// Without it the layout renders the home page (a ProfilePage).
+interface PageMeta {
+  // Address of the English version; the Russian one lives under /ru.
+  path: string
+  title: string
+  description: string
+  // Extra JSON-LD nodes; they can point at the person and the site by @id.
+  graph?: (ids: { personId: string; websiteId: string; pageUrl: string }) => Record<string, unknown>[]
+}
+interface Props { lang: Lang; page?: PageMeta }
+const { lang, page } = Astro.props
 const t = dict[lang]
-const ru = lang === 'ru'
+const info = LANG_INFO[lang]
 const site = Astro.site ?? new URL('https://kesha-antonov.com')
 const abs = (p: string) => new URL(p, site).href
 
-const path = ru ? '/ru/' : '/'
-const pageUrl = abs(path)
 const homeEn = abs('/')
-const homeRu = abs('/ru/')
+// The same page in every language, for hreflang.
+const versions = LANGS.map((l) => ({ lang: l, href: abs(langPath(l, page?.path ?? '/')) }))
+const pageUrl = abs(langPath(lang, page?.path ?? '/'))
 
-// Search snippets: name first, then the proof numbers. Long copy stays in content.ts.
+// Search snippet texts live in content.ts (meta); {npm} is the live npm total.
 const npmTotal = compact(stats.totals.allTime, lang)
-const seo = ru
-  ? {
-      title: 'Кеша Антонов - ведущий разработчик React Native и продакт-менеджер',
-      // Kept near 155 chars so the snippet is not cut; "Иннокентий" stays in the JSON-LD alternateName.
-      description: `Кеша Антонов, ведущий разработчик React Native и основатель. Мейнтейнер react-native-gifted-chat. У библиотек ${npmTotal} установок в npm, у приложений 250 тыс.+.`,
-      locale: 'ru_RU',
-      altLocale: 'en_US',
-      ogAlt: `Кеша Антонов: ${npmTotal} установок библиотек в npm, 250 тыс.+ установок приложений`,
-    }
-  : {
-      title: 'Kesha Antonov - React Native lead engineer and product manager',
-      description: `Kesha Antonov, React Native lead engineer and founder. Maintainer of react-native-gifted-chat; libraries with ${npmTotal} npm installs, apps with 250K+ installs.`,
-      locale: 'en_US',
-      altLocale: 'ru_RU',
-      ogAlt: `Kesha Antonov: ${npmTotal} npm installs of his libraries, 250K+ installs of apps he built`,
-    }
-const ogImage = abs(ru ? '/og-ru.png' : '/og.png')
+const fill = (text: string) => text.replace('{npm}', npmTotal)
+const home = { title: t.meta.title, description: fill(t.meta.description), ogAlt: fill(t.meta.ogAlt) }
+const seo = page ? { ...home, title: page.title, description: page.description } : home
+// The share image exists in English and Russian.
+const ogImage = abs(lang === 'ru' ? '/og-ru.png' : '/og.png')
 const avatar = 'https://avatars.githubusercontent.com/u/11584712?v=4&s=460'
 
 // Structured data. One Person node shared by both language versions via a stable @id.
@@ -56,17 +56,27 @@ const person = {
   givenName: 'Innokenty',
   familyName: 'Antonov',
   alternateName: ['Innokenty Antonov', 'Кеша Антонов', 'Иннокентий Антонов', 'kesha-antonov'],
-  description: seo.description,
-  jobTitle: ru ? 'Ведущий разработчик, продакт-менеджер, основатель' : 'Lead Software Engineer, Product Manager, Founder',
+  description: home.description,
+  jobTitle: t.meta.jobTitle,
   url: homeEn,
   image: avatar,
   email: links.email.replace('mailto:', ''),
   sameAs: [links.github, links.linkedin, links.telegram, links.instagram, links.npm, links.youtube, links.sponsor],
-  knowsAbout: ['React Native', 'React', 'TypeScript', 'iOS', 'Android', 'Ruby on Rails', 'Product management', 'App Store Optimization', 'Telegram Mini Apps', 'TON'],
+  knowsAbout: ['React Native', 'React Native app development', 'Mobile app development', 'React', 'TypeScript', 'iOS', 'Android', 'Ruby on Rails', 'Product management', 'App Store Optimization', 'Telegram Mini Apps', 'TON'],
   alumniOf: {
     '@type': 'CollegeOrUniversity',
     name: 'Peter the Great St. Petersburg Polytechnic University',
     alternateName: 'СПбПУ Петра Великого',
+  },
+  makesOffer: {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name: t.meta.service,
+      serviceType: 'React Native app development',
+      url: abs(hirePath(lang)),
+      description: t.contact.body,
+    },
   },
   award: contests.map((c) => contestText(c.place, t.contests.items[c.key].name)),
 }
@@ -103,10 +113,10 @@ const jsonLd = {
       url: homeEn,
       name: 'Kesha Antonov',
       alternateName: 'Кеша Антонов',
-      inLanguage: ['en', 'ru'],
+      inLanguage: LANGS,
       publisher: { '@id': personId },
     },
-    {
+    ...(page ? (page.graph?.({ personId, websiteId, pageUrl }) ?? []) : [{
       '@type': 'ProfilePage',
       '@id': `${pageUrl}#profilepage`,
       url: pageUrl,
@@ -119,30 +129,29 @@ const jsonLd = {
       primaryImageOfPage: { '@type': 'ImageObject', url: ogImage, width: 1200, height: 630 },
       dateModified: stats.updatedAt,
       mentions: libraries.map((l) => ({ '@id': l['@id'] })),
-    },
+    }]),
     person,
-    ...libraries,
+    ...(page ? [] : libraries),
   ],
 }
 // Keep "<" out of the inline script so no string can close the tag early.
 const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
 ---
 <!doctype html>
-<html lang={lang}>
+<html lang={lang} dir={info.dir}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
-    <meta name="author" content={ru ? 'Кеша Антонов' : 'Kesha Antonov'} />
+    <meta name="author" content={t.meta.author} />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <link rel="canonical" href={pageUrl} />
-    <link rel="alternate" hreflang="en" href={homeEn} />
-    <link rel="alternate" hreflang="ru" href={homeRu} />
-    <link rel="alternate" hreflang="x-default" href={homeEn} />
+    {versions.map((v) => <link rel="alternate" hreflang={v.lang} href={v.href} />)}
+    <link rel="alternate" hreflang="x-default" href={versions.find((v) => v.lang === DEFAULT_LANG)!.href} />
     <link rel="sitemap" type="application/xml" href={abs('/sitemap.xml')} />
     <link rel="alternate" type="text/plain" title="llms.txt" href={abs('/llms.txt')} />
-    <link rel="alternate" type="text/markdown" title="Markdown" href={abs(ru ? '/ru/index.md' : '/index.md')} />
+    {!page && fullLang(lang) === lang && <link rel="alternate" type="text/markdown" title="Markdown" href={abs(lang === 'ru' ? '/ru/index.md' : '/index.md')} />}
     <link rel="author" type="text/plain" href={abs('/humans.txt')} />
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
@@ -155,13 +164,13 @@ const jsonLdText = JSON.stringify(jsonLd).replace(/</g, '\\u003c')
     <meta name="color-scheme" content="light dark" />
     {person.sameAs.map((href) => <link rel="me" href={href} />)}
 
-    <meta property="og:type" content="profile" />
-    <meta property="og:site_name" content={ru ? 'Кеша Антонов' : 'Kesha Antonov'} />
+    <meta property="og:type" content={page ? 'website' : 'profile'} />
+    <meta property="og:site_name" content={t.meta.author} />
     <meta property="og:title" content={seo.title} />
     <meta property="og:description" content={seo.description} />
     <meta property="og:url" content={pageUrl} />
-    <meta property="og:locale" content={seo.locale} />
-    <meta property="og:locale:alternate" content={seo.altLocale} />
+    <meta property="og:locale" content={info.og} />
+    {LANGS.filter((l) => l !== lang).map((l) => <meta property="og:locale:alternate" content={LANG_INFO[l].og} />)}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />

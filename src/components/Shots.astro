@@ -6,10 +6,11 @@ interface Props {
   width: number
   height: number
   label: string
-  ru: boolean
+  prev: string
+  next: string
   small?: boolean
 }
-const { items, width, height, label, ru, small = false } = Astro.props
+const { items, width, height, label, prev, next, small = false } = Astro.props
 const n = items.length
 const pos = (i: number) => (i === 0 ? 'c' : i === 1 ? 'r' : i === n - 1 ? 'l' : 'off')
 ---
@@ -19,11 +20,11 @@ const pos = (i: number) => (i === 0 ? 'c' : i === 1 ? 'r' : i === n - 1 ? 'l' : 
   ))}
   {n > 3 && (
     <div class="shots-nav">
-      <button type="button" data-step="-1" aria-label={ru ? 'Предыдущий экран' : 'Previous screen'}>
+      <button type="button" data-step="-1" aria-label={prev}>
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3L5 8l5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </button>
       <span class="shots-count" aria-live="polite"><span data-index>1</span> / {n}</span>
-      <button type="button" data-step="1" aria-label={ru ? 'Следующий экран' : 'Next screen'}>
+      <button type="button" data-step="1" aria-label={next}>
         <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
       </button>
     </div>
@@ -68,6 +69,7 @@ const pos = (i: number) => (i === 0 ? 'c' : i === 1 ? 'r' : i === n - 1 ? 'l' : 
   .shots:hover .r { transform: translateX(56%) rotate(9deg) scale(0.88); }
   .shots-nav { grid-area: nav; display: flex; align-items: center; gap: 10px; font: 700 13px/1 var(--display); }
   .shots-nav button { display: grid; place-items: center; width: 32px; height: 32px; padding: 0; border: var(--line) solid var(--ink); border-radius: var(--radius-panel); background: var(--white); color: var(--ink); cursor: pointer; }
+  :global([dir='rtl']) .shots-nav svg { transform: scaleX(-1); }
   .shots-nav button:hover { background: var(--sand); }
   .shots-count { min-width: 3.4em; text-align: center; font-variant-numeric: tabular-nums; }
   @media (prefers-reduced-motion: reduce) { .shots .store-shot { transition: none; } }
