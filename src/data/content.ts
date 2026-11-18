@@ -19,11 +19,11 @@ export const links = {
 
 // Docs sites of the libraries, served under this domain from their own repos. Keys as in stats.json.
 export const docs: Record<string, string> = {
-  'react-native-chat': 'https://kesha-antonov.com/react-native-chat/',
-  'zoom-reanimated': 'https://kesha-antonov.com/react-native-zoom-reanimated/',
-  'background-downloader': 'https://kesha-antonov.com/react-native-background-downloader/',
-  'action-cable': 'https://kesha-antonov.com/react-native-action-cable/',
-  'cloud-sync': 'https://kesha-antonov.com/react-native-cloud-sync/',
+  'react-native-chat': 'https://kesha-antonov.com/react-native-chat',
+  'zoom-reanimated': 'https://kesha-antonov.com/react-native-zoom-reanimated',
+  'background-downloader': 'https://kesha-antonov.com/react-native-background-downloader',
+  'action-cable': 'https://kesha-antonov.com/react-native-action-cable',
+  'cloud-sync': 'https://kesha-antonov.com/react-native-cloud-sync',
 }
 
 export const apps = {
