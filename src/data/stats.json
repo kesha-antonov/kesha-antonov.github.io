@@ -208,7 +208,7 @@
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 89
+      "stars": 90
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
