@@ -4,13 +4,13 @@
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15822731,
-      "lastMonth": 421671,
+      "allTime": 15842525,
+      "lastMonth": 434635,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8173239,
+      "sinceMaintenance": 8193033,
       "series": [
         [
           "2023-01",
@@ -202,8 +202,8 @@
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 76645,
-      "lastMonth": 32786,
+      "allTime": 78633,
+      "lastMonth": 34417,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
@@ -213,8 +213,8 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2176325,
-      "lastMonth": 246330,
+      "allTime": 2189092,
+      "lastMonth": 256289,
       "peakMonth": {
         "month": "2026-06",
         "value": 245412
@@ -224,8 +224,8 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1465297,
-      "lastMonth": 110455,
+      "allTime": 1471739,
+      "lastMonth": 114527,
       "peakMonth": {
         "month": "2024-10",
         "value": 116668
@@ -235,8 +235,8 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 665751,
-      "lastMonth": 21946,
+      "allTime": 666553,
+      "lastMonth": 22437,
       "peakMonth": {
         "month": "2024-11",
         "value": 26984
@@ -246,8 +246,8 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1565,
-      "lastMonth": 593,
+      "allTime": 1583,
+      "lastMonth": 603,
       "peakMonth": {
         "month": "2026-08",
         "value": 568
@@ -280,10 +280,10 @@
       "downloads": 17379
     },
     "mine": 512160,
-    "releases": 67
+    "releases": 68
   },
   "totals": {
-    "allTime": 20208314,
-    "lastMonth": 833781
+    "allTime": 20250125,
+    "lastMonth": 862908
   }
 }
