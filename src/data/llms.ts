@@ -99,7 +99,7 @@ ${lib}
 
 ## Contact
 
-- [Email](${links.email}): innokenty.longway@gmail.com
+- [Email](${links.email}): keshagoodvibes@gmail.com
 - [Telegram @kesha_antonov](${links.telegram}): the fastest way to reach him, he replies within a day
 - [LinkedIn](${links.linkedin})
 - [GitHub](${links.github})
@@ -307,7 +307,7 @@ ${faqMd('en')}
 - Focus areas: React Native app development for iOS and Android, chat and streaming message UIs, native modules for React Native, rescuing a stalled app, ASO for the App Store, Google Play and RuStore.
 - Details: ${b}/react-native-developer/
 - Fastest contact: Telegram @kesha_antonov (${links.telegram}). He replies within a day.
-- Email: innokenty.longway@gmail.com
+- Email: keshagoodvibes@gmail.com
 - LinkedIn: ${links.linkedin}
 - GitHub: ${links.github}
 `
@@ -480,7 +480,7 @@ ${faqMd('ru')}
 - Направления: разработка приложений на React Native для iOS и Android, чаты и интерфейсы с потоковым выводом сообщений, нативные модули для React Native, спасение буксующего приложения, ASO для App Store, Google Play и RuStore.
 - Подробнее: ${b}/ru/react-native-developer/
 - Быстрее всего: Telegram @kesha_antonov (${links.telegram}). Отвечает в течение дня.
-- Почта: innokenty.longway@gmail.com
+- Почта: keshagoodvibes@gmail.com
 - LinkedIn: ${links.linkedin}
 - GitHub: ${links.github}
 `
