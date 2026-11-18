@@ -1,10 +1,10 @@
-// Copy for the hire page (/react-native-developer/ and /ru/react-native-developer/).
+// Copy for the hire page (/react-native-developer and /ru/react-native-developer).
 // Every fact here repeats one from content.ts; change them together.
 // {npm} is replaced with the live npm total at build time.
 import { LANGS, langPath, type Lang } from './langs'
 import { locales } from './locales'
 
-export const HIRE_PATH = '/react-native-developer/'
+export const HIRE_PATH = '/react-native-developer'
 export const hirePath = (lang: Lang) => langPath(lang, HIRE_PATH)
 
 const en = {

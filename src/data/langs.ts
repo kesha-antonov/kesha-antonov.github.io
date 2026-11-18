@@ -28,8 +28,9 @@ export const DEFAULT_LANG: Lang = 'en'
 export type FullLang = 'en' | 'ru'
 export const fullLang = (l: Lang): FullLang => (l === 'ru' ? 'ru' : 'en')
 
-// "/" for English, "/de/" for German; with a page path: "/de/react-native-developer/".
-export const langPath = (lang: Lang, path = '/') => (lang === DEFAULT_LANG ? path : `/${LANG_INFO[lang].prefix}${path}`)
+// "/" for English, "/de" for German; with a page path: "/de/react-native-developer". No trailing slash.
+export const langPath = (lang: Lang, path = '/') =>
+  lang === DEFAULT_LANG ? path : `/${LANG_INFO[lang].prefix}${path === '/' ? '' : path}`
 // The short code shown on the language button.
 export const langLabel = (lang: Lang) => (lang === 'zh-Hant' ? '繁' : lang === 'zh-Hans' ? '简' : lang.toUpperCase())
 // Languages for getStaticPaths of the pages under /[lang]/.

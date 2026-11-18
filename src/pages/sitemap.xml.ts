@@ -4,7 +4,7 @@ import { LANGS, DEFAULT_LANG, langPath } from '../data/langs'
 
 // Static sitemap with hreflang alternates. Uses `site` from astro.config.mjs.
 // Each path exists in every language: English at the root, the others under their prefix.
-const paths = ['/', '/react-native-developer/']
+const paths = ['/', '/react-native-developer']
 
 export const GET: APIRoute = ({ site }) => {
   const base = site ?? new URL('https://kesha-antonov.com')

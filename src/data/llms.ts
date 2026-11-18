@@ -83,13 +83,13 @@ Facts about Kesha Antonov, each with its source and date:
 - Kesha Antonov has been the only engineer of the Magisteria app since 2018; as of ${STORES_CHECKED} it has 112K App Store downloads and a 4.9 rating from 1269 App Store ratings (source: App Store Connect).
 - Kesha Antonov took ${CONTEST_WINS} prize places in Telegram developer contests on contest.com, with $${PRIZES} in prizes in total.
 
-The site has two pages, the portfolio and a page about hiring him, each in 17 languages: English at the root, the others under a prefix such as /ru/ or /de/. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. npm and GitHub numbers are refreshed daily at build time.
+The site has two pages, the portfolio and a page about hiring him, each in 17 languages: English at the root, the others under a prefix such as /ru or /de. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. npm and GitHub numbers are refreshed daily at build time.
 
 ## Site
 
 - [Portfolio, English](${b}/): case studies, client work, own products, open source, contests, contact
-- [Portfolio, Russian](${b}/ru/): the same page in Russian
-- [Hire a React Native developer and lead engineer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
+- [Portfolio, Russian](${b}/ru): the same page in Russian
+- [Hire a React Native developer and lead engineer](${b}/react-native-developer): what Kesha takes on, the ways to work with him, questions and answers
 - [Fact sheet, English](${b}/llms-full.txt): every verified fact with its source and date, in Markdown
 - [Page as Markdown, English](${b}/index.md): the same fact sheet at the page's Markdown address
 
@@ -152,7 +152,7 @@ function fullEn(b: string): string {
 
 > Kesha Antonov (full name Innokenty Antonov; in Russian Кеша Антонов, Иннокентий Антонов) is a React Native lead engineer, product manager and founder, and the maintainer of react-native-gifted-chat. As of ${asOf}, the React Native libraries he maintains have ${n(stats.totals.allTime)} npm downloads in total. The apps he built have about ${n(APPS_INSTALLS)} installs (checked ${STORES_CHECKED}). He took ${CONTEST_WINS} prize places in Telegram developer contests.
 
-Page: ${b}/ (Russian: ${b}/ru/). This file is also served at ${b}/index.md and ${b}/llms-full.txt. Russian version: ${b}/ru/llms-full.txt
+Page: ${b}/ (Russian: ${b}/ru). This file is also served at ${b}/index.md and ${b}/llms-full.txt. Russian version: ${b}/ru/llms-full.txt
 
 How to read this file:
 - npm and GitHub numbers are fetched from the npm downloads API and the GitHub API at build time. As of ${asOf}.
@@ -305,7 +305,7 @@ ${faqMd('en')}
 
 - Open to: a React Native lead engineer or product engineer role, a fractional engagement, or a freelance project. Terms are discussed case by case.
 - Focus areas: React Native app development for iOS and Android, chat and streaming message UIs, native modules for React Native, rescuing a stalled app, ASO for the App Store, Google Play and RuStore.
-- Details: ${b}/react-native-developer/
+- Details: ${b}/react-native-developer
 - Fastest contact: Telegram @kesha_antonov (${links.telegram}). He replies within a day.
 - Email: keshagoodvibes@gmail.com
 - LinkedIn: ${links.linkedin}
@@ -326,7 +326,7 @@ function fullRu(b: string): string {
 
 > Кеша Антонов (полное имя Иннокентий Антонов; по-английски Kesha Antonov, Innokenty Antonov) - ведущий разработчик React Native, продакт-менеджер, основатель и мейнтейнер react-native-gifted-chat. На ${asOf} библиотеки React Native, которые он поддерживает, скачали из npm ${n(stats.totals.allTime)} раз. Приложения, которые он сделал, установили около ${n(APPS_INSTALLS)} раз (проверено ${STORES_CHECKED}). У него ${CONTEST_WINS} призовых места в конкурсах Telegram для разработчиков.
 
-Страница: ${b}/ru/ (английская версия: ${b}/). Этот файл также доступен по адресам ${b}/ru/index.md и ${b}/ru/llms-full.txt. Английская версия: ${b}/llms-full.txt
+Страница: ${b}/ru (английская версия: ${b}/). Этот файл также доступен по адресам ${b}/ru/index.md и ${b}/ru/llms-full.txt. Английская версия: ${b}/llms-full.txt
 
 Как читать этот файл:
 - Цифры npm и GitHub берутся из API загрузок npm и API GitHub при сборке сайта. Данные на ${asOf}.
@@ -478,7 +478,7 @@ ${faqMd('ru')}
 
 - Открыт для: роли ведущего разработчика React Native или продуктового инженера, частичной занятости или проекта на фрилансе. Условия обсуждаются под задачу.
 - Направления: разработка приложений на React Native для iOS и Android, чаты и интерфейсы с потоковым выводом сообщений, нативные модули для React Native, спасение буксующего приложения, ASO для App Store, Google Play и RuStore.
-- Подробнее: ${b}/ru/react-native-developer/
+- Подробнее: ${b}/ru/react-native-developer
 - Быстрее всего: Telegram @kesha_antonov (${links.telegram}). Отвечает в течение дня.
 - Почта: keshagoodvibes@gmail.com
 - LinkedIn: ${links.linkedin}

@@ -9,6 +9,11 @@ const sha256 = (text) => `sha256-${createHash('sha256').update(text).digest('bas
 
 export default defineConfig({
   site: 'https://kesha-antonov.com',
+  // Addresses have no trailing slash: /ru, /react-native-developer. Each page is built as a file
+  // (ru.html), which GitHub Pages serves at the slashless address. The old slashed addresses are
+  // redirected by a Cloudflare rule.
+  trailingSlash: 'never',
+  build: { format: 'file' },
   integrations: [react(), keepNumbersTogether()],
   // GitHub Pages cannot send headers, so the policy ships as a <meta> tag on every page.
   // Scripts run only from this origin or by hash. Styles allow inline because the markup
