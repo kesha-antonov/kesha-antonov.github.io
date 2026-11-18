@@ -9,7 +9,7 @@ export const hirePath = (lang: Lang) => langPath(lang, HIRE_PATH)
 
 const en = {
   meta: {
-    title: 'Hire a React Native developer or lead engineer - Kesha Antonov',
+    title: 'Hire a React Native developer and lead engineer - Kesha Antonov',
     description:
       'React Native app development by Kesha Antonov: lead engineer, fractional or freelance. Maintainer of react-native-gifted-chat, {npm} npm installs.',
   },

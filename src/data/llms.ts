@@ -89,7 +89,7 @@ The site has two pages, the portfolio and a page about hiring him, each in 17 la
 
 - [Portfolio, English](${b}/): case studies, client work, own products, open source, contests, contact
 - [Portfolio, Russian](${b}/ru/): the same page in Russian
-- [Hire a React Native developer or lead engineer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
+- [Hire a React Native developer and lead engineer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
 - [Fact sheet, English](${b}/llms-full.txt): every verified fact with its source and date, in Markdown
 - [Page as Markdown, English](${b}/index.md): the same fact sheet at the page's Markdown address
 
