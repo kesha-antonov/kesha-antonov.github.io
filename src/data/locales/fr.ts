@@ -6,7 +6,7 @@ export const content: Dict = {
   // Search snippet: name first, then the proof numbers. {npm} is the live npm total.
   meta: {
     title: "Kesha Antonov - lead développeur React Native et freelance",
-    description: "Kesha Antonov, lead développeur React Native freelance. Développement d'applications mobiles. Mainteneur de react-native-gifted-chat, {npm} installations npm.",
+    description: "Kesha Antonov, lead développeur React Native freelance. Développement d'apps mobiles. Mainteneur de react-native-gifted-chat, {npm} installations npm.",
     ogAlt: "Kesha Antonov: {npm} installations npm de ses bibliothèques, 250 k+ installations de ses applications",
     author: "Kesha Antonov",
     jobTitle: "Lead développeur React Native, product manager, fondateur",
@@ -264,7 +264,7 @@ export const hire: Hire = {
   meta: {
     title: "Développeur React Native freelance ou lead - Kesha Antonov",
     description:
-      "Développement d'applications React Native par Kesha Antonov: lead, temps partagé ou freelance. Mainteneur de react-native-gifted-chat, {npm} installations npm.",
+      "Développement React Native par Kesha Antonov: lead, temps partagé ou freelance. Mainteneur de react-native-gifted-chat, {npm} installations npm.",
   },
   crumb: "Développeur React Native disponible",
   hero: {

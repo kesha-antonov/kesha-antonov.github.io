@@ -83,13 +83,13 @@ Facts about Kesha Antonov, each with its source and date:
 - Kesha Antonov has been the only engineer of the Magisteria app since 2018; as of ${STORES_CHECKED} it has 112K App Store downloads and a 4.9 rating from 1269 App Store ratings (source: App Store Connect).
 - Kesha Antonov took ${CONTEST_WINS} prize places in Telegram developer contests on contest.com, with $${PRIZES} in prizes in total.
 
-The site is one page in two languages. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. npm and GitHub numbers are refreshed daily at build time.
+The site has two pages, the portfolio and a page about hiring him, each in 17 languages: English at the root, the others under a prefix such as /ru/ or /de/. Every number on it comes from npm, GitHub, App Store Connect, Google Play or RuStore. npm and GitHub numbers are refreshed daily at build time.
 
 ## Site
 
 - [Portfolio, English](${b}/): case studies, client work, own products, open source, contests, contact
 - [Portfolio, Russian](${b}/ru/): the same page in Russian
-- [Hire a React Native lead engineer or freelancer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
+- [Hire a React Native developer or lead engineer](${b}/react-native-developer/): what Kesha takes on, the ways to work with him, questions and answers
 - [Fact sheet, English](${b}/llms-full.txt): every verified fact with its source and date, in Markdown
 - [Page as Markdown, English](${b}/index.md): the same fact sheet at the page's Markdown address
 

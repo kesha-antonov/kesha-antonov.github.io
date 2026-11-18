@@ -17,6 +17,15 @@ export const links = {
   instagram: 'https://instagram.com/bekindgoddamnit',
 }
 
+// Docs sites of the libraries, served under this domain from their own repos. Keys as in stats.json.
+export const docs: Record<string, string> = {
+  'react-native-chat': 'https://kesha-antonov.com/react-native-chat/',
+  'zoom-reanimated': 'https://kesha-antonov.com/react-native-zoom-reanimated/',
+  'background-downloader': 'https://kesha-antonov.com/react-native-background-downloader/',
+  'action-cable': 'https://kesha-antonov.com/react-native-action-cable/',
+  'cloud-sync': 'https://kesha-antonov.com/react-native-cloud-sync/',
+}
+
 export const apps = {
   magisteria: {
     appStore: 'https://apps.apple.com/ru/app/id1543015350',
@@ -57,7 +66,7 @@ const en = {
   // Search snippet: name first, then the proof numbers. {npm} is the live npm total.
   // The description stays near 155 characters so the snippet is not cut.
   meta: {
-    title: 'Kesha Antonov - React Native lead engineer and product manager',
+    title: 'Kesha Antonov - React Native developer and lead engineer',
     description: 'Kesha Antonov, React Native lead engineer. Freelance and fractional React Native app development. Maintainer of react-native-gifted-chat, {npm} npm installs.',
     ogAlt: 'Kesha Antonov: {npm} npm installs of his libraries, 250K+ installs of apps he built',
     author: 'Kesha Antonov',
@@ -316,8 +325,8 @@ export type Dict = typeof en
 
 const ru: Dict = {
   meta: {
-    title: 'Кеша Антонов - ведущий разработчик React Native и продакт-менеджер',
-    description: 'Кеша Антонов, ведущий разработчик React Native: разработка приложений, фриланс и частичная занятость. Мейнтейнер react-native-gifted-chat, {npm} установок в npm.',
+    title: 'Кеша Антонов - ведущий разработчик React Native',
+    description: 'Кеша Антонов, ведущий разработчик React Native: фриланс и частичная занятость. Мейнтейнер react-native-gifted-chat, {npm} установок в npm.',
     ogAlt: 'Кеша Антонов: {npm} установок библиотек в npm, 250 тыс.+ установок приложений',
     author: 'Кеша Антонов',
     jobTitle: 'Ведущий разработчик React Native, продакт-менеджер, основатель',

@@ -1,3 +1,4 @@
+import { LANGS, LANG_INFO } from '../data/langs'
 import type { APIRoute } from 'astro'
 import stats from '../data/stats.json'
 import { links } from '../data/content'
@@ -14,7 +15,7 @@ LinkedIn: ${links.linkedin}
 
 /* SITE */
 Last update: ${stats.updatedAt}
-Language: English, Russian
+Language: ${LANGS.map((l) => LANG_INFO[l].name).join(', ')}
 Software: Astro, React
 Fact sheet: ${base}/llms-full.txt
 `

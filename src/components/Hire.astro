@@ -2,7 +2,7 @@
 // The hire page: what I take on, how we can work, questions, contact.
 import Masthead from './Masthead.astro'
 import stats from '../data/stats.json'
-import { dict, links, compact, CONTEST_WINS, type Lang } from '../data/content'
+import { dict, links, docs, compact, CONTEST_WINS, type Lang } from '../data/content'
 import { langPath } from '../data/langs'
 import { hire, HIRE_PATH } from '../data/hire'
 
@@ -56,6 +56,12 @@ const tones = ['white', 'sky', 'white', 'sand', 'white', 'sea']
       <p class="panel paper cases">
         <span>{h.services.more}</span>
         {h.services.cases.map((c) => <a href={`${top}#${c.hash}`}>{c.text}</a>)}
+      </p>
+    </div>
+    <div class="tier">
+      <p class="panel paper cases">
+        <span>{t.oss.revival.docs}:</span>
+        {Object.entries(docs).map(([k, href]) => <a class="lib" href={href}>{stats.packages[k as keyof typeof stats.packages].npm.replace('@kesha-antonov/', '')}</a>)}
       </p>
     </div>
   </section>
@@ -141,6 +147,7 @@ const tones = ['white', 'sky', 'white', 'sand', 'white', 'sea']
   .cases { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin: 0; padding: 14px 18px; }
   .cases a { font: 700 15px/1.2 var(--display); text-transform: uppercase; }
   .cases a:hover { background: var(--sand); }
+  .cases a.lib { text-transform: none; }
 
   .ways { list-style: none; margin-top: 0; padding: 0; }
   .ways .panel { display: flex; flex-direction: column; gap: 10px; }

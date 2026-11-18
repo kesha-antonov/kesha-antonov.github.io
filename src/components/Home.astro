@@ -5,7 +5,7 @@ import WorldMap from './WorldMap.astro'
 import Shots from './Shots.astro'
 import stats from '../data/stats.json'
 import { hire, hirePath } from '../data/hire'
-import { dict, links, apps, contests, upstream, compact, groupInt, CONTEST_WINS, type Lang } from '../data/content'
+import { dict, links, apps, docs, contests, upstream, compact, groupInt, CONTEST_WINS, type Lang } from '../data/content'
 
 interface Props { lang: Lang }
 const { lang } = Astro.props
@@ -132,7 +132,7 @@ const SHOTS = {
       <h1><span class="visually-hidden">{t.hero.name}: </span>{t.hero.title}</h1>
       <p class="hero-sub">{t.hero.sub}</p>
       <div class="actions">
-        <a class="btn red" href="#contact">{t.hero.ctaHire}</a>
+        <a class="btn red" href={hirePath(lang)}>{t.hero.ctaHire}</a>
         <a class="btn" href="#gifted">{t.hero.ctaWork}</a>
       </div>
     </div>
@@ -212,7 +212,7 @@ const SHOTS = {
           </ul>
           <p class="links">
             <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-chat">{t.gifted.successor.links.repo}</a>
-            <a target="_blank" rel="noopener" href="https://kesha-antonov.com/react-native-chat/">{t.gifted.successor.links.docs}</a>
+            <a target="_blank" rel="noopener" href={docs['react-native-chat']}>{t.gifted.successor.links.docs}</a>
             <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/@kesha-antonov/react-native-chat">npm</a>
           </p>
         </div>
@@ -232,7 +232,7 @@ const SHOTS = {
             <p class="revival-added">{t.oss.revival.added}</p>
             <p class="links">
               <a target="_blank" rel="noopener" href="https://github.com/kesha-antonov/react-native-background-downloader">{t.oss.revival.repo}</a>
-              <a target="_blank" rel="noopener" href="https://kesha-antonov.github.io/react-native-background-downloader/">{t.oss.revival.docs}</a>
+              <a target="_blank" rel="noopener" href={docs['background-downloader']}>{t.oss.revival.docs}</a>
             </p>
           </div>
           <div class="revival-data">
@@ -441,7 +441,7 @@ const SHOTS = {
               const p = P[k]
               return (
                 <tr>
-                  <th scope="row"><div class="lib-row"><svg class="lib-icon" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" set:html={LIB_ICONS[k]} /><div><a target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{p.npm}</a><span>{t.oss.desc[k]}</span></div></div></th>
+                  <th scope="row"><div class="lib-row"><svg class="lib-icon" viewBox="0 0 64 64" width="40" height="40" aria-hidden="true" set:html={LIB_ICONS[k]} /><div><a target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{p.npm}</a><span>{t.oss.desc[k]}{docs[k] && <> <a class="docs-link" href={docs[k]}>{t.oss.revival.docs}</a></>}</span></div></div></th>
                   <td data-label={t.oss.cols.month}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[0]} />{t.oss.cols.month}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.lastMonth)}</a></td>
                   <td data-label={t.oss.cols.total}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[1]} />{t.oss.cols.total}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://www.npmjs.com/package/${p.npm}`}>{fmt(p.allTime)}</a></td>
                   <td data-label={t.oss.cols.stars}><span class="m-label" aria-hidden="true"><svg viewBox="0 0 64 64" width="16" height="16" set:html={COL_ICONS[2]} />{t.oss.cols.stars}</span><a class="npm-link" target="_blank" rel="noopener" href={`https://github.com/${p.repo}`}>{fmt(p.stars)}</a></td>
@@ -772,6 +772,7 @@ const SHOTS = {
   .ledger tbody th { font-weight: 400; }
   .lib-row { display: flex; align-items: center; gap: 14px; }
   .lib-row > div { min-width: 0; }
+  .docs-link { font-weight: 700; white-space: nowrap; }
   .lib-icon { flex: none; width: 40px; height: 40px; }
   .ledger tbody th a { display: block; font: 700 17px/1.2 var(--display); text-decoration: none; overflow-wrap: anywhere; }
   .ledger tbody th a:hover { text-decoration: underline; }

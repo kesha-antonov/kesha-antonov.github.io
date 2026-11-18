@@ -6,7 +6,7 @@ export const content: Dict = {
   // Search snippet: name first, then the proof numbers. {npm} is the live npm total.
   meta: {
     title: 'Kesha Antonov - React Native -kehittäjä, lead ja freelancer',
-    description: 'Kesha Antonov, johtava React Native -kehittäjä. Sovelluskehitystä freelancerina tai osa-aikaisesti. react-native-gifted-chat-kirjaston ylläpitäjä, {npm} npm-asennusta.',
+    description: 'Kesha Antonov, johtava React Native -kehittäjä freelancerina tai osa-aikaisesti. react-native-gifted-chat-kirjaston ylläpitäjä, {npm} npm-asennusta.',
     ogAlt: 'Kesha Antonov: kirjastoilla {npm} npm-asennusta, hänen tekemillään sovelluksilla 250 t.+ asennusta',
     author: 'Kesha Antonov',
     jobTitle: 'Johtava React Native -kehittäjä, tuotepäällikkö, perustaja',
@@ -262,9 +262,9 @@ export const content: Dict = {
 
 export const hire: Hire = {
   meta: {
-    title: 'Palkkaa React Native -kehittäjä tai freelancer - Kesha Antonov',
+    title: 'Palkkaa React Native -kehittäjä - Kesha Antonov',
     description:
-      'React Native -sovelluskehitystä: Kesha Antonov, lead-kehittäjä, osa-aikaisesti tai freelancerina. react-native-gifted-chat-kirjaston ylläpitäjä, {npm} npm-asennusta.',
+      'React Native -kehitystä: Kesha Antonov, lead-kehittäjä, osa-aikaisesti tai freelancerina. react-native-gifted-chatin ylläpitäjä, {npm} npm-asennusta.',
   },
   crumb: 'React Native -kehittäjä palkattavissa',
   hero: {

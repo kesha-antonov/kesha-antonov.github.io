@@ -5,8 +5,8 @@ import type { Hire } from '../hire'
 export const content: Dict = {
   // Search snippet: name first, then the proof numbers. {npm} is the live npm total.
   meta: {
-    title: 'Kesha Antonov - React Nativeリードエンジニア、プロダクトマネージャー',
-    description: 'Kesha Antonov、React Nativeリードエンジニア。フリーランスでアプリ開発。react-native-gifted-chatメンテナー、npmで{npm}インストール。',
+    title: 'Kesha Antonov - React Native開発者',
+    description: 'Kesha Antonov、React Nativeリードエンジニア。react-native-gifted-chatメンテナー、{npm}DL。',
     ogAlt: 'Kesha Antonov：自作ライブラリのnpmインストール{npm}、開発したアプリのインストール25万+',
     author: 'Kesha Antonov',
     jobTitle: 'React Nativeリードエンジニア、プロダクトマネージャー、創業者',
@@ -262,9 +262,9 @@ export const content: Dict = {
 
 export const hire: Hire = {
   meta: {
-    title: 'React Nativeリードエンジニア、フリーランスに開発依頼 - Kesha Antonov',
+    title: 'React Native開発依頼 - Kesha Antonov',
     description:
-      'Kesha AntonovのReact Nativeアプリ開発。リードエンジニア、フリーランス。react-native-gifted-chatメンテナー、npmで{npm}インストール。',
+      'フリーランスReact Native開発、Kesha Antonov。react-native-gifted-chatメンテナー、{npm}DL。',
   },
   crumb: 'React Nativeエンジニアへの依頼',
   hero: {

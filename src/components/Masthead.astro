@@ -3,6 +3,7 @@
 // On the home page the section links are in-page anchors; elsewhere they lead back to it.
 import { dict, type Lang } from '../data/content'
 import { LANGS, LANG_INFO, langPath, langLabel } from '../data/langs'
+import { hirePath } from '../data/hire'
 
 // path: the page's address without the language, for the language menu.
 interface Props { lang: Lang; home?: boolean; path?: string }
@@ -38,7 +39,8 @@ const top = home ? '' : langPath(lang)
           {LANGS.map((l) => <li><a href={langPath(l, path)} hreflang={l} lang={l} dir={LANG_INFO[l].dir} aria-current={l === lang ? 'true' : undefined}>{LANG_INFO[l].name}</a></li>)}
         </ul>
       </details>
-      <a class="btn red" href="#contact">{t.hero.ctaHire}</a>
+      {/* On the home page the button leads to the hire page; there it jumps to the contacts. */}
+      <a class="btn red" href={home ? hirePath(lang) : '#contact'}>{t.hero.ctaHire}</a>
     </nav>
   </div>
 </header>

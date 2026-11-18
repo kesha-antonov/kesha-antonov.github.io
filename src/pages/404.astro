@@ -1,0 +1,45 @@
+---
+// Shown by GitHub Pages for any address that does not exist. English only: the address
+// does not say which language the visitor wanted.
+import '@fontsource/balsamiq-sans/400.css'
+import '@fontsource/balsamiq-sans/700.css'
+import '@fontsource/pangolin'
+import '../styles/global.css'
+import { THEME_INIT } from '../scripts/theme-init.mjs'
+import { HIRE_PATH } from '../data/hire'
+---
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page not found - Kesha Antonov</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="theme-color" content="#f6f3e6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14161b" media="(prefers-color-scheme: dark)" />
+    <script is:inline set:html={THEME_INIT} />
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body>
+    <main class="page">
+      <div class="panel sky lost">
+        <span class="caption">404</span>
+        <h1>This page is not in the album</h1>
+        <p>The address may be mistyped, or the page has moved.</p>
+        <div class="actions">
+          <a class="btn red" href="/">Portfolio</a>
+          <a class="btn" href={HIRE_PATH}>Hire a React Native developer</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  .page { padding-top: var(--gutter-panel); }
+  .lost { display: flex; flex-direction: column; gap: 20px; padding-top: 64px; min-height: 60vh; }
+  .lost h1 { font-size: clamp(36px, 6vw, 84px); text-wrap: balance; }
+  .lost p { font-size: 20px; max-width: 48ch; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto; }
+</style>

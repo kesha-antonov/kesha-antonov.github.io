@@ -9,7 +9,7 @@ export const hirePath = (lang: Lang) => langPath(lang, HIRE_PATH)
 
 const en = {
   meta: {
-    title: 'Hire a React Native lead engineer or freelancer - Kesha Antonov',
+    title: 'Hire a React Native developer or lead engineer - Kesha Antonov',
     description:
       'React Native app development by Kesha Antonov: lead engineer, fractional or freelance. Maintainer of react-native-gifted-chat, {npm} npm installs.',
   },
@@ -74,9 +74,9 @@ export type Hire = typeof en
 
 const ru: Hire = {
   meta: {
-    title: 'Разработчик React Native на проект или в команду - Кеша Антонов',
+    title: 'Разработчик React Native в проект или команду - Кеша Антонов',
     description:
-      'Разработка приложений на React Native: Кеша Антонов, ведущий разработчик, частичная занятость или фриланс. Мейнтейнер react-native-gifted-chat, {npm} установок в npm.',
+      'Разработка приложений на React Native: Кеша Антонов, частичная занятость или фриланс. Мейнтейнер react-native-gifted-chat, {npm} установок в npm.',
   },
   crumb: 'Разработчик React Native',
   hero: {
