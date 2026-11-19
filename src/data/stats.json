@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-18",
+  "updatedAt": "2026-11-19",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15842525,
+      "allTime": 15857055,
       "lastMonth": 434635,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8193033,
+      "sinceMaintenance": 8207563,
       "series": [
         [
           "2023-01",
@@ -190,7 +190,7 @@
         ],
         [
           "2026-09",
-          377378
+          391908
         ],
         [
           "2026-10",
@@ -202,7 +202,7 @@
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 78633,
+      "allTime": 79091,
       "lastMonth": 34417,
       "peakMonth": {
         "month": "2026-10",
@@ -213,7 +213,7 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2189092,
+      "allTime": 2197343,
       "lastMonth": 256289,
       "peakMonth": {
         "month": "2026-06",
@@ -224,7 +224,7 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1471739,
+      "allTime": 1475064,
       "lastMonth": 114527,
       "peakMonth": {
         "month": "2024-10",
@@ -235,7 +235,7 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 666553,
+      "allTime": 666890,
       "lastMonth": 22437,
       "peakMonth": {
         "month": "2024-11",
@@ -246,7 +246,7 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 1583,
+      "allTime": 1585,
       "lastMonth": 603,
       "peakMonth": {
         "month": "2026-08",
@@ -279,11 +279,11 @@
       "year": 2019,
       "downloads": 17379
     },
-    "mine": 512160,
-    "releases": 69
+    "mine": 515485,
+    "releases": 70
   },
   "totals": {
-    "allTime": 20250125,
+    "allTime": 20277028,
     "lastMonth": 862908
   }
 }
