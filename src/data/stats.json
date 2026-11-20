@@ -256,17 +256,12 @@
     }
   },
   "sponsors": {
-    "count": 2,
+    "count": 1,
     "list": [
       {
         "login": "CoolSpot",
         "name": "Ivan Kold",
         "org": false
-      },
-      {
-        "login": "GetStream",
-        "name": "Stream",
-        "org": true
       }
     ],
     "goal": {
