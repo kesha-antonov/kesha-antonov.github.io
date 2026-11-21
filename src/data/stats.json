@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-20",
+  "updatedAt": "2026-11-21",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
@@ -208,7 +208,7 @@
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 94
+      "stars": 95
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
@@ -275,7 +275,7 @@
       "downloads": 17379
     },
     "mine": 519443,
-    "releases": 70
+    "releases": 71
   },
   "totals": {
     "allTime": 20387448,
