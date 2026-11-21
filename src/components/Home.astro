@@ -39,7 +39,7 @@ const stepMarks = ['08.2024', '26', '0', fmt(series[peak]?.[1])]
 const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'background-downloader', 'action-cable', 'cloud-sync'] as const
 const updated = stats.updatedAt.split('-').reverse().join('.')
 const L = t.ui
-const productKeys = ['diary', 'nanogym', 'stickers'] as const
+const productKeys = ['talkinpairs', 'nanogym', 'diary', 'stickers'] as const
 const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
 // Clear-line icons for the library rows.
 const COL_ICONS = [`<rect x="8" y="12" width="48" height="44" rx="5" fill="var(--white)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M8 26V17a5 5 0 0 1 5-5h38a5 5 0 0 1 5 5v9z" fill="var(--red)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M20 6v12M44 6v12" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M20 38h8M36 38h8M20 47h8" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`, `<path d="M8 40v10a4 4 0 0 0 4 4h40a4 4 0 0 0 4-4V40" fill="var(--sea)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M32 8v32M20 28l12 12 12-12" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`, `<path d="M32 6l7.6 16.2 17.4 2.2-12.8 12 3.3 17.3L32 45.2l-15.5 8.5 3.3-17.3L7 24.4l17.4-2.2z" fill="var(--sand)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`]
@@ -100,9 +100,9 @@ const YEAR_ICONS = [
 const SCORE_ICONS = [ICON_BOX, ICON_PHONE, ICON_BALLOON, ICON_MEDAL]
 
 // Names in body text that link to their organizations.
-const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/' }
+const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/', 'talkinpairs.app': 'https://talkinpairs.app' }
 const linkParts = (text: string) => {
-  const re = new RegExp(`(${Object.keys(TEXT_LINKS).join('|')})`, 'g')
+  const re = new RegExp(`(${Object.keys(TEXT_LINKS).map((k) => k.replace(/\./g, '\\.')).join('|')})`, 'g')
   return text.split(re).map((part) => ({ part, href: TEXT_LINKS[part] }))
 }
 const shotHeight: Record<string, number> = { fixes: 251, ton: 259, chart: 199 }
@@ -411,11 +411,11 @@ const SHOTS = {
         </ul>
       </article>
     </div>
-    <div class="tier three">
+    <div class="tier products-small">
       {productKeys.map((k, i) => {
         const p = t.products.items[k]
         return (
-          <article class={`panel ${['white', 'sky', 'sand'][i]} product small`}>
+          <article class={`panel ${['red', 'white', 'sky', 'sand'][i]} product small`}>
             {k === 'diary' && <img class="product-photo" src="/products/diary.webp" alt={`${p.name}: ${t.ui.diaryPhoto}`} width="900" height="518" loading="lazy" decoding="async" />}
             <h3>{p.name}</h3>
             <p class="tag">{p.tag}</p>
@@ -755,11 +755,12 @@ const SHOTS = {
 
   .products-main { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .products-small { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product.small h3 { font-size: 24px; }
   .inline-stat { margin-top: auto; font-size: 16px; }
   .product-photo { width: 100%; height: auto; aspect-ratio: 900 / 518; object-fit: cover; border: var(--line) solid var(--ink); margin-bottom: 6px; }
   .inline-stat .num { font-size: 30px; }
-  @media (max-width: 900px) { .products-main, .three { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .products-main, .three, .products-small { grid-template-columns: 1fr; } }
 
   /* Libraries ledger */
   .ledger { padding: 0; overflow: hidden; }

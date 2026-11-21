@@ -275,6 +275,7 @@ GitHub Sponsors: ${links.sponsor}. Paid sponsors as of ${asOf}: ${stats.sponsors
 ### Smaller products
 
 - Achievement Diary (2017): printed goal planner. Made it together with a designer, printed it in six cover colors, prepared a Boomstarter crowdfunding campaign.
+- Talk In Pairs (talkinpairs.app): his own product, a global speaking club that meets in person. People meet at a cafe and talk in pairs, 4 minutes each, then a new partner; the app runs the evening with pairs, a timer and questions.
 - 1dbgym: fitness tracker as a Telegram Mini App with game mechanics and referrals.
 - iMessage sticker packs Falling in Fall and Sports Sticker Pack: 3.2K downloads.
 
@@ -448,6 +449,7 @@ GitHub Sponsors: ${links.sponsor}. Платных спонсоров на ${asOf
 ### Небольшие продукты
 
 - Ежедневник достижений (2017): бумажный планер для целей. Сделал вместе с дизайнером, напечатал в шести цветах обложки, подготовил краудфандинг на Boomstarter.
+- Пара поболтать (talkinpairs.app): его продукт, разговорный клуб по всему миру, вживую. Люди встречаются в кафе и говорят в парах по 4 минуты, потом новый собеседник; вечер ведёт приложение: пары, таймер и вопросы.
 - 1dbgym: фитнес-трекер в Telegram Mini App с игровой механикой и рефералами.
 - Стикерпаки для iMessage Falling in Fall и Sports Sticker Pack: 3.2 тыс. загрузок.
 

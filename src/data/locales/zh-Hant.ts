@@ -132,6 +132,7 @@ export const content: Dict = {
       ssoul: { name: 'SportSoul', tag: '運動愛好者的社群網路', body: '用 Rails 做的社群網路，幫人找運動夥伴，之後推出 iOS 與 Android App：2015 年以來 1668 次 commit。2018 年進入 FRII 加速器的導師輔導計畫。', stats: [['1萬+', '使用者'], ['9800', 'App Store 下載'], ['4.8 / 4.7', 'App Store / Google Play，2018']], highlights: [{ h: '用著色器寫的相片濾鏡', p: '7 款自製相片濾鏡，以 GLSL 撰寫，依 Photoshop 曲線調校。' }, { h: '即時聊天', p: '個人、群組與訓練聊天，以 WebSocket 搭配 ActionCable 和 AnyCable 實作。' }, { h: '社群機制', p: '追蹤、按讚、留言、主題標籤、動態消息、成就與排行，還能從 VK 和 Facebook 邀請朋友。' }, { h: '地圖上的訓練', p: '有時程與提醒的團體訓練、以叢集呈現在地圖上的運動場地、訓練統計。' }] },
       tmafarm: { name: 'Telegram 農場遊戲', tag: 'TON 上的 Telegram Mini App，2024。受 NDA 約束', body: '一款 Telegram 農場遊戲，有加成道具、推薦機制與 TON Connect 錢包。後端與機器人幾乎全由我開發，前端則是共同開發。', stats: [['40萬', '高峰使用者數'], ['280 / 299', '後端 commit 出自我手'], ['120 / 259', '前端 commit 出自我手']], highlights: [{ h: '組建團隊', p: '透過人脈和黑客松，我自己找來了開發者和一位行銷人員。' }, { h: '帶領開發', p: '帶開發團隊：規劃、code review、發版。' }, { h: '負責架構', p: '後端、機器人與 Mini App 的設計，足以承載 40萬名使用者。' }] },
       diary: { name: '成就日誌', tag: '紙本目標手帳，2017', body: '與設計師合作完成，印了六種封面顏色，並準備了 Boomstarter 募資活動。', stats: [] },
+      talkinpairs: { name: 'Talk In Pairs', tag: '實體見面的全球口語俱樂部', body: '大家在咖啡廳見面，兩人一組聊天：4 分鐘，鈴聲一響，換一位夥伴。整晚由 App 主持：配對、計時和話題。talkinpairs.app', stats: [] },
       nanogym: { name: '1dbgym', tag: 'Telegram Mini App 形式的健身追蹤器', body: '為 Telegram 使用者設計的遊戲化訓練，附推薦機制。', stats: [] },
       stickers: { name: 'iMessage 貼圖', tag: 'Falling in Fall, Sports Sticker Pack', body: '兩組貼圖包，至今每個月仍有人下載。', stats: [['3200', '下載']] },
     },
