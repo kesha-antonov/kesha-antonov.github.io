@@ -4,13 +4,13 @@
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15909245,
-      "lastMonth": 470191,
+      "allTime": 15925209,
+      "lastMonth": 468366,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8259753,
+      "sinceMaintenance": 8275717,
       "series": [
         [
           "2023-01",
@@ -197,13 +197,13 @@
           362217
         ]
       ],
-      "stars": 14452
+      "stars": 14451
     },
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 84470,
-      "lastMonth": 39263,
+      "allTime": 86125,
+      "lastMonth": 39434,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
@@ -213,8 +213,8 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2231572,
-      "lastMonth": 281184,
+      "allTime": 2243001,
+      "lastMonth": 282340,
       "peakMonth": {
         "month": "2026-06",
         "value": 245412
@@ -224,8 +224,8 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1490347,
-      "lastMonth": 125852,
+      "allTime": 1494703,
+      "lastMonth": 123528,
       "peakMonth": {
         "month": "2024-10",
         "value": 116668
@@ -235,8 +235,8 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 669761,
-      "lastMonth": 24426,
+      "allTime": 670477,
+      "lastMonth": 24308,
       "peakMonth": {
         "month": "2024-11",
         "value": 26984
@@ -246,8 +246,8 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 2053,
-      "lastMonth": 1067,
+      "allTime": 2249,
+      "lastMonth": 1254,
       "peakMonth": {
         "month": "2026-08",
         "value": 568
@@ -278,7 +278,7 @@
     "releases": 71
   },
   "totals": {
-    "allTime": 20387448,
-    "lastMonth": 941983
+    "allTime": 20421764,
+    "lastMonth": 939230
   }
 }
