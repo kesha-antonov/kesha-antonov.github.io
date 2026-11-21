@@ -10,7 +10,7 @@ export const links = {
   github: 'https://github.com/kesha-antonov',
   npm: 'https://www.npmjs.com/~kesha-antonov',
   sponsor: 'https://github.com/sponsors/kesha-antonov',
-  email: 'mailto:keshagoodvibes@gmail.com',
+  email: 'mailto:hello@kesha-antonov.com',
   youtube: 'https://www.youtube.com/@reactnative4749',
   telegram: 'https://t.me/kesha_antonov',
   linkedin: 'https://www.linkedin.com/in/kesha-antonov',
