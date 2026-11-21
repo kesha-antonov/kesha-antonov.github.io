@@ -133,7 +133,7 @@ export const content: Dict = {
       tmafarm: { name: 'Telegram 農場遊戲', tag: 'TON 上的 Telegram Mini App，2024。受 NDA 約束', body: '一款 Telegram 農場遊戲，有加成道具、推薦機制與 TON Connect 錢包。後端與機器人幾乎全由我開發，前端則是共同開發。', stats: [['40萬', '高峰使用者數'], ['280 / 299', '後端 commit 出自我手'], ['120 / 259', '前端 commit 出自我手']], highlights: [{ h: '組建團隊', p: '透過人脈和黑客松，我自己找來了開發者和一位行銷人員。' }, { h: '帶領開發', p: '帶開發團隊：規劃、code review、發版。' }, { h: '負責架構', p: '後端、機器人與 Mini App 的設計，足以承載 40萬名使用者。' }] },
       diary: { name: '成就日誌', tag: '紙本目標手帳，2017', body: '與設計師合作完成，印了六種封面顏色，並準備了 Boomstarter 募資活動。', stats: [] },
       talkinpairs: { name: 'Talk In Pairs', tag: '實體見面的全球口語俱樂部', body: '大家在咖啡廳見面，兩人一組聊天：4 分鐘，鈴聲一響，換一位夥伴。整晚由 App 主持：配對、計時和話題。talkinpairs.app', stats: [] },
-      nanogym: { name: '1dbgym', tag: 'Telegram Mini App 形式的健身追蹤器', body: '為 Telegram 使用者設計的遊戲化訓練，附推薦機制。', stats: [] },
+      nanogym: { name: '1dbgym', tag: '在家用一支啞鈴做肌力訓練', body: '為一支可調式啞鈴設計的訓練計畫。記錄次數，App 會算出下次訓練的重量。可在 Telegram 與網頁上使用。1dbgym.com', stats: [] },
       stickers: { name: 'iMessage 貼圖', tag: 'Falling in Fall, Sports Sticker Pack', body: '兩組貼圖包，至今每個月仍有人下載。', stats: [['3200', '下載']] },
     },
   },

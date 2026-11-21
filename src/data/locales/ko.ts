@@ -133,7 +133,7 @@ export const content: Dict = {
       tmafarm: { name: 'Telegram 농장 게임', tag: 'TON 기반 Telegram Mini App, 2024년. NDA 대상', body: '부스트, 추천 제도, TON Connect 지갑이 있는 Telegram 농장 게임. 백엔드와 봇은 거의 전부 제가 만들었고, 프런트엔드는 함께 만들었습니다.', stats: [['40만', '최대 사용자'], ['299개 중 280개', '백엔드 커밋이 제 것'], ['259개 중 120개', '프런트엔드 커밋이 제 것']], highlights: [{ h: '팀을 꾸렸습니다', p: '개발자와 마케터를 인맥과 해커톤을 통해 직접 찾았습니다.' }, { h: '개발을 이끌었습니다', p: '개발팀을 운영했습니다. 계획, 코드 리뷰, 릴리스.' }, { h: '아키텍처를 책임졌습니다', p: '백엔드, 봇, Mini App을 40만 사용자를 감당하도록 설계했습니다.' }] },
       diary: { name: '성취 다이어리', tag: '종이 목표 플래너, 2017년', body: '디자이너와 함께 만들어 여섯 가지 표지 색으로 인쇄했고, Boomstarter 캠페인을 준비했습니다.', stats: [] },
       talkinpairs: { name: 'Talk In Pairs', tag: '오프라인으로 만나는 글로벌 스피킹 클럽', body: '카페에서 만나 둘씩 대화합니다. 4분이 지나면 벨이 울리고 새 상대와 이야기합니다. 진행은 앱이 맡습니다: 짝 배정, 타이머, 질문. talkinpairs.app', stats: [] },
-      nanogym: { name: '1dbgym', tag: 'Telegram Mini App으로 만든 피트니스 트래커', body: 'Telegram 사용자를 위한, 게임 요소와 추천 제도가 있는 운동.', stats: [] },
+      nanogym: { name: '1dbgym', tag: '덤벨 하나로 하는 홈 근력 운동', body: '조절식 덤벨 하나를 위한 운동 계획입니다. 반복 횟수를 기록하면 앱이 다음 운동의 무게를 계산합니다. Telegram과 웹에서 사용할 수 있습니다. 1dbgym.com', stats: [] },
       stickers: { name: 'iMessage 스티커', tag: 'Falling in Fall, Sports Sticker Pack', body: '스티커 팩 두 개. 지금도 매달 다운로드됩니다.', stats: [['3200', '다운로드']] },
     },
   },

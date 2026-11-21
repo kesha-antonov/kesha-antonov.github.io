@@ -133,7 +133,7 @@ export const content: Dict = {
       tmafarm: { name: 'Telegramの農場ゲーム', tag: 'TON上のTelegram Mini App、2024年。NDA対象', body: 'ブースト、紹介制度、TON Connectウォレットを備えたTelegramの農場ゲーム。バックエンドとボットのほぼすべてを私が作り、フロントエンドは共同で開発しました。', stats: [['40万', 'ピーク時のユーザー'], ['299件中280件', 'バックエンドのコミットが私のもの'], ['259件中120件', 'フロントエンドのコミットが私のもの']], highlights: [{ h: 'チームを作った', p: '開発者とマーケターを、人脈とハッカソンを通じて自分で見つけました。' }, { h: '開発を率いた', p: '開発チームを運営しました。計画、コードレビュー、リリース。' }, { h: 'アーキテクチャを担当', p: 'バックエンド、ボット、Mini Appを、40万ユーザーに耐えるよう設計しました。' }] },
       diary: { name: '達成ダイアリー', tag: '紙の目標プランナー、2017年', body: 'デザイナーと一緒に作り、6色の表紙で印刷し、Boomstarterのキャンペーンを準備しました。', stats: [] },
       talkinpairs: { name: 'Talk In Pairs', tag: '対面で集まるグローバルなスピーキングクラブ', body: 'カフェに集まり、ペアで話します。4分ごとにベルが鳴り、相手が替わります。進行はアプリが担当：ペア決め、タイマー、質問。talkinpairs.app', stats: [] },
-      nanogym: { name: '1dbgym', tag: 'Telegram Mini Appのフィットネストラッカー', body: 'Telegramユーザー向けの、ゲーム要素と紹介制度のあるワークアウト。', stats: [] },
+      nanogym: { name: '1dbgym', tag: 'ダンベル1つで自宅筋トレ', body: '可変式ダンベル1つのためのトレーニングプラン。回数を記録すると、次回の重さをアプリが計算します。Telegramとウェブで使えます。1dbgym.com', stats: [] },
       stickers: { name: 'iMessageステッカー', tag: 'Falling in Fall, Sports Sticker Pack', body: '2つのステッカーパック。今も毎月ダウンロードされています。', stats: [['3200', 'ダウンロード']] },
     },
   },

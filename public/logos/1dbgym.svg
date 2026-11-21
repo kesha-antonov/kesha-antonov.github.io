@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <!-- 1dbgym mark: the launch screen's dumbbell (scenes/Launch.tsx) on its blue. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="80%">
+      <stop offset="0" stop-color="#3fb0ec"/>
+      <stop offset="0.55" stop-color="#1e8ac8"/>
+      <stop offset="1" stop-color="#176fa3"/>
+    </radialGradient>
+    <filter id="sh" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#0a325a" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="229" fill="url(#bg)"/>
+  <g fill="#fff" filter="url(#sh)" transform="translate(512 512) scale(3.9059) translate(-97 -48)">
+    <rect x="0" y="25" width="18" height="46" rx="5"/>
+    <rect x="22" y="15.5" width="18" height="65" rx="5"/>
+    <rect x="44" y="0" width="18" height="96" rx="5"/>
+    <rect x="62" y="41" width="70" height="14" rx="7"/>
+    <rect x="132" y="0" width="18" height="96" rx="5"/>
+    <rect x="154" y="15.5" width="18" height="65" rx="5"/>
+    <rect x="176" y="25" width="18" height="46" rx="5"/>
+  </g>
+</svg>

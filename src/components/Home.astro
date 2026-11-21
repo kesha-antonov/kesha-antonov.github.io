@@ -40,6 +40,7 @@ const libOrder = ['gifted-chat', 'react-native-chat', 'zoom-reanimated', 'backgr
 const updated = stats.updatedAt.split('-').reverse().join('.')
 const L = t.ui
 const productKeys = ['talkinpairs', 'nanogym', 'diary', 'stickers'] as const
+const PRODUCT_LOGOS: Partial<Record<(typeof productKeys)[number], string>> = { talkinpairs: '/logos/talkinpairs.svg', nanogym: '/logos/1dbgym.svg' }
 const medalFill = ['var(--sky)', 'var(--sand)', 'var(--sea)']
 // Clear-line icons for the library rows.
 const COL_ICONS = [`<rect x="8" y="12" width="48" height="44" rx="5" fill="var(--white)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M8 26V17a5 5 0 0 1 5-5h38a5 5 0 0 1 5 5v9z" fill="var(--red)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M20 6v12M44 6v12" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M20 38h8M36 38h8M20 47h8" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`, `<path d="M8 40v10a4 4 0 0 0 4 4h40a4 4 0 0 0 4-4V40" fill="var(--sea)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" /><path d="M32 8v32M20 28l12 12 12-12" fill="none" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`, `<path d="M32 6l7.6 16.2 17.4 2.2-12.8 12 3.3 17.3L32 45.2l-15.5 8.5 3.3-17.3L7 24.4l17.4-2.2z" fill="var(--sand)" stroke="var(--ink)" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round" />`]
@@ -100,7 +101,7 @@ const YEAR_ICONS = [
 const SCORE_ICONS = [ICON_BOX, ICON_PHONE, ICON_BALLOON, ICON_MEDAL]
 
 // Names in body text that link to their organizations.
-const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/', 'talkinpairs.app': 'https://talkinpairs.app' }
+const TEXT_LINKS: Record<string, string> = { FRII: 'https://iidf.ru/', 'ФРИИ': 'https://iidf.ru/', 'talkinpairs.app': 'https://talkinpairs.app', '1dbgym.com': 'https://1dbgym.com' }
 const linkParts = (text: string) => {
   const re = new RegExp(`(${Object.keys(TEXT_LINKS).map((k) => k.replace(/\./g, '\\.')).join('|')})`, 'g')
   return text.split(re).map((part) => ({ part, href: TEXT_LINKS[part] }))
@@ -417,8 +418,14 @@ const SHOTS = {
         return (
           <article class={`panel ${['red', 'white', 'sky', 'sand'][i]} product small`}>
             {k === 'diary' && <img class="product-photo" src="/products/diary.webp" alt={`${p.name}: ${t.ui.diaryPhoto}`} width="900" height="518" loading="lazy" decoding="async" />}
-            <h3>{p.name}</h3>
-            <p class="tag">{p.tag}</p>
+            {PRODUCT_LOGOS[k] ? (
+              <div class="app-head">
+                <img class="icon" src={PRODUCT_LOGOS[k]} alt={`${p.name}: ${t.ui.appIcon}`} width="56" height="56" loading="lazy" decoding="async" />
+                <div><h3>{p.name}</h3><p class="tag">{p.tag}</p></div>
+              </div>
+            ) : (
+              <><h3>{p.name}</h3><p class="tag">{p.tag}</p></>
+            )}
             <p>{linkParts(p.body).map(({ part, href }) => (href ? <a class="inline-link" target="_blank" rel="noopener" href={href}>{part}</a> : part))}</p>
             {p.stats.map(([n, l]) => <p class="inline-stat"><span class="num">{n}</span> {l}</p>)}
             {k === 'stickers' && <Shots small items={SHOTS.stickers} width={300} height={534} label={t.ui.stickersLabel} prev={t.ui.prevScreen} next={t.ui.nextScreen} />}
