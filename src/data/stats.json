@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-22",
+  "updatedAt": "2026-11-23",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15925209,
-      "lastMonth": 468366,
+      "allTime": 15932023,
+      "lastMonth": 456251,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8275717,
+      "sinceMaintenance": 8282531,
       "series": [
         [
           "2023-01",
@@ -202,8 +202,8 @@
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 86125,
-      "lastMonth": 39434,
+      "allTime": 86566,
+      "lastMonth": 38838,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
@@ -213,8 +213,8 @@
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2243001,
-      "lastMonth": 282340,
+      "allTime": 2246032,
+      "lastMonth": 274591,
       "peakMonth": {
         "month": "2026-06",
         "value": 245412
@@ -224,8 +224,8 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1494703,
-      "lastMonth": 123528,
+      "allTime": 1498924,
+      "lastMonth": 122546,
       "peakMonth": {
         "month": "2024-10",
         "value": 116668
@@ -235,8 +235,8 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 670477,
-      "lastMonth": 24308,
+      "allTime": 671102,
+      "lastMonth": 24060,
       "peakMonth": {
         "month": "2024-11",
         "value": 26984
@@ -246,8 +246,8 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 2249,
-      "lastMonth": 1254,
+      "allTime": 2280,
+      "lastMonth": 1281,
       "peakMonth": {
         "month": "2026-08",
         "value": 568
@@ -278,7 +278,7 @@
     "releases": 71
   },
   "totals": {
-    "allTime": 20421764,
-    "lastMonth": 939230
+    "allTime": 20436927,
+    "lastMonth": 917567
   }
 }
