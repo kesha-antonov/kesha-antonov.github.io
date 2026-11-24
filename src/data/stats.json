@@ -1,16 +1,16 @@
 {
-  "updatedAt": "2026-11-23",
+  "updatedAt": "2026-11-24",
   "packages": {
     "gifted-chat": {
       "npm": "react-native-gifted-chat",
       "repo": "FaridSafi/react-native-gifted-chat",
-      "allTime": 15932023,
-      "lastMonth": 456251,
+      "allTime": 15955318,
+      "lastMonth": 446189,
       "peakMonth": {
         "month": "2026-01",
         "value": 525460
       },
-      "sinceMaintenance": 8282531,
+      "sinceMaintenance": 8305826,
       "series": [
         [
           "2023-01",
@@ -190,31 +190,31 @@
         ],
         [
           "2026-09",
-          408542
+          424778
         ],
         [
           "2026-10",
           362217
         ]
       ],
-      "stars": 14451
+      "stars": 14450
     },
     "react-native-chat": {
       "npm": "@kesha-antonov/react-native-chat",
       "repo": "kesha-antonov/react-native-chat",
-      "allTime": 86566,
-      "lastMonth": 38838,
+      "allTime": 87619,
+      "lastMonth": 38368,
       "peakMonth": {
         "month": "2026-10",
         "value": 20925
       },
-      "stars": 95
+      "stars": 96
     },
     "zoom-reanimated": {
       "npm": "react-native-zoom-reanimated",
       "repo": "kesha-antonov/react-native-zoom-reanimated",
-      "allTime": 2246032,
-      "lastMonth": 274591,
+      "allTime": 2259888,
+      "lastMonth": 268431,
       "peakMonth": {
         "month": "2026-06",
         "value": 245412
@@ -224,8 +224,8 @@
     "background-downloader": {
       "npm": "@kesha-antonov/react-native-background-downloader",
       "repo": "kesha-antonov/react-native-background-downloader",
-      "allTime": 1498924,
-      "lastMonth": 122546,
+      "allTime": 1506886,
+      "lastMonth": 124115,
       "peakMonth": {
         "month": "2024-10",
         "value": 116668
@@ -235,8 +235,8 @@
     "action-cable": {
       "npm": "@kesha-antonov/react-native-action-cable",
       "repo": "kesha-antonov/react-native-action-cable",
-      "allTime": 671102,
-      "lastMonth": 24060,
+      "allTime": 672310,
+      "lastMonth": 23407,
       "peakMonth": {
         "month": "2024-11",
         "value": 26984
@@ -246,8 +246,8 @@
     "cloud-sync": {
       "npm": "react-native-cloud-sync",
       "repo": "kesha-antonov/react-native-cloud-sync",
-      "allTime": 2280,
-      "lastMonth": 1281,
+      "allTime": 2471,
+      "lastMonth": 1298,
       "peakMonth": {
         "month": "2026-08",
         "value": 568
@@ -274,11 +274,11 @@
       "year": 2019,
       "downloads": 17379
     },
-    "mine": 519443,
+    "mine": 522409,
     "releases": 71
   },
   "totals": {
-    "allTime": 20436927,
-    "lastMonth": 917567
+    "allTime": 20484492,
+    "lastMonth": 901808
   }
 }
